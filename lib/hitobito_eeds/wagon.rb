@@ -38,6 +38,10 @@ module HitobitoEeds
       # Register Group::National as the root type of the EEDS hierarchy.
       # This makes it the only group that can be created without a parent.
       Group.root_types Group::National
+
+      # Extend Person with EEDS-specific fields (matricule_scout, branche,
+      # parent contact, etc.).
+      Person.include Eeds::Person
     end
 
     # We can't directly override the languages hash in a config file since
