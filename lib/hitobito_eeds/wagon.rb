@@ -46,6 +46,10 @@ module HitobitoEeds
       # Force-load the EEDS Camp STI subclass so that Event#types collects it
       # for use by Group#event_types and the type selector.
       Event::Camp
+
+      # Approval workflow wiring (Phase 3B engine).
+      Event::Application.include Eeds::EventApplication
+      Ability.store.register Event::ApprovalAbility
     end
 
     # We can't directly override the languages hash in a config file since

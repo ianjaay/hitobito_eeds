@@ -26,7 +26,6 @@ class Event::Approval < ApplicationRecord
 
   has_one :participation, through: :application
   has_one :event, through: :participation
-  has_one :approvee, through: :participation, source: :person
 
   ### VALIDATIONS
 
@@ -43,6 +42,10 @@ class Event::Approval < ApplicationRecord
   scope :rejected, -> { where(rejected: true) }
 
   ### INSTANCE
+
+  def approvee
+    participation&.person
+  end
 
   def status
     return :approved if approved?
@@ -66,11 +69,15 @@ class Event::Approval < ApplicationRecord
     # Liste les approbations en attente pour un groupe-layer donné.
     # Filtre les candidats dont le primary_group est dans le sous-arbre.
     def pending_for(layer_group)
-      joins(approvee: :primary_group)
-        .where("groups.lft >= :lft AND groups.rgt <= :rgt",
+      class_name_layer = Eeds::ApprovalChain::LAYER_FOR_CLASS[layer_group.class.name] ||
+        layer_group.class.name.demodulize.underscore
+      joins(application: :participation)
+        .joins("INNER JOIN people ON event_participations.participant_id = people.id AND " \
+               "event_participations.participant_type = 'Person'")
+        .joins("INNER JOIN groups primary_groups ON people.primary_group_id = primary_groups.id")
+        .where("primary_groups.lft >= :lft AND primary_groups.rgt <= :rgt",
           lft: layer_group.lft, rgt: layer_group.rgt)
-        .where(layer: layer_group.class.name.demodulize.underscore,
-          approved: false, rejected: false)
+        .where(layer: class_name_layer, approved: false, rejected: false)
     end
 
     # Tri SQL stable par ordre des couches.

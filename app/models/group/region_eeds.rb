@@ -18,25 +18,25 @@ class Group::RegionEeds < Group
   ### Rôles ###
 
   class CommissaireRegional < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :approve_applications]
     self.two_factor_authentication_enforced = true
   end
 
   # Adjoints par branche
   class CommissaireRegionalAdjointJiwu < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :approve_applications]
   end
 
   class CommissaireRegionalAdjointLawtan < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :approve_applications]
   end
 
   class CommissaireRegionalAdjointToorToor < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :approve_applications]
   end
 
   class CommissaireRegionalAdjointMenneef < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :approve_applications]
   end
 
   # Adjoints thématiques

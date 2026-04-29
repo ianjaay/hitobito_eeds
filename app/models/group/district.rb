@@ -15,12 +15,12 @@ class Group::District < Group
   ### Rôles ###
 
   class CommissaireDistrict < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :approve_applications]
     self.two_factor_authentication_enforced = true
   end
 
   class CommissaireDistrictAdjoint < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :approve_applications]
   end
 
   # Responsables par branche pédagogique

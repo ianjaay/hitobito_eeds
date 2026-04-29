@@ -27,25 +27,25 @@ class Group::National < Group
   ### Rôles ###
 
   class CommissaireNational < ::Role
-    self.permissions = [:layer_and_below_full, :admin, :contact_data]
+    self.permissions = [:layer_and_below_full, :admin, :contact_data, :approve_applications]
     self.two_factor_authentication_enforced = true
   end
 
   # Adjoints par branche pédagogique
   class CommissaireAdjointJiwu < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :approve_applications]
   end
 
   class CommissaireAdjointLawtan < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :approve_applications]
   end
 
   class CommissaireAdjointToorToor < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :approve_applications]
   end
 
   class CommissaireAdjointMenneef < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+    self.permissions = [:layer_and_below_full, :contact_data, :approve_applications]
   end
 
   # Adjoints thématiques
