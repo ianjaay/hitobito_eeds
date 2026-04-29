@@ -364,6 +364,14 @@ wo:
         comment: Mbind
         approved_at: Bés bu nangoo
         approver_id: Ki nangu
+        approver: Ki nangu
+        approvee: Ki ñu wax ci
+        status: Anam
+        layers:
+          groupe_local: Groupe lokaal
+          district: Distrik
+          region: Réjon
+          national: Nasional
     layers:
       groupe_local: Groupe lokaal
       district: Distrik

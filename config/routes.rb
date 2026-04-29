@@ -14,5 +14,17 @@ Rails.application.routes.draw do
       controller: "eeds_member_imports" do
       post :preview, on: :collection
     end
+
+    resources :groups, only: [] do
+      resources :events, only: [] do
+        scope module: "event" do
+          resources :participations, only: [] do
+            resources :approvals, only: [:new, :create, :index]
+            get "approvals" => "approvals#new" # route required for language switch
+          end
+          resources :approvals, only: [:index]
+        end
+      end
+    end
   end
 end

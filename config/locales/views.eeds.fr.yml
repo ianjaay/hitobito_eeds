@@ -60,3 +60,26 @@ fr:
     flash:
       success: "Import réussi : %{count} ligne(s) traitée(s)."
       failed: L'import a échoué.
+
+event/approvals:
+  index:
+    title: "Approbations du camp %{event}"
+    no_approvals: Aucune candidature en attente d'approbation.
+  form:
+    title_approve: "Approuver la candidature de %{participant}"
+    title_reject: "Rejeter la candidature de %{participant}"
+    approve_button: Approuver
+    reject_button: Rejeter
+  statuses:
+    pending: En attente
+    approved: Approuvée
+    rejected: Rejetée
+  flash:
+    approved: Candidature approuvée.
+    rejected: Candidature rejetée.
+
+event:
+  participations:
+    actions_approval:
+      approve: Approuver
+      reject: Rejeter

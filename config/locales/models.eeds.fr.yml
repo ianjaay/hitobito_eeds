@@ -390,6 +390,14 @@ fr:
         comment: Commentaire
         approved_at: Date d'approbation
         approver_id: Approbateur·trice
+        approver: Approbateur·trice
+        approvee: Candidat·e
+        status: Statut
+        layers:
+          groupe_local: Groupe local
+          district: District
+          region: Région
+          national: National
     layers:
       groupe_local: Groupe local
       district: District

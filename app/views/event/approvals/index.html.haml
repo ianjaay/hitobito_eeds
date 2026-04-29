@@ -1,0 +1,43 @@
+-#  Copyright (c) 2026, Éclaireuses et Éclaireurs du Sénégal. This file is part
+-#  of hitobito_eeds and licensed under the Affero General Public License
+-#  version 3 or later. See the COPYING file at the top-level directory or at
+-#  https://www.gnu.org/licenses/agpl-3.0.html.
+
+%h1= title(t(".title", event: @event.name))
+
+- if @approvals.empty?
+  %p.muted= t(".no_approvals")
+- else
+  %table.table.table-hover
+    %thead
+      %tr
+        %th= Event::Approval.human_attribute_name(:approvee)
+        %th= Event::Approval.human_attribute_name(:layer)
+        %th= Event::Approval.human_attribute_name(:status)
+        %th= Event::Approval.human_attribute_name(:approver)
+        %th= Event::Approval.human_attribute_name(:approved_at)
+        %th= Event::Approval.human_attribute_name(:comment)
+    %tbody
+      - @approvals.each do |participation, approvals|
+        - participation = participation.decorate
+        %tr.grouping
+          %td{ colspan: 6 }
+            %strong
+              = link_to(participation.to_s, group_event_participation_path(@group, @event, participation))
+        - approvals.each do |approval|
+          %tr
+            %td
+            %td= Event::Approval.human_attribute_name("layers.#{approval.layer}", default: approval.layer)
+            %td
+              - case approval.status
+              - when :approved
+                %span.label.label-success= t("event/approvals.statuses.approved")
+              - when :rejected
+                %span.label.label-important= t("event/approvals.statuses.rejected")
+              - else
+                %span.label= t("event/approvals.statuses.pending")
+            %td
+              - if approval.approver
+                = link_to_if(can?(:show, approval.approver), approval.approver.to_s, approval.approver)
+            %td= f(approval.approved_at)
+            %td= approval.comment

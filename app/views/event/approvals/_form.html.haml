@@ -1,0 +1,19 @@
+-#  Copyright (c) 2026, Éclaireuses et Éclaireurs du Sénégal. This file is part
+-#  of hitobito_eeds and licensed under the Affero General Public License
+-#  version 3 or later. See the COPYING file at the top-level directory or at
+-#  https://www.gnu.org/licenses/agpl-3.0.html.
+
+- options = {}
+- options[:cancel_url] = group_event_participation_path(@group, @event, @participation)
+- if %w(new create).include?(action_name)
+  - title(t(".title_#{params[:decision]}", participant: @participation.person))
+  - options[:url] = group_event_participation_approvals_path(@group, @event, @participation)
+  - options[:submit_label] = t(".#{params[:decision]}_button")
+  - options[:method] = :post
+
+= entry_form(options) do |f|
+  = hidden_field_tag :decision, params[:decision]
+  %p
+    %strong= Event::Approval.human_attribute_name(:layer) + " :"
+    = Event::Approval.human_attribute_name("layers.#{entry.layer}", default: entry.layer)
+  = f.labeled_input_field :comment, as: :text, rows: 4

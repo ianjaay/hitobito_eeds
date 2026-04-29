@@ -59,3 +59,26 @@ wo:
     flash:
       success: "Yebbi nañu liisteer bi bu baax : %{count} liñ."
       failed: Yebbi gi antuwul.
+
+event/approvals:
+  index:
+    title: "Nangu yi camp %{event}"
+    no_approvals: Amul kandidatuur buy xaar nangu.
+  form:
+    title_approve: "Nangu kandidatuur bu %{participant}"
+    title_reject: "Bañ kandidatuur bu %{participant}"
+    approve_button: Nangu
+    reject_button: Bañ
+  statuses:
+    pending: Mungi xaar
+    approved: Nangu
+    rejected: Bañ
+  flash:
+    approved: Kandidatuur nangu nañ ko.
+    rejected: Kandidatuur bañ nañ ko.
+
+event:
+  participations:
+    actions_approval:
+      approve: Nangu
+      reject: Bañ
