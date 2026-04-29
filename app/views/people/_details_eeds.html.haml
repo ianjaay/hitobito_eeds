@@ -5,10 +5,17 @@
 
 = render_attrs(entry,
   :matricule_scout,
-  :branche,
   :unite,
   :assurance_expiration,
   :progression_badges)
+
+- if entry.branche.present?
+  %dl.dl-horizontal
+    = labeled(Person.human_attribute_name(:branche)) do
+      %span.eeds-branche-badge{class: "eeds-branche-#{entry.branche}",
+                               style: "background-color: #{entry.branche_color};",
+                               title: entry.branche_color_name}
+        = entry.branche_label
 
 - if entry.parent_contact?
   %dl.dl-horizontal

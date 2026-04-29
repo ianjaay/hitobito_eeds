@@ -9,6 +9,13 @@
 # Unité pédagogique = Kayon. Membres : Arunga. Encadrement : Njiit, Reefaan,
 # Rambeen.
 class Group::Kayon < Group
+  # Couleur officielle de la branche Kayon (Lawtan wi) : verte.
+  BRANCH_COLOR = "#00853f"
+  BRANCH_COLOR_NAME = "verte"
+
+  def self.branch_color = BRANCH_COLOR
+  def self.branch_color_name = BRANCH_COLOR_NAME
+
   # Pas d'enfants en Phase 1 (les patrouilles/sizaines "Jiyon" arriveront en
   # Phase 2+).
 

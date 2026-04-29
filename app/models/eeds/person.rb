@@ -25,6 +25,21 @@ module Eeds::Person
 
   BRANCHES = %w[mbootaay kayon nawka galle].freeze
 
+  # Couleurs officielles des branches EEDS (foulards).
+  BRANCH_COLORS = {
+    "mbootaay" => "#fdef42", # jaune
+    "kayon"    => "#00853f", # verte
+    "nawka"    => "#ffffff", # blanche
+    "galle"    => "#e31b23"  # rouge
+  }.freeze
+
+  BRANCH_COLOR_NAMES = {
+    "mbootaay" => "jaune",
+    "kayon"    => "verte",
+    "nawka"    => "blanche",
+    "galle"    => "rouge"
+  }.freeze
+
   # Format E.164-ish lâche : optionnel +, 8 à 15 chiffres avec espaces/tirets
   # tolérés. Les imports CSV peuvent contenir des notations diverses.
   PHONE_REGEX = /\A\+?[\d\s\-().]{8,20}\z/
@@ -72,5 +87,15 @@ module Eeds::Person
     [parent_contact_name, parent_contact_phone, parent_contact_email]
       .compact_blank
       .join(" • ")
+  end
+
+  # Couleur officielle (hex) de la branche de la personne, ou nil.
+  def branche_color
+    BRANCH_COLORS[branche]
+  end
+
+  # Nom francophone de la couleur (jaune / verte / blanche / rouge), ou nil.
+  def branche_color_name
+    BRANCH_COLOR_NAMES[branche]
   end
 end

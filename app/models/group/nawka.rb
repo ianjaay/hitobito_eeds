@@ -13,6 +13,13 @@
 # côté SGBD (colonne `type` STI) et URLs. Le libellé affiché « Ñawka » est
 # fourni par les fichiers de locale.
 class Group::Nawka < Group
+  # Couleur officielle de la branche Ñawka (Toor-Toor wi) : blanche.
+  BRANCH_COLOR = "#ffffff"
+  BRANCH_COLOR_NAME = "blanche"
+
+  def self.branch_color = BRANCH_COLOR
+  def self.branch_color_name = BRANCH_COLOR_NAME
+
   # Pas d'enfants en Phase 1 (les clans "Fedde" arriveront en Phase 2+).
 
   class Njiit < ::Role

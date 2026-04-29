@@ -13,6 +13,13 @@
 # côté SGBD (colonne `type` STI) et URLs. Le libellé affiché « Gàlle » est
 # fourni par les fichiers de locale.
 class Group::Galle < Group
+  # Couleur officielle de la branche Gàlle (Meññeef mi) : rouge.
+  BRANCH_COLOR = "#e31b23"
+  BRANCH_COLOR_NAME = "rouge"
+
+  def self.branch_color = BRANCH_COLOR
+  def self.branch_color_name = BRANCH_COLOR_NAME
+
   # Pas d'enfants en Phase 1 (les commissions "Suudu" arriveront en Phase 2+).
 
   class Njiit < ::Role

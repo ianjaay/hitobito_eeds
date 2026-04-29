@@ -141,4 +141,34 @@ describe Eeds::Person do
       attrs.each { |k, v| expect(person.send(k)).to eq(v) }
     end
   end
+
+  describe "branche colors" do
+    it "exposes the official branch color hex per branche value" do
+      expect(Eeds::Person::BRANCH_COLORS).to eq({
+        "mbootaay" => "#fdef42",
+        "kayon"    => "#00853f",
+        "nawka"    => "#ffffff",
+        "galle"    => "#e31b23"
+      })
+    end
+
+    it "returns the color for a person's branche" do
+      person = Person.new(base_attrs.merge(branche: "galle"))
+      expect(person.branche_color).to eq("#e31b23")
+      expect(person.branche_color_name).to eq("rouge")
+    end
+
+    it "returns nil when no branche is set" do
+      person = Person.new(base_attrs)
+      expect(person.branche_color).to be_nil
+      expect(person.branche_color_name).to be_nil
+    end
+
+    it "matches the BRANCH_COLOR exposed by each branche group class" do
+      expect(Group::Mbootaay.branch_color).to eq(Eeds::Person::BRANCH_COLORS["mbootaay"])
+      expect(Group::Kayon.branch_color).to eq(Eeds::Person::BRANCH_COLORS["kayon"])
+      expect(Group::Nawka.branch_color).to eq(Eeds::Person::BRANCH_COLORS["nawka"])
+      expect(Group::Galle.branch_color).to eq(Eeds::Person::BRANCH_COLORS["galle"])
+    end
+  end
 end

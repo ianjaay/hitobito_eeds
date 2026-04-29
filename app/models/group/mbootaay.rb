@@ -9,6 +9,13 @@
 # Unité pédagogique = Mbootaay. Membres : Caat. Encadrement : Njiit, Reefaan,
 # Rambeen.
 class Group::Mbootaay < Group
+  # Couleur officielle de la branche Mbootaay (Jiwu wi) : jaune.
+  BRANCH_COLOR = "#fdef42"
+  BRANCH_COLOR_NAME = "jaune"
+
+  def self.branch_color = BRANCH_COLOR
+  def self.branch_color_name = BRANCH_COLOR_NAME
+
   # Pas d'enfants en Phase 1 (les sous-groupes "Pegg" arriveront en Phase 2+).
 
   class Njiit < ::Role
