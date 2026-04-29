@@ -1,0 +1,34 @@
+//  Copyright (c) 2026, Éclaireuses et Éclaireurs du Sénégal. This file is part
+//  of hitobito_eeds and licensed under the Affero General Public License
+//  version 3 or later. See the COPYING file at the top-level directory or at
+//  https://www.gnu.org/licenses/agpl-3.0.html.
+
+/* EEDS branding overrides */
+
+// Bandeau drapeau sénégalais sous le header
+.navbar,
+header {
+  border-bottom: 4px solid;
+  border-image: linear-gradient(to right,
+    $eeds-green 0%, $eeds-green 33.33%,
+    $eeds-yellow 33.33%, $eeds-yellow 66.66%,
+    $eeds-red 66.66%, $eeds-red 100%) 1;
+}
+
+// Logo : un peu d'espace + max width pour éviter qu'il déborde
+.logo {
+  padding: 6px 12px;
+
+  .logo-image img {
+    max-height: 56px;
+    width: auto;
+  }
+}
+
+// Sections de formulaire EEDS (Person)
+fieldset legend {
+  color: $eeds-green-dark;
+  border-bottom: 2px solid $eeds-yellow;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}

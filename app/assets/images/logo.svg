@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Logo placeholder pour le wagon hitobito_eeds.
+  À remplacer par le logo officiel des EEDS dès qu'il sera fourni.
+  Couleurs : drapeau du Sénégal (vert, jaune, rouge).
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" width="220" height="80" role="img" aria-label="EEDS — Éclaireuses et Éclaireurs du Sénégal">
+  <title>EEDS</title>
+  <rect width="220" height="80" fill="#ffffff"/>
+  <g font-family="'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif" font-weight="700">
+    <text x="14" y="44" font-size="40" fill="#00853f">E</text>
+    <text x="44" y="44" font-size="40" fill="#fdef42">E</text>
+    <text x="74" y="44" font-size="40" fill="#e31b23">D</text>
+    <text x="108" y="44" font-size="40" fill="#00853f">S</text>
+    <text x="14" y="68" font-size="11" fill="#3a3a3a" letter-spacing="1.2">
+      Éclaireuses et Éclaireurs du Sénégal
+    </text>
+  </g>
+</svg>

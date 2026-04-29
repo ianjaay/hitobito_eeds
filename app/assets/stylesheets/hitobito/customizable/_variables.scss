@@ -1,0 +1,37 @@
+//  Copyright (c) 2026, Éclaireuses et Éclaireurs du Sénégal. This file is part
+//  of hitobito_eeds and licensed under the Affero General Public License
+//  version 3 or later. See the COPYING file at the top-level directory or at
+//  https://www.gnu.org/licenses/agpl-3.0.html.
+
+// Couleurs officielles du drapeau du Sénégal :
+//   - vert  #00853f
+//   - jaune #fdef42
+//   - rouge #e31b23
+$eeds-green:            #00853f !default;
+$eeds-green-dark:       #006b32 !default;
+$eeds-yellow:           #fdef42 !default;
+$eeds-red:              #e31b23 !default;
+$eeds-red-dark:         #b71219 !default;
+
+// Bootstrap palette overrides
+// -------------------------
+$black:                 #2c2f36 !default;
+$gray-darker:           #6b7180 !default;
+$gray-dark:             #8b8b8b !default;
+$gray:                  #9aa0ad !default;
+$gray-light:            #e6e9ef !default;
+$gray-lighter:          #f5f7fa !default;
+$white:                 #fff !default;
+
+$blue:                  $eeds-green !default;
+$blue-dark:             $eeds-green-dark !default;
+$green:                 $eeds-green !default;
+$green-dark:            $eeds-green-dark !default;
+$orange:                $eeds-red !default;
+$orange-dark:           $eeds-red-dark !default;
+$purple:                $eeds-green !default;
+$purple-dark:           $eeds-green-dark !default;
+
+$btn-danger-background: $eeds-red;
+$brand-primary:         $eeds-green !default;
+$link-color:            $eeds-green-dark !default;

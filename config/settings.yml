@@ -1,9 +1,9 @@
 # Settings du wagon EEDS — surcharge le settings.yml du cœur Hitobito.
 
 application:
-  name: EEDS
+  name: EEDS — Éclaireuses et Éclaireurs du Sénégal
   logo:
-    image: logo.png
+    image: logo.svg
     width: 220
     height: 80
   # Les langues sont également forcées dans HitobitoEeds::Wagon#to_prepare
