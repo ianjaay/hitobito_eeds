@@ -238,3 +238,20 @@ fr:
         languages:
           fr: Français
           wo: Wolof
+        # Énum branches du Person (clé = "branche".pluralize = "branches")
+        branches:
+          mbootaay: Mbootaay
+          kayon: Kayon
+          nawka: Ñawka
+          galle: Gàlle
+        # Champs EEDS
+        matricule_scout: Matricule scout
+        branche: Branche
+        unite: Unité (sizaine / patrouille / équipe)
+        assurance_expiration: Expiration de l'assurance
+        progression_badges: Progression et badges
+        parent_contact_name: Nom du parent / tuteur
+        parent_contact_phone: Téléphone du parent / tuteur
+        parent_contact_email: E-mail du parent / tuteur
+        profession: Profession
+        competences: Compétences

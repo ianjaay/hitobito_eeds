@@ -1,0 +1,67 @@
+#  Copyright (c) 2026, Éclaireuses et Éclaireurs du Sénégal. This file is part
+#  of hitobito_eeds and licensed under the Affero General Public License
+#  version 3 or later. See the COPYING file at the top-level directory or at
+#  https://www.gnu.org/licenses/agpl-3.0.html.
+
+# Tekkim wolof bu Devise (mbalit, jëkk dugg, soppi sekkere…).
+wo:
+  devise:
+    confirmations:
+      confirmed: Sa konte dëggal nañu ko.
+      send_instructions: Yónnee nañu la imeel ngir dëggal sa konte.
+      send_paranoid_instructions: Su sa imeel feeñee ci sunu liisteer, dinga jot imeel ngir dëggal sa konte.
+    failure:
+      already_authenticated: Dugga nga ba noppi.
+      inactive: Sa konte dafa nawul.
+      invalid: "Imeel walla baat-buy-tax bi dëgg sax."
+      locked: Sa konte tëj nañu ko.
+      not_found_in_database: "Imeel walla baat-buy-tax bi dëgg sax."
+      timeout: Sa session dafa jeex. Dugg leen waxtu wii.
+      unauthenticated: Dugg leen jëkk.
+      unconfirmed: Dëggalal sa konte ngir dugg.
+    mailer:
+      confirmation_instructions:
+        subject: Tegtaal ngir dëggal sa konte
+      reset_password_instructions:
+        subject: Tegtaal ngir soppi baat-buy-tax bi
+      unlock_instructions:
+        subject: Tegtaal ngir tijji sa konte
+      email_changed:
+        subject: Soppi nañu sa imeel
+      password_change:
+        subject: Soppi nañu sa baat-buy-tax
+    omniauth_callbacks:
+      failure: "Mënuñoo dugal la ak %{kind} ndax \"%{reason}\"."
+      success: "Dugg nga bu baax ak sa konte %{kind}."
+    passwords:
+      no_token: "Bant bi dafa jeex walla mu juuma."
+      send_instructions: "Su sa imeel feeñee ci sunu liisteer, dinga jot tegtaal yi ngir tabax baat-buy-tax bu bees."
+      send_paranoid_instructions: "Su sa imeel feeñee ci sunu liisteer, dinga jot tegtaal yi."
+      updated: Soppi nañu sa baat-buy-tax bu baax. Dugg nga.
+      updated_not_active: Soppi nañu sa baat-buy-tax bu baax.
+    registrations:
+      destroyed: "Bàyyi nañu sa konte. Foofu rekk lañuy gis sa imeel."
+      signed_up: Dalal jàmm! Bind nga sa bopp bu baax.
+      signed_up_but_inactive: Bind nga sa bopp bu baax, waaye dootuñu la dugal léegi ndax sa konte nawul.
+      signed_up_but_locked: Bind nga sa bopp bu baax, waaye dootuñu la dugal léegi ndax sa konte tëj.
+      signed_up_but_unconfirmed: "Yónnee nañu la imeel. Topp link bi ngir dëggal sa konte."
+      update_needs_confirmation: "Soppi nañu sa konte, waaye fàww nga dëggal sa imeel bu bees."
+      updated: Soppi nañu sa konte bu baax.
+    sessions:
+      signed_in: Dugg nga.
+      signed_out: Génn nga.
+      already_signed_out: Génn nga ba noppi.
+    unlocks:
+      send_instructions: "Su sa imeel feeñee ci sunu liisteer, dinga jot tegtaal yi ngir tijji sa konte."
+      send_paranoid_instructions: "Su sa konte feeñee ci sunu liisteer, dinga jot tegtaal yi ngir tijji ko."
+      unlocked: Tijji nañu sa konte. Dugg léegi.
+  errors:
+    messages:
+      already_confirmed: dëggal nañu ko ba noppi, jéem nga dugg
+      confirmation_period_expired: "fàww ngay dëggal ci %{period}, ñaan link bu bees"
+      expired: "dafa jeex, ñaan bu bees"
+      not_found: amul
+      not_locked: tëjuwul
+      not_saved:
+        one: "Ay njuumte 1 a tax mu antuwul ci %{resource}:"
+        other: "Ay njuumte %{count} a tax mu antuwul ci %{resource}:"

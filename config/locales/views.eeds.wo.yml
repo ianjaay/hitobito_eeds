@@ -3,11 +3,59 @@
 #  version 3 or later. See the COPYING file at the top-level directory or at
 #  https://www.gnu.org/licenses/agpl-3.0.html.
 
-# Squelette de localisation Wolof — sera étoffé en Phase 2.
 wo:
   global:
+    app_name: EEDS
     branch:
       jiwu: Jiwu wi
       lawtan: Lawtan wi
       toor_toor: Toor-Toor wi
       menneef: Meññeef mi
+    button:
+      save: Denc
+      cancel: Bàyyi
+      add: Yokk
+      delete: Far
+      edit: Soppi
+      back: Dellu
+      confirm: Dëggal
+      search: Seet
+    flash:
+      saved: Denc nañu ko bu baax.
+      deleted: Far nañu ko bu baax.
+      not_found: Amul.
+      access_denied: Amul ndigël.
+
+  navigation:
+    people: Nit ñi
+    groups: Mbooloo yi
+    events: Xew yi
+    home: Sa kër
+    profile: Sama bopp
+    logout: Génn
+
+  people:
+    details_eeds:
+      parent_contact: Waajur waala kilifa
+    fields_eeds:
+      scoutes_section: Xibaar yi ay scout
+      parent_section: Waajur waala kilifa
+      profile_section: Sa boppam
+
+  eeds_member_imports:
+    new:
+      title: Yebbi liisteeru ay scout (CSV)
+      hint: Tànn ab fiise CSV ngir yebbi mbooloo gi.
+      file: Fiise CSV
+      submit: Yebbi
+    preview:
+      title: Saytu ci kanam yebbi gi
+      created: Yu bees
+      updated: Yu ñu soppi
+      errors: Njuumte
+      reupload_hint: Tànnaat fiise CSV bi ngir dëggal yebbi gi. Yebbi gi day def benn yoon rekk.
+      confirm: Dëggal yebbi gi
+      cancel: Bàyyi
+    flash:
+      success: "Yebbi nañu liisteer bi bu baax : %{count} liñ."
+      failed: Yebbi gi antuwul.

@@ -5,11 +5,21 @@
 
 fr:
   global:
+    app_name: EEDS
     branch:
       jiwu: Jiwu wi
       lawtan: Lawtan wi
       toor_toor: Toor-Toor wi
       menneef: Meññeef mi
+    button:
+      save: Enregistrer
+      cancel: Annuler
+      add: Ajouter
+      delete: Supprimer
+      edit: Modifier
+      back: Retour
+      confirm: Confirmer
+      search: Rechercher
 
   groups:
     nav:
@@ -20,3 +30,33 @@ fr:
   people:
     eeds_dashboard:
       welcome: Bienvenue sur la plateforme EEDS
+    details_eeds:
+      parent_contact: Contact parent / tuteur
+    fields_eeds:
+      scoutes_section: Informations scoutes
+      parent_section: Contact parent / tuteur
+      profile_section: Profil personnel
+
+  eeds_member_imports:
+    new:
+      title: Importer une liste de membres (CSV)
+      hint: |
+        Sélectionnez un fichier CSV avec les colonnes suivantes (en-tête obligatoire) :
+        matricule_scout, last_name, first_name, branche, group_id (obligatoires) ;
+        gender, birthday, email, parent_contact_name, parent_contact_phone, parent_contact_email (optionnelles).
+      file: Fichier CSV
+      submit: Prévisualiser l'import
+    preview:
+      title: Prévisualisation de l'import
+      created: Personnes à créer
+      updated: Personnes à mettre à jour
+      errors: Erreurs détectées
+      reupload_hint: |
+        Pour valider l'import, veuillez sélectionner à nouveau le même fichier CSV
+        puis cliquer sur "Confirmer". L'import est exécuté dans une transaction
+        unique : toute erreur annule l'ensemble.
+      confirm: Confirmer l'import
+      cancel: Annuler
+    flash:
+      success: "Import réussi : %{count} ligne(s) traitée(s)."
+      failed: L'import a échoué.
