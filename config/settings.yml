@@ -1,0 +1,26 @@
+# Settings du wagon EEDS — surcharge le settings.yml du cœur Hitobito.
+
+application:
+  name: EEDS
+  logo:
+    image: logo.png
+    width: 220
+    height: 80
+  # Les langues sont également forcées dans HitobitoEeds::Wagon#to_prepare
+  # pour empêcher la fusion avec le hash de langues du core (qui contient :de).
+  languages:
+    fr: Français
+    wo: Wolof
+  footer:
+    links:
+      fr:
+        "Site EEDS": "https://eeds.sn"
+      wo:
+        "Sàqami EEDS": "https://eeds.sn"
+
+currency:
+  unit: XOF
+
+# E-mail super-admin (à recréer/réinitialiser via le mécanisme standard
+# Hitobito : password reset token envoyé à cette adresse au premier démarrage).
+root_email: admin@eeds.sn

@@ -1,0 +1,36 @@
+#  Copyright (c) 2026, Éclaireuses et Éclaireurs du Sénégal. This file is part
+#  of hitobito_eeds and licensed under the Affero General Public License
+#  version 3 or later. See the COPYING file at the top-level directory or at
+#  https://www.gnu.org/licenses/agpl-3.0.html.
+
+# Squelette de localisation Wolof. Les libellés exhaustifs sont reportés en
+# Phase 2 — seules les clefs principales (noms de niveaux et de branches) sont
+# fournies ici pour vérifier le pipeline I18n.
+wo:
+  activerecord:
+    models:
+      group/national:
+        one: Naasonaal
+        other: Naasonaal
+      group/region_eeds:
+        one: Diiwaan
+        other: Yu Diiwaan
+      group/district:
+        one: Distrik
+        other: Yu Distrik
+      group/groupe_local:
+        one: Mbooloo
+        other: Mbooloo yi
+
+      group/mbootaay:
+        one: Mbootaay
+        other: Mbootaay
+      group/kayon:
+        one: Kayon
+        other: Kayon
+      group/nawka:
+        one: Ñawka
+        other: Ñawka
+      group/galle:
+        one: Gàlle
+        other: Gàlle

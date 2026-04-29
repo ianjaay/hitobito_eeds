@@ -1,0 +1,233 @@
+#  Copyright (c) 2026, Éclaireuses et Éclaireurs du Sénégal. This file is part
+#  of hitobito_eeds and licensed under the Affero General Public License
+#  version 3 or later. See the COPYING file at the top-level directory or at
+#  https://www.gnu.org/licenses/agpl-3.0.html.
+
+fr:
+  activerecord:
+    models:
+      # === Niveaux structurels ===
+      group/national:
+        one: National
+        other: National
+        long: Niveau national EEDS
+      group/region_eeds:
+        one: Région
+        other: Régions
+        long: Région EEDS
+      group/district:
+        one: District
+        other: Districts
+        long: District EEDS
+      group/district_autonome:
+        one: District Autonome
+        other: Districts Autonomes
+        long: District Autonome (rattaché directement au National)
+      group/groupe_local:
+        one: Groupe local
+        other: Groupes locaux
+        long: Groupe local EEDS
+      group/groupe_local_autonome:
+        one: Groupe Local Autonome
+        other: Groupes Locaux Autonomes
+        long: Groupe Local Autonome (rattaché directement au National)
+
+      # === Branches pédagogiques ===
+      group/mbootaay:
+        one: Mbootaay
+        other: Mbootaay
+        long: Mbootaay (Jiwu wi, 5 à 11 ans)
+      group/kayon:
+        one: Kayon
+        other: Kayon
+        long: Kayon (Lawtan wi, 12 à 15 ans)
+      group/nawka:
+        one: Ñawka
+        other: Ñawka
+        long: Ñawka (Toor-Toor wi, 16 à 18 ans)
+      group/galle:
+        one: Gàlle
+        other: Gàlle
+        long: Gàlle (Meññeef mi, 18 ans et plus)
+
+      # === Rôles National ===
+      group/national/president:
+        one: Président·e
+        other: Président·e·s
+      group/national/commissaire_general:
+        one: Commissaire général·e
+        other: Commissaires généraux·les
+      group/national/commissaire_international:
+        one: Commissaire international·e
+        other: Commissaires internationaux·les
+      group/national/tresorier_national:
+        one: Trésorier·ière national·e
+        other: Trésorier·ière·s nationaux·les
+      group/national/secretaire_general:
+        one: Secrétaire général·e
+        other: Secrétaires généraux·les
+      group/national/resp_communication:
+        one: Responsable communication
+        other: Responsables communication
+      group/national/resp_digital:
+        one: Responsable digital
+        other: Responsables digital
+      group/national/resp_formation:
+        one: Responsable formation
+        other: Responsables formation
+      group/national/resp_programme_jeunes:
+        one: Responsable programme jeunes
+        other: Responsables programme jeunes
+
+      # === Rôles Région ===
+      group/region_eeds/commissaire_regional:
+        one: Commissaire régional·e
+        other: Commissaires régionaux·les
+      group/region_eeds/commissaire_regional_adjoint:
+        one: Commissaire régional·e adjoint·e
+        other: Commissaires régionaux·les adjoint·e·s
+      group/region_eeds/tresorier_regional:
+        one: Trésorier·ière régional·e
+        other: Trésorier·ière·s régionaux·les
+      group/region_eeds/resp_formation:
+        one: Responsable formation
+        other: Responsables formation
+      group/region_eeds/resp_programme:
+        one: Responsable programme
+        other: Responsables programme
+      group/region_eeds/resp_communication:
+        one: Responsable communication
+        other: Responsables communication
+
+      # === Rôles District ===
+      group/district/commissaire_district:
+        one: Commissaire de district
+        other: Commissaires de district
+      group/district/commissaire_district_adjoint:
+        one: Commissaire de district adjoint·e
+        other: Commissaires de district adjoint·e·s
+      group/district/secretaire_district:
+        one: Secrétaire de district
+        other: Secrétaires de district
+      group/district/tresorier_district:
+        one: Trésorier·ière de district
+        other: Trésorier·ière·s de district
+      group/district/resp_formation:
+        one: Responsable formation
+        other: Responsables formation
+      group/district/resp_animation:
+        one: Responsable animation
+        other: Responsables animation
+
+      # === Rôles Groupe local ===
+      group/groupe_local/chef_groupe:
+        one: Chef·fe de groupe
+        other: Chef·fe·s de groupe
+      group/groupe_local/chef_groupe_adjoint:
+        one: Chef·fe de groupe adjoint·e
+        other: Chef·fe·s de groupe adjoint·e·s
+      group/groupe_local/secretaire_local:
+        one: Secrétaire local·e
+        other: Secrétaires locaux·les
+      group/groupe_local/tresorier_local:
+        one: Trésorier·ière local·e
+        other: Trésorier·ière·s locaux·les
+      group/groupe_local/resp_materiel:
+        one: Responsable matériel
+        other: Responsables matériel
+      group/groupe_local/resp_parents:
+        one: Responsable parents
+        other: Responsables parents
+
+      # === Rôles District Autonome (mêmes intitulés que District) ===
+      group/district_autonome/commissaire_district:
+        one: Commissaire de district
+        other: Commissaires de district
+      group/district_autonome/commissaire_district_adjoint:
+        one: Commissaire de district adjoint·e
+        other: Commissaires de district adjoint·e·s
+      group/district_autonome/secretaire_district:
+        one: Secrétaire de district
+        other: Secrétaires de district
+      group/district_autonome/tresorier_district:
+        one: Trésorier·ière de district
+        other: Trésorier·ière·s de district
+      group/district_autonome/resp_formation:
+        one: Responsable formation
+        other: Responsables formation
+      group/district_autonome/resp_animation:
+        one: Responsable animation
+        other: Responsables animation
+
+      # === Rôles Groupe Local Autonome (mêmes intitulés que Groupe local) ===
+      group/groupe_local_autonome/chef_groupe:
+        one: Chef·fe de groupe
+        other: Chef·fe·s de groupe
+      group/groupe_local_autonome/chef_groupe_adjoint:
+        one: Chef·fe de groupe adjoint·e
+        other: Chef·fe·s de groupe adjoint·e·s
+      group/groupe_local_autonome/secretaire_local:
+        one: Secrétaire local·e
+        other: Secrétaires locaux·les
+      group/groupe_local_autonome/tresorier_local:
+        one: Trésorier·ière local·e
+        other: Trésorier·ière·s locaux·les
+      group/groupe_local_autonome/resp_materiel:
+        one: Responsable matériel
+        other: Responsables matériel
+      group/groupe_local_autonome/resp_parents:
+        one: Responsable parents
+        other: Responsables parents
+
+      # === Rôles d'unité (communs aux 4 branches) ===
+      group/mbootaay/njiit:
+        one: Njiit (chef·fe d'unité)
+        other: Njiit (chef·fe·s d'unité)
+      group/mbootaay/reefaan:
+        one: Reefaan (adjoint·e)
+        other: Reefaan (adjoint·e·s)
+      group/mbootaay/rambeen:
+        one: Rambeen (assistant·e)
+        other: Rambeen (assistant·e·s)
+      group/mbootaay/caat:
+        one: Caat
+        other: Caat
+
+      group/kayon/njiit:
+        one: Njiit (chef·fe d'unité)
+        other: Njiit (chef·fe·s d'unité)
+      group/kayon/reefaan:
+        one: Reefaan (adjoint·e)
+        other: Reefaan (adjoint·e·s)
+      group/kayon/rambeen:
+        one: Rambeen (assistant·e)
+        other: Rambeen (assistant·e·s)
+      group/kayon/arunga:
+        one: Arunga
+        other: Arunga
+
+      group/nawka/njiit:
+        one: Njiit (chef·fe d'unité)
+        other: Njiit (chef·fe·s d'unité)
+      group/nawka/reefaan:
+        one: Reefaan (adjoint·e)
+        other: Reefaan (adjoint·e·s)
+      group/nawka/rambeen:
+        one: Rambeen (assistant·e)
+        other: Rambeen (assistant·e·s)
+      group/nawka/jambaar:
+        one: Jàmbaar
+        other: Jàmbaar
+
+      group/galle/njiit:
+        one: Njiit (chef·fe d'unité)
+        other: Njiit (chef·fe·s d'unité)
+      group/galle/reefaan:
+        one: Reefaan (adjoint·e)
+        other: Reefaan (adjoint·e·s)
+      group/galle/rambeen:
+        one: Rambeen (assistant·e)
+        other: Rambeen (assistant·e·s)
+      group/galle/mawdo:
+        one: Mawdo
+        other: Mawdo
