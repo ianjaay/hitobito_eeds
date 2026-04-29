@@ -14,22 +14,27 @@ describe Group::RegionEeds do
     expect(type.layer).to be true
   end
 
-  it "accepts only Group::District as direct children" do
+  it "accepts District as direct child" do
     expect(type.possible_children).to eq([Group::District])
   end
 
   it "declares the expected role types" do
     expect(type.role_types).to match_array([
       Group::RegionEeds::CommissaireRegional,
-      Group::RegionEeds::CommissaireRegionalAdjoint,
-      Group::RegionEeds::TresorierRegional,
-      Group::RegionEeds::RespFormation,
-      Group::RegionEeds::RespProgramme,
-      Group::RegionEeds::RespCommunication
+      Group::RegionEeds::CommissaireRegionalAdjointJiwu,
+      Group::RegionEeds::CommissaireRegionalAdjointLawtan,
+      Group::RegionEeds::CommissaireRegionalAdjointToorToor,
+      Group::RegionEeds::CommissaireRegionalAdjointMenneef,
+      Group::RegionEeds::CommissaireRegionalAdjointFormation,
+      Group::RegionEeds::CommissaireRegionalAdjointCommunication,
+      Group::RegionEeds::CommissaireRegionalAdjointProgramme,
+      Group::RegionEeds::MembreEquipeRegionale,
+      Group::RegionEeds::SecretaireRegional,
+      Group::RegionEeds::TresorierRegional
     ])
   end
 
-  it "enforces 2FA on the Commissaire Régional" do
+  it "enforces 2FA on the Commissaire régional role" do
     expect(Group::RegionEeds::CommissaireRegional.two_factor_authentication_enforced).to be true
   end
 end

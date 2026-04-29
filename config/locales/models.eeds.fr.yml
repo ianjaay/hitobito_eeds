@@ -50,187 +50,283 @@ fr:
         other: Gàlle
         long: Gàlle (Meññeef mi, 18 ans et plus)
 
+      # === Structures transversales ===
+      group/commission_nationale:
+        one: Commission Nationale
+        other: Commissions Nationales
+      group/anciens:
+        one: Anciens éclaireurs
+        other: Anciens éclaireurs
+      group/scouts_handicap:
+        one: Scouts Handicap (SMT)
+        other: Scouts Handicap (SMT)
+
       # === Rôles National ===
-      group/national/president:
-        one: Président·e
-        other: Président·e·s
-      group/national/commissaire_general:
-        one: Commissaire général·e
-        other: Commissaires généraux·les
+      group/national/commissaire_national:
+        one: Commissaire National·e
+        other: Commissaires Nationaux·les
+      group/national/commissaire_adjoint_jiwu:
+        one: Commissaire Adjoint·e Jiwu
+        other: Commissaires Adjoint·e·s Jiwu
+      group/national/commissaire_adjoint_lawtan:
+        one: Commissaire Adjoint·e Lawtan
+        other: Commissaires Adjoint·e·s Lawtan
+      group/national/commissaire_adjoint_toor_toor:
+        one: Commissaire Adjoint·e Toor-Toor
+        other: Commissaires Adjoint·e·s Toor-Toor
+      group/national/commissaire_adjoint_menneef:
+        one: Commissaire Adjoint·e Meññeef
+        other: Commissaires Adjoint·e·s Meññeef
+      group/national/commissaire_formation:
+        one: Commissaire National·e Formation
+        other: Commissaires Nationaux·les Formation
+      group/national/commissaire_communication:
+        one: Commissaire National·e Communication
+        other: Commissaires Nationaux·les Communication
+      group/national/commissaire_programme:
+        one: Commissaire National·e Programme
+        other: Commissaires Nationaux·les Programme
       group/national/commissaire_international:
-        one: Commissaire international·e
-        other: Commissaires internationaux·les
-      group/national/tresorier_national:
-        one: Trésorier·ière national·e
-        other: Trésorier·ière·s nationaux·les
+        one: Commissaire International·e
+        other: Commissaires International·e·s
+      group/national/membre_bureau_executif:
+        one: Membre du Bureau exécutif
+        other: Membres du Bureau exécutif
       group/national/secretaire_general:
         one: Secrétaire général·e
         other: Secrétaires généraux·les
-      group/national/resp_communication:
-        one: Responsable communication
-        other: Responsables communication
-      group/national/resp_digital:
-        one: Responsable digital
-        other: Responsables digital
-      group/national/resp_formation:
-        one: Responsable formation
-        other: Responsables formation
-      group/national/resp_programme_jeunes:
-        one: Responsable programme jeunes
-        other: Responsables programme jeunes
+      group/national/tresorier_national:
+        one: Trésorier·ière national·e
+        other: Trésorier·ière·s nationaux·les
 
       # === Rôles Région ===
       group/region_eeds/commissaire_regional:
         one: Commissaire régional·e
         other: Commissaires régionaux·les
-      group/region_eeds/commissaire_regional_adjoint:
-        one: Commissaire régional·e adjoint·e
-        other: Commissaires régionaux·les adjoint·e·s
+      group/region_eeds/commissaire_regional_adjoint_jiwu:
+        one: Commissaire régional·e adjoint·e Jiwu
+        other: Commissaires régionaux·les adjoint·e·s Jiwu
+      group/region_eeds/commissaire_regional_adjoint_lawtan:
+        one: Commissaire régional·e adjoint·e Lawtan
+        other: Commissaires régionaux·les adjoint·e·s Lawtan
+      group/region_eeds/commissaire_regional_adjoint_toor_toor:
+        one: Commissaire régional·e adjoint·e Toor-Toor
+        other: Commissaires régionaux·les adjoint·e·s Toor-Toor
+      group/region_eeds/commissaire_regional_adjoint_menneef:
+        one: Commissaire régional·e adjoint·e Meññeef
+        other: Commissaires régionaux·les adjoint·e·s Meññeef
+      group/region_eeds/commissaire_regional_adjoint_formation:
+        one: Commissaire régional·e adjoint·e Formation
+        other: Commissaires régionaux·les adjoint·e·s Formation
+      group/region_eeds/commissaire_regional_adjoint_communication:
+        one: Commissaire régional·e adjoint·e Communication
+        other: Commissaires régionaux·les adjoint·e·s Communication
+      group/region_eeds/commissaire_regional_adjoint_programme:
+        one: Commissaire régional·e adjoint·e Programme
+        other: Commissaires régionaux·les adjoint·e·s Programme
+      group/region_eeds/membre_equipe_regionale:
+        one: Membre de l'équipe régionale
+        other: Membres de l'équipe régionale
+      group/region_eeds/secretaire_regional:
+        one: Secrétaire régional·e
+        other: Secrétaires régionaux·les
       group/region_eeds/tresorier_regional:
         one: Trésorier·ière régional·e
         other: Trésorier·ière·s régionaux·les
-      group/region_eeds/resp_formation:
-        one: Responsable formation
-        other: Responsables formation
-      group/region_eeds/resp_programme:
-        one: Responsable programme
-        other: Responsables programme
-      group/region_eeds/resp_communication:
-        one: Responsable communication
-        other: Responsables communication
 
-      # === Rôles District ===
+      # === Rôles District (et District Autonome) ===
       group/district/commissaire_district:
         one: Commissaire de district
         other: Commissaires de district
       group/district/commissaire_district_adjoint:
         one: Commissaire de district adjoint·e
         other: Commissaires de district adjoint·e·s
+      group/district/resp_branche_jiwu:
+        one: Responsable branche Jiwu
+        other: Responsables branche Jiwu
+      group/district/resp_branche_lawtan:
+        one: Responsable branche Lawtan
+        other: Responsables branche Lawtan
+      group/district/resp_branche_toor_toor:
+        one: Responsable branche Toor-Toor
+        other: Responsables branche Toor-Toor
+      group/district/resp_branche_menneef:
+        one: Responsable branche Meññeef
+        other: Responsables branche Meññeef
       group/district/secretaire_district:
         one: Secrétaire de district
         other: Secrétaires de district
       group/district/tresorier_district:
         one: Trésorier·ière de district
         other: Trésorier·ière·s de district
-      group/district/resp_formation:
-        one: Responsable formation
-        other: Responsables formation
-      group/district/resp_animation:
-        one: Responsable animation
-        other: Responsables animation
 
-      # === Rôles Groupe local ===
-      group/groupe_local/chef_groupe:
-        one: Chef·fe de groupe
-        other: Chef·fe·s de groupe
-      group/groupe_local/chef_groupe_adjoint:
-        one: Chef·fe de groupe adjoint·e
-        other: Chef·fe·s de groupe adjoint·e·s
-      group/groupe_local/secretaire_local:
-        one: Secrétaire local·e
-        other: Secrétaires locaux·les
-      group/groupe_local/tresorier_local:
-        one: Trésorier·ière local·e
-        other: Trésorier·ière·s locaux·les
-      group/groupe_local/resp_materiel:
-        one: Responsable matériel
-        other: Responsables matériel
-      group/groupe_local/resp_parents:
-        one: Responsable parents
-        other: Responsables parents
-
-      # === Rôles District Autonome (mêmes intitulés que District) ===
       group/district_autonome/commissaire_district:
         one: Commissaire de district
         other: Commissaires de district
       group/district_autonome/commissaire_district_adjoint:
         one: Commissaire de district adjoint·e
         other: Commissaires de district adjoint·e·s
+      group/district_autonome/resp_branche_jiwu:
+        one: Responsable branche Jiwu
+        other: Responsables branche Jiwu
+      group/district_autonome/resp_branche_lawtan:
+        one: Responsable branche Lawtan
+        other: Responsables branche Lawtan
+      group/district_autonome/resp_branche_toor_toor:
+        one: Responsable branche Toor-Toor
+        other: Responsables branche Toor-Toor
+      group/district_autonome/resp_branche_menneef:
+        one: Responsable branche Meññeef
+        other: Responsables branche Meññeef
       group/district_autonome/secretaire_district:
         one: Secrétaire de district
         other: Secrétaires de district
       group/district_autonome/tresorier_district:
         one: Trésorier·ière de district
         other: Trésorier·ière·s de district
-      group/district_autonome/resp_formation:
-        one: Responsable formation
-        other: Responsables formation
-      group/district_autonome/resp_animation:
-        one: Responsable animation
-        other: Responsables animation
 
-      # === Rôles Groupe Local Autonome (mêmes intitulés que Groupe local) ===
+      # === Rôles Groupe local (et Groupe Local Autonome) ===
+      group/groupe_local/chef_groupe:
+        one: Chef·fe de groupe
+        other: Chef·fe·s de groupe
+      group/groupe_local/membre_maitrise:
+        one: Membre de la maîtrise locale
+        other: Membres de la maîtrise locale
+      group/groupe_local/resp_unite_mbootaay:
+        one: Responsable d'unité Mbootaay
+        other: Responsables d'unité Mbootaay
+      group/groupe_local/resp_unite_kayon:
+        one: Responsable d'unité Kayon
+        other: Responsables d'unité Kayon
+      group/groupe_local/resp_unite_nawka:
+        one: Responsable d'unité Ñawka
+        other: Responsables d'unité Ñawka
+      group/groupe_local/resp_unite_galle:
+        one: Responsable d'unité Gàlle
+        other: Responsables d'unité Gàlle
+      group/groupe_local/secretaire_local:
+        one: Secrétaire local·e
+        other: Secrétaires locaux·les
+      group/groupe_local/tresorier_local:
+        one: Trésorier·ière local·e
+        other: Trésorier·ière·s locaux·les
+
       group/groupe_local_autonome/chef_groupe:
         one: Chef·fe de groupe
         other: Chef·fe·s de groupe
-      group/groupe_local_autonome/chef_groupe_adjoint:
-        one: Chef·fe de groupe adjoint·e
-        other: Chef·fe·s de groupe adjoint·e·s
+      group/groupe_local_autonome/membre_maitrise:
+        one: Membre de la maîtrise locale
+        other: Membres de la maîtrise locale
+      group/groupe_local_autonome/resp_unite_mbootaay:
+        one: Responsable d'unité Mbootaay
+        other: Responsables d'unité Mbootaay
+      group/groupe_local_autonome/resp_unite_kayon:
+        one: Responsable d'unité Kayon
+        other: Responsables d'unité Kayon
+      group/groupe_local_autonome/resp_unite_nawka:
+        one: Responsable d'unité Ñawka
+        other: Responsables d'unité Ñawka
+      group/groupe_local_autonome/resp_unite_galle:
+        one: Responsable d'unité Gàlle
+        other: Responsables d'unité Gàlle
       group/groupe_local_autonome/secretaire_local:
         one: Secrétaire local·e
         other: Secrétaires locaux·les
       group/groupe_local_autonome/tresorier_local:
         one: Trésorier·ière local·e
         other: Trésorier·ière·s locaux·les
-      group/groupe_local_autonome/resp_materiel:
-        one: Responsable matériel
-        other: Responsables matériel
-      group/groupe_local_autonome/resp_parents:
-        one: Responsable parents
-        other: Responsables parents
 
-      # === Rôles d'unité (communs aux 4 branches) ===
+      # === Rôles d'unité (chef, adjoint, sous-unité, membre) ===
       group/mbootaay/njiit:
         one: Njiit (chef·fe d'unité)
-        other: Njiit (chef·fe·s d'unité)
+        other: Njiit
       group/mbootaay/reefaan:
         one: Reefaan (adjoint·e)
-        other: Reefaan (adjoint·e·s)
-      group/mbootaay/rambeen:
-        one: Rambeen (assistant·e)
-        other: Rambeen (assistant·e·s)
+        other: Reefaan
+      group/mbootaay/chef_sizaine:
+        one: Chef·fe de sizaine
+        other: Chef·fe·s de sizaine
       group/mbootaay/caat:
         one: Caat
         other: Caat
 
       group/kayon/njiit:
         one: Njiit (chef·fe d'unité)
-        other: Njiit (chef·fe·s d'unité)
+        other: Njiit
       group/kayon/reefaan:
         one: Reefaan (adjoint·e)
-        other: Reefaan (adjoint·e·s)
-      group/kayon/rambeen:
-        one: Rambeen (assistant·e)
-        other: Rambeen (assistant·e·s)
+        other: Reefaan
+      group/kayon/chef_patrouille:
+        one: Chef·fe de patrouille
+        other: Chef·fe·s de patrouille
       group/kayon/arunga:
         one: Arunga
         other: Arunga
 
       group/nawka/njiit:
         one: Njiit (chef·fe d'unité)
-        other: Njiit (chef·fe·s d'unité)
+        other: Njiit
       group/nawka/reefaan:
         one: Reefaan (adjoint·e)
-        other: Reefaan (adjoint·e·s)
-      group/nawka/rambeen:
-        one: Rambeen (assistant·e)
-        other: Rambeen (assistant·e·s)
+        other: Reefaan
+      group/nawka/chef_equipe:
+        one: Chef·fe d'équipe
+        other: Chef·fe·s d'équipe
       group/nawka/jambaar:
         one: Jàmbaar
         other: Jàmbaar
 
       group/galle/njiit:
         one: Njiit (chef·fe d'unité)
-        other: Njiit (chef·fe·s d'unité)
+        other: Njiit
       group/galle/reefaan:
         one: Reefaan (adjoint·e)
-        other: Reefaan (adjoint·e·s)
-      group/galle/rambeen:
-        one: Rambeen (assistant·e)
-        other: Rambeen (assistant·e·s)
+        other: Reefaan
+      group/galle/chef_equipe:
+        one: Chef·fe d'équipe
+        other: Chef·fe·s d'équipe
       group/galle/mawdo:
         one: Mawdo
         other: Mawdo
+
+      # === Rôles Commission Nationale ===
+      group/commission_nationale/coordinateur_commission:
+        one: Coordinateur·trice de commission
+        other: Coordinateur·trice·s de commission
+      group/commission_nationale/membre_commission:
+        one: Membre de commission
+        other: Membres de commission
+      group/commission_nationale/encadreur:
+        one: Encadreur·euse
+        other: Encadreur·euse·s
+      group/commission_nationale/conseiller:
+        one: Conseiller·ère
+        other: Conseiller·ère·s
+
+      # === Rôles Anciens ===
+      group/anciens/president:
+        one: Président·e des Anciens
+        other: Président·e·s des Anciens
+      group/anciens/membre_bureau:
+        one: Membre du bureau des Anciens
+        other: Membres du bureau des Anciens
+      group/anciens/membre:
+        one: Ancien·ne éclaireur·euse
+        other: Ancien·ne·s éclaireur·euse·s
+
+      # === Rôles Scouts Handicap (SMT) ===
+      group/scouts_handicap/coordinateur:
+        one: Coordinateur·trice SMT
+        other: Coordinateur·trice·s SMT
+      group/scouts_handicap/encadreur:
+        one: Encadreur·euse spécialisé·e
+        other: Encadreur·euse·s spécialisé·e·s
+      group/scouts_handicap/conseiller:
+        one: Conseiller·ère SMT
+        other: Conseiller·ère·s SMT
+      group/scouts_handicap/membre:
+        one: Membre SMT
+        other: Membres SMT
 
     # === Attributs Person ===
     attributes:
@@ -238,13 +334,11 @@ fr:
         languages:
           fr: Français
           wo: Wolof
-        # Énum branches du Person (clé = "branche".pluralize = "branches")
         branches:
           mbootaay: Mbootaay
           kayon: Kayon
           nawka: Ñawka
           galle: Gàlle
-        # Champs EEDS
         matricule_scout: Matricule scout
         branche: Branche
         unite: Unité (sizaine / patrouille / équipe)

@@ -14,7 +14,7 @@ describe Group::District do
     expect(type.layer).to be true
   end
 
-  it "accepts only Group::GroupeLocal as direct children" do
+  it "accepts Groupe local as direct child" do
     expect(type.possible_children).to eq([Group::GroupeLocal])
   end
 
@@ -22,14 +22,16 @@ describe Group::District do
     expect(type.role_types).to match_array([
       Group::District::CommissaireDistrict,
       Group::District::CommissaireDistrictAdjoint,
+      Group::District::RespBrancheJiwu,
+      Group::District::RespBrancheLawtan,
+      Group::District::RespBrancheToorToor,
+      Group::District::RespBrancheMenneef,
       Group::District::SecretaireDistrict,
-      Group::District::TresorierDistrict,
-      Group::District::RespFormation,
-      Group::District::RespAnimation
+      Group::District::TresorierDistrict
     ])
   end
 
-  it "enforces 2FA on the Commissaire de District" do
+  it "enforces 2FA on the Commissaire de district role" do
     expect(Group::District::CommissaireDistrict.two_factor_authentication_enforced).to be true
   end
 end

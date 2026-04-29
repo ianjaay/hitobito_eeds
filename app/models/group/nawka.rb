@@ -5,22 +5,13 @@
 #  version 3 or later. See the COPYING file at the top-level directory or at
 #  https://www.gnu.org/licenses/agpl-3.0.html.
 
-# Branche Toor-Toor wi (16 à 18 ans).
-# Unité pédagogique = Ñawka (aussi appelée Dental). Membres : Jàmbaar.
-# Encadrement : Njiit, Reefaan, Rambeen.
-#
-# Note : la classe est nommée `Nawka` (sans diacritique) pour rester ASCII-safe
-# côté SGBD (colonne `type` STI) et URLs. Le libellé affiché « Ñawka » est
-# fourni par les fichiers de locale.
+# Branche Toor-Toor wi (16 à 18 ans). Unité = Ñawka, sous-unité = équipe.
 class Group::Nawka < Group
-  # Couleur officielle de la branche Ñawka (Toor-Toor wi) : blanche.
   BRANCH_COLOR = "#ffffff"
   BRANCH_COLOR_NAME = "blanche"
 
   def self.branch_color = BRANCH_COLOR
   def self.branch_color_name = BRANCH_COLOR_NAME
-
-  # Pas d'enfants en Phase 1 (les clans "Fedde" arriveront en Phase 2+).
 
   class Njiit < ::Role
     self.permissions = [:group_full]
@@ -30,7 +21,7 @@ class Group::Nawka < Group
     self.permissions = [:group_read]
   end
 
-  class Rambeen < ::Role
+  class ChefEquipe < ::Role
     self.permissions = [:group_read]
   end
 
@@ -39,7 +30,7 @@ class Group::Nawka < Group
     self.visible_from_above = false
   end
 
-  roles Njiit, Reefaan, Rambeen, Jambaar
+  roles Njiit, Reefaan, ChefEquipe, Jambaar
 
   self.standard_role = Jambaar
 end

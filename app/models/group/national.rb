@@ -5,28 +5,72 @@
 #  version 3 or later. See the COPYING file at the top-level directory or at
 #  https://www.gnu.org/licenses/agpl-3.0.html.
 
-# Niveau National (équivalent PBS Bund). Racine fonctionnelle de l'arbre EEDS
-# (enregistrée comme `root_type` dans HitobitoEeds::Wagon).
+# Niveau National (équivalent PBS Bund). Racine fonctionnelle de l'arbre EEDS.
+#
+# Pilotage politique et exécutif de l'association :
+#   - Commissaire National  : président·e, autorité fonctionnelle suprême
+#   - Adjoints par branche  : 4 (Jiwu, Lawtan, Toor-Toor, Meññeef)
+#   - Adjoints thématiques  : 4 (formation, communication, programme, international)
+#   - Bureau exécutif       : membres élus / nommés au bureau
+#   - Trésorier·ière + Secrétaire général·e
 class Group::National < Group
   self.layer = true
 
   children Group::RegionEeds,
     Group::DistrictAutonome,
-    Group::GroupeLocalAutonome
+    Group::GroupeLocalAutonome,
+    Group::CommissionNationale,
+    Group::Anciens,
+    Group::ScoutsHandicap
 
   ### Rôles ###
 
-  class President < ::Role
+  class CommissaireNational < ::Role
     self.permissions = [:layer_and_below_full, :admin, :contact_data]
     self.two_factor_authentication_enforced = true
   end
 
-  class CommissaireGeneral < ::Role
-    self.permissions = [:layer_and_below_full, :admin, :contact_data]
-    self.two_factor_authentication_enforced = true
+  # Adjoints par branche pédagogique
+  class CommissaireAdjointJiwu < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data]
+  end
+
+  class CommissaireAdjointLawtan < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data]
+  end
+
+  class CommissaireAdjointToorToor < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data]
+  end
+
+  class CommissaireAdjointMenneef < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data]
+  end
+
+  # Adjoints thématiques
+  class CommissaireFormation < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data]
+  end
+
+  class CommissaireCommunication < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data]
+  end
+
+  class CommissaireProgramme < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data]
   end
 
   class CommissaireInternational < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data]
+  end
+
+  # Bureau exécutif
+  class MembreBureauExecutif < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  # Fonctions support
+  class SecretaireGeneral < ::Role
     self.permissions = [:layer_and_below_full, :contact_data]
     self.two_factor_authentication_enforced = true
   end
@@ -36,34 +80,16 @@ class Group::National < Group
     self.two_factor_authentication_enforced = true
   end
 
-  class SecretaireGeneral < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
-    self.two_factor_authentication_enforced = true
-  end
-
-  class RespCommunication < ::Role
-    self.permissions = [:layer_and_below_read, :contact_data]
-  end
-
-  class RespDigital < ::Role
-    self.permissions = [:layer_and_below_read, :contact_data]
-  end
-
-  class RespFormation < ::Role
-    self.permissions = [:layer_and_below_read, :contact_data]
-  end
-
-  class RespProgrammeJeunes < ::Role
-    self.permissions = [:layer_and_below_read, :contact_data]
-  end
-
-  roles President,
-    CommissaireGeneral,
+  roles CommissaireNational,
+    CommissaireAdjointJiwu,
+    CommissaireAdjointLawtan,
+    CommissaireAdjointToorToor,
+    CommissaireAdjointMenneef,
+    CommissaireFormation,
+    CommissaireCommunication,
+    CommissaireProgramme,
     CommissaireInternational,
-    TresorierNational,
+    MembreBureauExecutif,
     SecretaireGeneral,
-    RespCommunication,
-    RespDigital,
-    RespFormation,
-    RespProgrammeJeunes
+    TresorierNational
 end

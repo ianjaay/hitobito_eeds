@@ -5,19 +5,13 @@
 #  version 3 or later. See the COPYING file at the top-level directory or at
 #  https://www.gnu.org/licenses/agpl-3.0.html.
 
-# Branche Lawtan wi (12 à 15 ans).
-# Unité pédagogique = Kayon. Membres : Arunga. Encadrement : Njiit, Reefaan,
-# Rambeen.
+# Branche Lawtan wi (12 à 15 ans). Unité = Kayon, sous-unité = patrouille.
 class Group::Kayon < Group
-  # Couleur officielle de la branche Kayon (Lawtan wi) : verte.
   BRANCH_COLOR = "#00853f"
   BRANCH_COLOR_NAME = "verte"
 
   def self.branch_color = BRANCH_COLOR
   def self.branch_color_name = BRANCH_COLOR_NAME
-
-  # Pas d'enfants en Phase 1 (les patrouilles/sizaines "Jiyon" arriveront en
-  # Phase 2+).
 
   class Njiit < ::Role
     self.permissions = [:group_full]
@@ -27,7 +21,7 @@ class Group::Kayon < Group
     self.permissions = [:group_read]
   end
 
-  class Rambeen < ::Role
+  class ChefPatrouille < ::Role
     self.permissions = [:group_read]
   end
 
@@ -36,7 +30,7 @@ class Group::Kayon < Group
     self.visible_from_above = false
   end
 
-  roles Njiit, Reefaan, Rambeen, Arunga
+  roles Njiit, Reefaan, ChefPatrouille, Arunga
 
   self.standard_role = Arunga
 end

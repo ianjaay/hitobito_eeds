@@ -22,8 +22,26 @@ class Group::GroupeLocal < Group
     self.two_factor_authentication_enforced = true
   end
 
-  class ChefGroupeAdjoint < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+  # Membres de la maîtrise locale (équipe d'encadrement)
+  class MembreMaitrise < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  # Responsables d'unité par branche
+  class RespUniteMbootaay < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  class RespUniteKayon < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  class RespUniteNawka < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  class RespUniteGalle < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
   end
 
   class SecretaireLocal < ::Role
@@ -34,18 +52,12 @@ class Group::GroupeLocal < Group
     self.permissions = [:layer_and_below_read, :finance, :contact_data]
   end
 
-  class RespMateriel < ::Role
-    self.permissions = [:group_read]
-  end
-
-  class RespParents < ::Role
-    self.permissions = [:group_read]
-  end
-
   roles ChefGroupe,
-    ChefGroupeAdjoint,
+    MembreMaitrise,
+    RespUniteMbootaay,
+    RespUniteKayon,
+    RespUniteNawka,
+    RespUniteGalle,
     SecretaireLocal,
-    TresorierLocal,
-    RespMateriel,
-    RespParents
+    TresorierLocal
 end

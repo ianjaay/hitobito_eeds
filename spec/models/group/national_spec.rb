@@ -18,43 +18,46 @@ describe Group::National do
     expect(Group.root_types).to include(type)
   end
 
-  it "accepts Région, District Autonome and Groupe Local Autonome as direct children" do
+  it "accepts Région, Districts/Groupes Autonomes, Commissions, Anciens, SMT as children" do
     expect(type.possible_children).to match_array([
       Group::RegionEeds,
       Group::DistrictAutonome,
-      Group::GroupeLocalAutonome
+      Group::GroupeLocalAutonome,
+      Group::CommissionNationale,
+      Group::Anciens,
+      Group::ScoutsHandicap
     ])
   end
 
   it "declares the expected role types" do
     expect(type.role_types).to match_array([
-      Group::National::President,
-      Group::National::CommissaireGeneral,
+      Group::National::CommissaireNational,
+      Group::National::CommissaireAdjointJiwu,
+      Group::National::CommissaireAdjointLawtan,
+      Group::National::CommissaireAdjointToorToor,
+      Group::National::CommissaireAdjointMenneef,
+      Group::National::CommissaireFormation,
+      Group::National::CommissaireCommunication,
+      Group::National::CommissaireProgramme,
       Group::National::CommissaireInternational,
-      Group::National::TresorierNational,
+      Group::National::MembreBureauExecutif,
       Group::National::SecretaireGeneral,
-      Group::National::RespCommunication,
-      Group::National::RespDigital,
-      Group::National::RespFormation,
-      Group::National::RespProgrammeJeunes
+      Group::National::TresorierNational
     ])
   end
 
   it "enforces 2FA on senior leadership roles" do
     [
-      Group::National::President,
-      Group::National::CommissaireGeneral,
-      Group::National::CommissaireInternational,
-      Group::National::TresorierNational,
-      Group::National::SecretaireGeneral
+      Group::National::CommissaireNational,
+      Group::National::SecretaireGeneral,
+      Group::National::TresorierNational
     ].each do |role|
       expect(role.two_factor_authentication_enforced).to be(true), "#{role} should enforce 2FA"
     end
   end
 
-  it "grants admin permission to the Président and Commissaire Général" do
-    [Group::National::President, Group::National::CommissaireGeneral].each do |role|
-      expect(role.permissions).to include(:admin, :layer_and_below_full)
-    end
+  it "grants admin permission to the Commissaire National" do
+    expect(Group::National::CommissaireNational.permissions)
+      .to include(:admin, :layer_and_below_full)
   end
 end

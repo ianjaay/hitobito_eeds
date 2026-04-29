@@ -3,195 +3,236 @@
 #  version 3 or later. See the COPYING file at the top-level directory or at
 #  https://www.gnu.org/licenses/agpl-3.0.html.
 
-# Tekkim wolof bu wagon hitobito_eeds. Tekki yi ñu jëfandikoo : pour les termes
-# techniques sans équivalent wolof courant (commissaire, secrétaire…), on garde
-# le mot français entre parenthèses.
+# Tekkim wolof bu wagon hitobito_eeds. Pour les fonctions techniques sans
+# équivalent wolof courant, on garde le mot français entre parenthèses.
 wo:
   activerecord:
     models:
-      # === Niveaux structurels ===
       group/national:
         one: Naasonaal
         other: Naasonaal
-        long: Naasonaalu EEDS
       group/region_eeds:
         one: Diiwaan
         other: Yu Diiwaan
-        long: Diiwaanu EEDS
       group/district:
         one: Distrik
         other: Yu Distrik
-        long: Distriku EEDS
       group/district_autonome:
         one: Distrik Buy Boppam
         other: Yu Distrik yu Boppam
-        long: Distrik bu boppam (mu jëkk ci Naasonaal)
       group/groupe_local:
         one: Mbooloo
         other: Mbooloo yi
-        long: Mboolooy bopp
       group/groupe_local_autonome:
         one: Mbooloo Buy Boppam
         other: Mbooloo yu Boppam
-        long: Mbooloo buy boppam (mu jëkk ci Naasonaal)
-
-      # === Branches pédagogiques ===
       group/mbootaay:
         one: Mbootaay
         other: Mbootaay
-        long: Mbootaay (Jiwu wi, 5 ba 11 at)
       group/kayon:
         one: Kayon
         other: Kayon
-        long: Kayon (Lawtan wi, 12 ba 15 at)
       group/nawka:
         one: Ñawka
         other: Ñawka
-        long: Ñawka (Toor-Toor wi, 16 ba 18 at)
       group/galle:
         one: Gàlle
         other: Gàlle
-        long: Gàlle (Meññeef mi, 18 at ak yokk)
+      group/commission_nationale:
+        one: Komisiyong Naasonaal
+        other: Komisiyong Naasonaal yi
+      group/anciens:
+        one: Way-jëkk yi (Anciens)
+        other: Way-jëkk yi (Anciens)
+      group/scouts_handicap:
+        one: Scouts Handicap (SMT)
+        other: Scouts Handicap (SMT)
 
       # === Rôles National ===
-      group/national/president:
-        one: Njiitu mbooloo (Président)
-        other: Njiit yu mbooloo
-      group/national/commissaire_general:
-        one: Komisaar bu mag (Commissaire général)
-        other: Komisaar yu mag
+      group/national/commissaire_national:
+        one: Komisaar bu Naasonaal (Commissaire National)
+        other: Komisaar yu Naasonaal
+      group/national/commissaire_adjoint_jiwu:
+        one: Komisaar Ki ko Jàppale Jiwu
+        other: Ñuy jàppale komisaar Jiwu
+      group/national/commissaire_adjoint_lawtan:
+        one: Komisaar Ki ko Jàppale Lawtan
+        other: Ñuy jàppale komisaar Lawtan
+      group/national/commissaire_adjoint_toor_toor:
+        one: Komisaar Ki ko Jàppale Toor-Toor
+        other: Ñuy jàppale komisaar Toor-Toor
+      group/national/commissaire_adjoint_menneef:
+        one: Komisaar Ki ko Jàppale Meññeef
+        other: Ñuy jàppale komisaar Meññeef
+      group/national/commissaire_formation:
+        one: Komisaaru Njàng (Formation)
+        other: Komisaar yu Njàng
+      group/national/commissaire_communication:
+        one: Komisaaru Xibaar (Communication)
+        other: Komisaar yu Xibaar
+      group/national/commissaire_programme:
+        one: Komisaaru Pwogaraam (Programme)
+        other: Komisaar yu Pwogaraam
       group/national/commissaire_international:
-        one: Komisaaru biti réew (Commissaire international)
-        other: Komisaar yu biti réew
-      group/national/tresorier_national:
-        one: Borom xaalisu naasonaal (Trésorier national)
-        other: Borom xaalisu naasonaal
+        one: Komisaaru Biti Réew (International)
+        other: Komisaar yu Biti Réew
+      group/national/membre_bureau_executif:
+        one: Càlla bu Biro Eksekitif
+        other: Càlla yu Biro Eksekitif
       group/national/secretaire_general:
-        one: Sekreteer bu mag (Secrétaire général)
-        other: Sekreteer yu mag
-      group/national/resp_communication:
-        one: Kuy yor xibaar (Responsable communication)
-        other: Ñuy yor xibaar
-      group/national/resp_digital:
-        one: Kuy yor digital (Responsable digital)
-        other: Ñuy yor digital
-      group/national/resp_formation:
-        one: Kuy yor njàng (Responsable formation)
-        other: Ñuy yor njàng
-      group/national/resp_programme_jeunes:
-        one: Kuy yor pwogaraamu ndaw (Responsable programme jeunes)
-        other: Ñuy yor pwogaraamu ndaw
+        one: Sekreteer bu Mag (Secrétaire général)
+        other: Sekreteer yu Mag
+      group/national/tresorier_national:
+        one: Borom xaalisu Naasonaal
+        other: Borom xaalisu Naasonaal
 
       # === Rôles Région ===
       group/region_eeds/commissaire_regional:
-        one: Komisaaru diiwaan (Commissaire régional)
-        other: Komisaar yu diiwaan
-      group/region_eeds/commissaire_regional_adjoint:
-        one: Komisaaru diiwaan ki ko jàppale (Commissaire régional adjoint)
-        other: Ñuy jàppale komisaaru diiwaan
+        one: Komisaaru Diiwaan
+        other: Komisaar yu Diiwaan
+      group/region_eeds/commissaire_regional_adjoint_jiwu:
+        one: Komisaaru Diiwaan Ki ko Jàppale Jiwu
+        other: Ñuy jàppale komisaaru diiwaan Jiwu
+      group/region_eeds/commissaire_regional_adjoint_lawtan:
+        one: Komisaaru Diiwaan Ki ko Jàppale Lawtan
+        other: Ñuy jàppale komisaaru diiwaan Lawtan
+      group/region_eeds/commissaire_regional_adjoint_toor_toor:
+        one: Komisaaru Diiwaan Ki ko Jàppale Toor-Toor
+        other: Ñuy jàppale komisaaru diiwaan Toor-Toor
+      group/region_eeds/commissaire_regional_adjoint_menneef:
+        one: Komisaaru Diiwaan Ki ko Jàppale Meññeef
+        other: Ñuy jàppale komisaaru diiwaan Meññeef
+      group/region_eeds/commissaire_regional_adjoint_formation:
+        one: Komisaaru Diiwaan Ki ko Jàppale Njàng
+        other: Ñuy jàppale komisaaru diiwaan Njàng
+      group/region_eeds/commissaire_regional_adjoint_communication:
+        one: Komisaaru Diiwaan Ki ko Jàppale Xibaar
+        other: Ñuy jàppale komisaaru diiwaan Xibaar
+      group/region_eeds/commissaire_regional_adjoint_programme:
+        one: Komisaaru Diiwaan Ki ko Jàppale Pwogaraam
+        other: Ñuy jàppale komisaaru diiwaan Pwogaraam
+      group/region_eeds/membre_equipe_regionale:
+        one: Càlla bu equipe diiwaan
+        other: Càlla yu equipe diiwaan
+      group/region_eeds/secretaire_regional:
+        one: Sekreteeru Diiwaan
+        other: Sekreteer yu Diiwaan
       group/region_eeds/tresorier_regional:
-        one: Borom xaalisu diiwaan (Trésorier régional)
-        other: Borom xaalisu diiwaan
-      group/region_eeds/resp_formation:
-        one: Kuy yor njàng (Responsable formation)
-        other: Ñuy yor njàng
-      group/region_eeds/resp_programme:
-        one: Kuy yor pwogaraam (Responsable programme)
-        other: Ñuy yor pwogaraam
-      group/region_eeds/resp_communication:
-        one: Kuy yor xibaar (Responsable communication)
-        other: Ñuy yor xibaar
+        one: Borom xaalisu Diiwaan
+        other: Borom xaalisu Diiwaan
 
       # === Rôles District ===
       group/district/commissaire_district:
-        one: Komisaaru distrik (Commissaire de district)
-        other: Komisaar yu distrik
+        one: Komisaaru Distrik
+        other: Komisaar yu Distrik
       group/district/commissaire_district_adjoint:
-        one: Komisaaru distrik ki ko jàppale (Commissaire district adjoint)
+        one: Komisaaru Distrik Ki ko Jàppale
         other: Ñuy jàppale komisaaru distrik
+      group/district/resp_branche_jiwu:
+        one: Kuy yor Pàccu Jiwu
+        other: Ñuy yor Pàccu Jiwu
+      group/district/resp_branche_lawtan:
+        one: Kuy yor Pàccu Lawtan
+        other: Ñuy yor Pàccu Lawtan
+      group/district/resp_branche_toor_toor:
+        one: Kuy yor Pàccu Toor-Toor
+        other: Ñuy yor Pàccu Toor-Toor
+      group/district/resp_branche_menneef:
+        one: Kuy yor Pàccu Meññeef
+        other: Ñuy yor Pàccu Meññeef
       group/district/secretaire_district:
-        one: Sekreteeru distrik (Secrétaire de district)
-        other: Sekreteer yu distrik
+        one: Sekreteeru Distrik
+        other: Sekreteer yu Distrik
       group/district/tresorier_district:
-        one: Borom xaalisu distrik (Trésorier de district)
-        other: Borom xaalisu distrik
-      group/district/resp_formation:
-        one: Kuy yor njàng (Responsable formation)
-        other: Ñuy yor njàng
-      group/district/resp_animation:
-        one: Kuy yor animasiyon (Responsable animation)
-        other: Ñuy yor animasiyon
+        one: Borom xaalisu Distrik
+        other: Borom xaalisu Distrik
+
+      group/district_autonome/commissaire_district:
+        one: Komisaaru Distrik
+        other: Komisaar yu Distrik
+      group/district_autonome/commissaire_district_adjoint:
+        one: Komisaaru Distrik Ki ko Jàppale
+        other: Ñuy jàppale komisaaru distrik
+      group/district_autonome/resp_branche_jiwu:
+        one: Kuy yor Pàccu Jiwu
+        other: Ñuy yor Pàccu Jiwu
+      group/district_autonome/resp_branche_lawtan:
+        one: Kuy yor Pàccu Lawtan
+        other: Ñuy yor Pàccu Lawtan
+      group/district_autonome/resp_branche_toor_toor:
+        one: Kuy yor Pàccu Toor-Toor
+        other: Ñuy yor Pàccu Toor-Toor
+      group/district_autonome/resp_branche_menneef:
+        one: Kuy yor Pàccu Meññeef
+        other: Ñuy yor Pàccu Meññeef
+      group/district_autonome/secretaire_district:
+        one: Sekreteeru Distrik
+        other: Sekreteer yu Distrik
+      group/district_autonome/tresorier_district:
+        one: Borom xaalisu Distrik
+        other: Borom xaalisu Distrik
 
       # === Rôles Groupe local ===
       group/groupe_local/chef_groupe:
-        one: Njiitu mbooloo (Chef de groupe)
-        other: Njiit yu mbooloo
-      group/groupe_local/chef_groupe_adjoint:
-        one: Njiitu mbooloo ki ko jàppale (Chef de groupe adjoint)
-        other: Ñuy jàppale njiitu mbooloo
+        one: Njiitu Mbooloo
+        other: Njiit yu Mbooloo
+      group/groupe_local/membre_maitrise:
+        one: Càlla bu Maîtrise (équipe d'encadrement)
+        other: Càlla yu Maîtrise
+      group/groupe_local/resp_unite_mbootaay:
+        one: Kuy yor Mbootaay
+        other: Ñuy yor Mbootaay
+      group/groupe_local/resp_unite_kayon:
+        one: Kuy yor Kayon
+        other: Ñuy yor Kayon
+      group/groupe_local/resp_unite_nawka:
+        one: Kuy yor Ñawka
+        other: Ñuy yor Ñawka
+      group/groupe_local/resp_unite_galle:
+        one: Kuy yor Gàlle
+        other: Ñuy yor Gàlle
       group/groupe_local/secretaire_local:
-        one: Sekreteeru mbooloo (Secrétaire local)
-        other: Sekreteer yu mbooloo
+        one: Sekreteeru Mbooloo
+        other: Sekreteer yu Mbooloo
       group/groupe_local/tresorier_local:
-        one: Borom xaalisu mbooloo (Trésorier local)
-        other: Borom xaalisu mbooloo
-      group/groupe_local/resp_materiel:
-        one: Kuy yor jumtukaay (Responsable matériel)
-        other: Ñuy yor jumtukaay
-      group/groupe_local/resp_parents:
-        one: Kuy yor waajur yi (Responsable parents)
-        other: Ñuy yor waajur yi
+        one: Borom xaalisu Mbooloo
+        other: Borom xaalisu Mbooloo
 
-      # === Rôles District Autonome (mêmes intitulés que District) ===
-      group/district_autonome/commissaire_district:
-        one: Komisaaru distrik (Commissaire de district)
-        other: Komisaar yu distrik
-      group/district_autonome/commissaire_district_adjoint:
-        one: Komisaaru distrik ki ko jàppale (Commissaire district adjoint)
-        other: Ñuy jàppale komisaaru distrik
-      group/district_autonome/secretaire_district:
-        one: Sekreteeru distrik (Secrétaire de district)
-        other: Sekreteer yu distrik
-      group/district_autonome/tresorier_district:
-        one: Borom xaalisu distrik (Trésorier de district)
-        other: Borom xaalisu distrik
-      group/district_autonome/resp_formation:
-        one: Kuy yor njàng (Responsable formation)
-        other: Ñuy yor njàng
-      group/district_autonome/resp_animation:
-        one: Kuy yor animasiyon (Responsable animation)
-        other: Ñuy yor animasiyon
-
-      # === Rôles Groupe Local Autonome (mêmes intitulés que Groupe local) ===
       group/groupe_local_autonome/chef_groupe:
-        one: Njiitu mbooloo (Chef de groupe)
-        other: Njiit yu mbooloo
-      group/groupe_local_autonome/chef_groupe_adjoint:
-        one: Njiitu mbooloo ki ko jàppale (Chef de groupe adjoint)
-        other: Ñuy jàppale njiitu mbooloo
+        one: Njiitu Mbooloo
+        other: Njiit yu Mbooloo
+      group/groupe_local_autonome/membre_maitrise:
+        one: Càlla bu Maîtrise
+        other: Càlla yu Maîtrise
+      group/groupe_local_autonome/resp_unite_mbootaay:
+        one: Kuy yor Mbootaay
+        other: Ñuy yor Mbootaay
+      group/groupe_local_autonome/resp_unite_kayon:
+        one: Kuy yor Kayon
+        other: Ñuy yor Kayon
+      group/groupe_local_autonome/resp_unite_nawka:
+        one: Kuy yor Ñawka
+        other: Ñuy yor Ñawka
+      group/groupe_local_autonome/resp_unite_galle:
+        one: Kuy yor Gàlle
+        other: Ñuy yor Gàlle
       group/groupe_local_autonome/secretaire_local:
-        one: Sekreteeru mbooloo (Secrétaire local)
-        other: Sekreteer yu mbooloo
+        one: Sekreteeru Mbooloo
+        other: Sekreteer yu Mbooloo
       group/groupe_local_autonome/tresorier_local:
-        one: Borom xaalisu mbooloo (Trésorier local)
-        other: Borom xaalisu mbooloo
-      group/groupe_local_autonome/resp_materiel:
-        one: Kuy yor jumtukaay (Responsable matériel)
-        other: Ñuy yor jumtukaay
-      group/groupe_local_autonome/resp_parents:
-        one: Kuy yor waajur yi (Responsable parents)
-        other: Ñuy yor waajur yi
+        one: Borom xaalisu Mbooloo
+        other: Borom xaalisu Mbooloo
 
-      # === Rôles d'unité (communs aux 4 branches) ===
+      # === Rôles d'unité ===
       group/mbootaay/njiit:
         one: Njiit (njiitu mbooloo)
         other: Njiit
       group/mbootaay/reefaan:
         one: Reefaan (kuy jàppale)
         other: Reefaan
-      group/mbootaay/rambeen:
-        one: Rambeen (asistaa)
-        other: Rambeen
+      group/mbootaay/chef_sizaine:
+        one: Njiitu sizaine
+        other: Njiit yu sizaine
       group/mbootaay/caat:
         one: Caat
         other: Caat
@@ -202,9 +243,9 @@ wo:
       group/kayon/reefaan:
         one: Reefaan (kuy jàppale)
         other: Reefaan
-      group/kayon/rambeen:
-        one: Rambeen (asistaa)
-        other: Rambeen
+      group/kayon/chef_patrouille:
+        one: Njiitu patrouille
+        other: Njiit yu patrouille
       group/kayon/arunga:
         one: Arunga
         other: Arunga
@@ -215,9 +256,9 @@ wo:
       group/nawka/reefaan:
         one: Reefaan (kuy jàppale)
         other: Reefaan
-      group/nawka/rambeen:
-        one: Rambeen (asistaa)
-        other: Rambeen
+      group/nawka/chef_equipe:
+        one: Njiitu equipe
+        other: Njiit yu equipe
       group/nawka/jambaar:
         one: Jàmbaar
         other: Jàmbaar
@@ -228,14 +269,50 @@ wo:
       group/galle/reefaan:
         one: Reefaan (kuy jàppale)
         other: Reefaan
-      group/galle/rambeen:
-        one: Rambeen (asistaa)
-        other: Rambeen
+      group/galle/chef_equipe:
+        one: Njiitu equipe
+        other: Njiit yu equipe
       group/galle/mawdo:
         one: Mawdo
         other: Mawdo
 
-    # === Attributs Person ===
+      # === Commissions, Anciens, SMT ===
+      group/commission_nationale/coordinateur_commission:
+        one: Kuy taxawal komisiyong (Coordinateur)
+        other: Ñuy taxawal komisiyong
+      group/commission_nationale/membre_commission:
+        one: Càlla bu komisiyong
+        other: Càlla yu komisiyong
+      group/commission_nationale/encadreur:
+        one: Encadreur (kuy njàngale)
+        other: Encadreur
+      group/commission_nationale/conseiller:
+        one: Conseiller (kuy may xalaat)
+        other: Conseiller
+
+      group/anciens/president:
+        one: Njiitu Way-jëkk yi
+        other: Njiit yu Way-jëkk yi
+      group/anciens/membre_bureau:
+        one: Càlla bu biro Way-jëkk yi
+        other: Càlla yu biro Way-jëkk yi
+      group/anciens/membre:
+        one: Way-jëkk (Ancien éclaireur)
+        other: Way-jëkk yi
+
+      group/scouts_handicap/coordinateur:
+        one: Kuy taxawal SMT
+        other: Ñuy taxawal SMT
+      group/scouts_handicap/encadreur:
+        one: Encadreur SMT
+        other: Encadreur SMT
+      group/scouts_handicap/conseiller:
+        one: Conseiller SMT
+        other: Conseiller SMT
+      group/scouts_handicap/membre:
+        one: Càlla SMT
+        other: Càlla yu SMT
+
     attributes:
       person:
         languages:

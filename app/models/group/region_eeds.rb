@@ -6,13 +6,9 @@
 #  https://www.gnu.org/licenses/agpl-3.0.html.
 
 # Niveau Région (équivalent PBS Kantonalverband).
-# Une Région EEDS regroupe plusieurs Districts au sein d'une des 14 régions
-# administratives du Sénégal.
 #
 # Note : la classe est nommée `RegionEeds` (et non `Region`) pour éviter une
-# collision STI avec `Group::Region` du wagon PBS si les deux wagons devaient
-# un jour cohabiter. Le libellé affiché « Région » est fourni par les fichiers
-# de locale.
+# collision STI avec `Group::Region` du wagon PBS.
 class Group::RegionEeds < Group
   self.layer = true
 
@@ -25,30 +21,59 @@ class Group::RegionEeds < Group
     self.two_factor_authentication_enforced = true
   end
 
-  class CommissaireRegionalAdjoint < ::Role
+  # Adjoints par branche
+  class CommissaireRegionalAdjointJiwu < ::Role
     self.permissions = [:layer_and_below_full, :contact_data]
+  end
+
+  class CommissaireRegionalAdjointLawtan < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data]
+  end
+
+  class CommissaireRegionalAdjointToorToor < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data]
+  end
+
+  class CommissaireRegionalAdjointMenneef < ::Role
+    self.permissions = [:layer_and_below_full, :contact_data]
+  end
+
+  # Adjoints thématiques
+  class CommissaireRegionalAdjointFormation < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  class CommissaireRegionalAdjointCommunication < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  class CommissaireRegionalAdjointProgramme < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  # Équipe régionale
+  class MembreEquipeRegionale < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  # Fonctions support
+  class SecretaireRegional < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
   end
 
   class TresorierRegional < ::Role
     self.permissions = [:layer_and_below_read, :finance, :contact_data]
   end
 
-  class RespFormation < ::Role
-    self.permissions = [:layer_and_below_read, :contact_data]
-  end
-
-  class RespProgramme < ::Role
-    self.permissions = [:layer_and_below_read, :contact_data]
-  end
-
-  class RespCommunication < ::Role
-    self.permissions = [:layer_and_below_read, :contact_data]
-  end
-
   roles CommissaireRegional,
-    CommissaireRegionalAdjoint,
-    TresorierRegional,
-    RespFormation,
-    RespProgramme,
-    RespCommunication
+    CommissaireRegionalAdjointJiwu,
+    CommissaireRegionalAdjointLawtan,
+    CommissaireRegionalAdjointToorToor,
+    CommissaireRegionalAdjointMenneef,
+    CommissaireRegionalAdjointFormation,
+    CommissaireRegionalAdjointCommunication,
+    CommissaireRegionalAdjointProgramme,
+    MembreEquipeRegionale,
+    SecretaireRegional,
+    TresorierRegional
 end

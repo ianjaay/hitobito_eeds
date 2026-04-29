@@ -5,9 +5,8 @@
 #  version 3 or later. See the COPYING file at the top-level directory or at
 #  https://www.gnu.org/licenses/agpl-3.0.html.
 
-# Groupe Local Autonome : groupe local rattaché directement au National
-# (sans District ni Région intermédiaire). Mêmes branches et rôles que
-# Group::GroupeLocal.
+# Groupe Local Autonome : rattaché directement au National. Mêmes branches
+# et rôles qu'un Group::GroupeLocal.
 class Group::GroupeLocalAutonome < Group
   self.layer = true
 
@@ -23,8 +22,26 @@ class Group::GroupeLocalAutonome < Group
     self.two_factor_authentication_enforced = true
   end
 
-  class ChefGroupeAdjoint < ::Role
-    self.permissions = [:layer_and_below_full, :contact_data]
+  # Membres de la maîtrise locale (équipe d'encadrement)
+  class MembreMaitrise < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  # Responsables d'unité par branche
+  class RespUniteMbootaay < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  class RespUniteKayon < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  class RespUniteNawka < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  class RespUniteGalle < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
   end
 
   class SecretaireLocal < ::Role
@@ -35,18 +52,12 @@ class Group::GroupeLocalAutonome < Group
     self.permissions = [:layer_and_below_read, :finance, :contact_data]
   end
 
-  class RespMateriel < ::Role
-    self.permissions = [:group_read]
-  end
-
-  class RespParents < ::Role
-    self.permissions = [:group_read]
-  end
-
   roles ChefGroupe,
-    ChefGroupeAdjoint,
+    MembreMaitrise,
+    RespUniteMbootaay,
+    RespUniteKayon,
+    RespUniteNawka,
+    RespUniteGalle,
     SecretaireLocal,
-    TresorierLocal,
-    RespMateriel,
-    RespParents
+    TresorierLocal
 end

@@ -29,6 +29,6 @@ person = Person.seed_once(
 # Idempotent : si le rôle existe déjà sur ce groupe, ne pas le recréer.
 unless Role.exists?(person_id: person.id,
                     group_id: national.id,
-                    type: Group::National::President.sti_name)
-  Group::National::President.create!(person: person, group: national)
+                    type: Group::National::CommissaireNational.sti_name)
+  Group::National::CommissaireNational.create!(person: person, group: national)
 end

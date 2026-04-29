@@ -6,7 +6,6 @@
 #  https://www.gnu.org/licenses/agpl-3.0.html.
 
 # Niveau District (équivalent PBS Region).
-# Niveau intermédiaire de pilotage entre la Région et les Groupes Locaux.
 class Group::District < Group
   self.layer = true
 
@@ -23,6 +22,23 @@ class Group::District < Group
     self.permissions = [:layer_and_below_full, :contact_data]
   end
 
+  # Responsables par branche pédagogique
+  class RespBrancheJiwu < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  class RespBrancheLawtan < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  class RespBrancheToorToor < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
+  class RespBrancheMenneef < ::Role
+    self.permissions = [:layer_and_below_read, :contact_data]
+  end
+
   class SecretaireDistrict < ::Role
     self.permissions = [:layer_and_below_read, :contact_data]
   end
@@ -31,18 +47,12 @@ class Group::District < Group
     self.permissions = [:layer_and_below_read, :finance, :contact_data]
   end
 
-  class RespFormation < ::Role
-    self.permissions = [:layer_and_below_read, :contact_data]
-  end
-
-  class RespAnimation < ::Role
-    self.permissions = [:layer_and_below_read, :contact_data]
-  end
-
   roles CommissaireDistrict,
     CommissaireDistrictAdjoint,
+    RespBrancheJiwu,
+    RespBrancheLawtan,
+    RespBrancheToorToor,
+    RespBrancheMenneef,
     SecretaireDistrict,
-    TresorierDistrict,
-    RespFormation,
-    RespAnimation
+    TresorierDistrict
 end

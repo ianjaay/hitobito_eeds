@@ -22,15 +22,10 @@ describe Group::DistrictAutonome do
     expect(type.possible_children).to eq([Group::GroupeLocal])
   end
 
-  it "declares the expected role types" do
-    expect(type.role_types).to match_array([
-      Group::DistrictAutonome::CommissaireDistrict,
-      Group::DistrictAutonome::CommissaireDistrictAdjoint,
-      Group::DistrictAutonome::SecretaireDistrict,
-      Group::DistrictAutonome::TresorierDistrict,
-      Group::DistrictAutonome::RespFormation,
-      Group::DistrictAutonome::RespAnimation
-    ])
+  it "declares the same role types as Group::District" do
+    expect(type.role_types.map { |r| r.name.demodulize }).to match_array(
+      Group::District.role_types.map { |r| r.name.demodulize }
+    )
   end
 
   it "enforces 2FA on the Commissaire de district" do

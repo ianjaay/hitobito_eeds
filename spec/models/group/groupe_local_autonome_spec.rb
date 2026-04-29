@@ -27,15 +27,10 @@ describe Group::GroupeLocalAutonome do
     ])
   end
 
-  it "declares the expected role types" do
-    expect(type.role_types).to match_array([
-      Group::GroupeLocalAutonome::ChefGroupe,
-      Group::GroupeLocalAutonome::ChefGroupeAdjoint,
-      Group::GroupeLocalAutonome::SecretaireLocal,
-      Group::GroupeLocalAutonome::TresorierLocal,
-      Group::GroupeLocalAutonome::RespMateriel,
-      Group::GroupeLocalAutonome::RespParents
-    ])
+  it "declares the same role types as Group::GroupeLocal" do
+    expect(type.role_types.map { |r| r.name.demodulize }).to match_array(
+      Group::GroupeLocal.role_types.map { |r| r.name.demodulize }
+    )
   end
 
   it "enforces 2FA on the Chef·fe de groupe" do
