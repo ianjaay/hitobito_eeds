@@ -9,6 +9,7 @@
 # Contient les unités pédagogiques par branche.
 class Group::GroupeLocal < Group
   self.layer = true
+  self.event_types = [Event, Event::Camp]
 
   children Group::Mbootaay,
     Group::Kayon,

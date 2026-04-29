@@ -7,6 +7,8 @@
 
 # Branche Lawtan wi (12 à 15 ans). Unité = Kayon, sous-unité = patrouille.
 class Group::Kayon < Group
+  self.event_types = [Event, Event::Camp]
+
   BRANCH_COLOR = "#00853f"
   BRANCH_COLOR_NAME = "verte"
 

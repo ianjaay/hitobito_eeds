@@ -8,6 +8,7 @@
 # Niveau District (équivalent PBS Region).
 class Group::District < Group
   self.layer = true
+  self.event_types = [Event, Event::Course, Event::Camp]
 
   children Group::GroupeLocal
 

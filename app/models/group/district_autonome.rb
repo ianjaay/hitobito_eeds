@@ -9,6 +9,7 @@
 # intermédiaire). Mêmes responsabilités fonctionnelles qu'un Group::District.
 class Group::DistrictAutonome < Group
   self.layer = true
+  self.event_types = [Event, Event::Course, Event::Camp]
 
   children Group::GroupeLocal
 

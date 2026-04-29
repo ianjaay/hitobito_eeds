@@ -11,6 +11,7 @@
 # collision STI avec `Group::Region` du wagon PBS.
 class Group::RegionEeds < Group
   self.layer = true
+  self.event_types = [Event, Event::Course, Event::Camp]
 
   children Group::District
 

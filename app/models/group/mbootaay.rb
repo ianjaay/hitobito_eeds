@@ -7,6 +7,8 @@
 
 # Branche Jiwu wi (5 à 11 ans). Unité = Mbootaay, sous-unité = sizaine.
 class Group::Mbootaay < Group
+  self.event_types = [Event, Event::Camp]
+
   BRANCH_COLOR = "#fdef42"
   BRANCH_COLOR_NAME = "jaune"
 

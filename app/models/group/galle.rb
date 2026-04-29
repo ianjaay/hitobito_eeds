@@ -7,6 +7,8 @@
 
 # Branche Meññeef mi (18+). Unité = Gàlle, sous-unité = équipe.
 class Group::Galle < Group
+  self.event_types = [Event, Event::Camp]
+
   BRANCH_COLOR = "#e31b23"
   BRANCH_COLOR_NAME = "rouge"
 

@@ -328,6 +328,16 @@ fr:
         one: Membre SMT
         other: Membres SMT
 
+      # === Évènements / Camps EEDS ===
+      event/camp:
+        one: Camp
+        other: Camps
+        long: Camp EEDS
+      event/approval:
+        one: Approbation
+        other: Approbations
+        long: Approbation hiérarchique d'une candidature à un camp
+
     # === Attributs Person ===
     attributes:
       person:
@@ -349,3 +359,39 @@ fr:
         parent_contact_email: E-mail du parent / tuteur
         profession: Profession
         competences: Compétences
+      event/camp:
+        camp_location: Lieu du camp
+        camp_address: Adresse du camp
+        camp_coordinates: Coordonnées GPS
+        camp_emergency_phone: Téléphone d'urgence
+        camp_owner: Propriétaire / responsable du lieu
+        camp_submitted: Soumis au National
+        parental_authorizations_collected: Autorisations parentales collectées
+        assurance_validated: Assurance validée
+        camp_days_count_validated_on: Date de validation du nombre de jours
+        requires_approval_groupe_local: Approbation Groupe Local requise
+        requires_approval_district: Approbation District requise
+        requires_approval_region: Approbation Région requise
+        requires_approval_national: Approbation National requise
+        expected_participants_jiwu_f: Participantes Jiwu attendues
+        expected_participants_jiwu_m: Participants Jiwu attendus
+        expected_participants_lawtan_f: Participantes Lawtan attendues
+        expected_participants_lawtan_m: Participants Lawtan attendus
+        expected_participants_toor_toor_f: Participantes Toor-Toor attendues
+        expected_participants_toor_toor_m: Participants Toor-Toor attendus
+        expected_participants_menneef_f: Participantes Meññeef attendues
+        expected_participants_menneef_m: Participants Meññeef attendus
+        expected_participants_encadrement_f: Encadrantes attendues
+        expected_participants_encadrement_m: Encadrants attendus
+      event/approval:
+        layer: Niveau hiérarchique
+        approved: Approuvée
+        rejected: Rejetée
+        comment: Commentaire
+        approved_at: Date d'approbation
+        approver_id: Approbateur·trice
+    layers:
+      groupe_local: Groupe local
+      district: District
+      region: Région
+      national: National

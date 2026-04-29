@@ -7,6 +7,8 @@
 
 # Branche Toor-Toor wi (16 à 18 ans). Unité = Ñawka, sous-unité = équipe.
 class Group::Nawka < Group
+  self.event_types = [Event, Event::Camp]
+
   BRANCH_COLOR = "#ffffff"
   BRANCH_COLOR_NAME = "blanche"
 

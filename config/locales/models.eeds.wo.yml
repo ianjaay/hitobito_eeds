@@ -333,3 +333,39 @@ wo:
         parent_contact_email: Imeel waajur
         profession: Liggéey
         competences: Xam-xam
+      event/camp:
+        camp_location: Bérebu kamp
+        camp_address: Adres bu kamp
+        camp_coordinates: Koordone GPS
+        camp_emergency_phone: Telefon ngir musiba
+        camp_owner: Borom bérebu kamp
+        camp_submitted: Yónni ci National
+        parental_authorizations_collected: Ndigël waajur ñu jot ko
+        assurance_validated: Asyaraans ñu nangu ko
+        camp_days_count_validated_on: Bés bu nangoo limu fan yi
+        requires_approval_groupe_local: Ndigël Groupe Local
+        requires_approval_district: Ndigël District
+        requires_approval_region: Ndigël Région
+        requires_approval_national: Ndigël National
+        expected_participants_jiwu_f: Janq Jiwu yi ñuy séentu
+        expected_participants_jiwu_m: Xale Jiwu yi ñuy séentu
+        expected_participants_lawtan_f: Janq Lawtan yi ñuy séentu
+        expected_participants_lawtan_m: Xale Lawtan yi ñuy séentu
+        expected_participants_toor_toor_f: Janq Toor-Toor yi ñuy séentu
+        expected_participants_toor_toor_m: Xale Toor-Toor yi ñuy séentu
+        expected_participants_menneef_f: Janq Meññeef yi ñuy séentu
+        expected_participants_menneef_m: Xale Meññeef yi ñuy séentu
+        expected_participants_encadrement_f: Jigéen ñuy yor ñuy séentu
+        expected_participants_encadrement_m: Góor ñuy yor ñuy séentu
+      event/approval:
+        layer: Daara
+        approved: Nangu
+        rejected: Bañ
+        comment: Mbind
+        approved_at: Bés bu nangoo
+        approver_id: Ki nangu
+    layers:
+      groupe_local: Groupe lokaal
+      district: Distrik
+      region: Réjon
+      national: Nasional

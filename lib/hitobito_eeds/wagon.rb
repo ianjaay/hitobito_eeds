@@ -42,6 +42,10 @@ module HitobitoEeds
       # Extend Person with EEDS-specific fields (matricule_scout, branche,
       # parent contact, etc.).
       Person.include Eeds::Person
+
+      # Force-load the EEDS Camp STI subclass so that Event#types collects it
+      # for use by Group#event_types and the type selector.
+      Event::Camp
     end
 
     # We can't directly override the languages hash in a config file since

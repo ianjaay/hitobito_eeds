@@ -9,6 +9,7 @@
 # et rôles qu'un Group::GroupeLocal.
 class Group::GroupeLocalAutonome < Group
   self.layer = true
+  self.event_types = [Event, Event::Camp]
 
   children Group::Mbootaay,
     Group::Kayon,

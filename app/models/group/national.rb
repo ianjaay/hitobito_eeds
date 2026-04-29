@@ -15,6 +15,7 @@
 #   - Trésorier·ière + Secrétaire général·e
 class Group::National < Group
   self.layer = true
+  self.event_types = [Event, Event::Course, Event::Camp]
 
   children Group::RegionEeds,
     Group::DistrictAutonome,
