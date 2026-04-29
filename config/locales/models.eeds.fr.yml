@@ -231,3 +231,10 @@ fr:
       group/galle/mawdo:
         one: Mawdo
         other: Mawdo
+
+    # === Attributs Person ===
+    attributes:
+      person:
+        languages:
+          fr: Français
+          wo: Wolof
