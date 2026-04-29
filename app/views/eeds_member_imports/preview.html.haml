@@ -1,0 +1,60 @@
+- content_for :title, t(".title")
+
+- if @result.errors.any?
+  .alert.alert-danger
+    %h4= t(".errors")
+    %ul
+      - @result.errors.each do |err|
+        %li
+          - if err.line.to_i > 0
+            %strong= "L#{err.line}"
+            - if err.matricule.present?
+              = " (#{err.matricule})"
+            = " — "
+          = err.messages.join(" ; ")
+
+- if @result.created.any?
+  %h4= "#{t(".created")} (#{@result.created.size})"
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= t("activerecord.attributes.person.matricule_scout")
+        %th= Person.human_attribute_name(:first_name)
+        %th= Person.human_attribute_name(:last_name)
+        %th= t("activerecord.attributes.person.branche")
+        %th= Group.model_name.human
+    %tbody
+      - @result.created.each do |row|
+        %tr
+          %td= row[:matricule]
+          %td= row[:name]
+          %td= row[:branche]
+          %td= row[:group]
+
+- if @result.updated.any?
+  %h4= "#{t(".updated")} (#{@result.updated.size})"
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= t("activerecord.attributes.person.matricule_scout")
+        %th= Person.human_attribute_name(:first_name)
+        %th= Person.human_attribute_name(:last_name)
+        %th= t("activerecord.attributes.person.branche")
+        %th= Group.model_name.human
+    %tbody
+      - @result.updated.each do |row|
+        %tr
+          %td= row[:matricule]
+          %td= row[:name]
+          %td= row[:branche]
+          %td= row[:group]
+
+- if @result.success?
+  = form_tag eeds_member_imports_path, multipart: true, class: "form-actions" do
+    %p.alert.alert-info= t(".reupload_hint")
+    = file_field_tag :file, accept: ".csv,text/csv", required: true
+    = submit_tag t(".confirm"), class: "btn btn-primary"
+    = link_to t(".cancel"), new_eeds_member_imports_path, class: "btn"
+- else
+  .form-actions
+    = link_to t(".cancel"), new_eeds_member_imports_path, class: "btn"

@@ -1,0 +1,12 @@
+- content_for :title, t(".title")
+
+= form_tag preview_eeds_member_imports_path, multipart: true, class: "form-horizontal" do
+  .control-group
+    = label_tag :file, t(".file"), class: "control-label"
+    .controls
+      = file_field_tag :file, accept: ".csv,text/csv", required: true
+      %p.help-block= t(".hint")
+
+  .form-actions
+    = submit_tag t(".submit"), class: "btn btn-primary"
+    = link_to t("global.button.cancel"), root_path, class: "btn"
