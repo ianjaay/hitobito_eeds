@@ -50,6 +50,9 @@ module HitobitoEeds
       # Approval workflow wiring (Phase 3B engine).
       Event::Application.include Eeds::EventApplication
       Ability.store.register Event::ApprovalAbility
+
+      # Cotisations (Phase 3C engine).
+      Ability.store.register MembershipFeeAbility
     end
 
     # We can't directly override the languages hash in a config file since

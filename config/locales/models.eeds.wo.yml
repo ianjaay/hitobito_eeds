@@ -377,3 +377,40 @@ wo:
       district: Distrik
       region: Réjon
       national: Nasional
+      membership_fee:
+        person_id: Càmbar
+        group_id: Mbootaay
+        year: At
+        branche: Bos
+        amount: Pàcc
+        amount_cents: Pàcc (santimet)
+        currency: Xaalis
+        status: Anam
+        paid_at: Faye ci
+        payment_method: Anam u faye
+        reference: Tur wu kawe
+        comment: Wax
+        recorded_by_id: Bind ko
+        statuses:
+          pending: Di xaar
+          paid: Fay nañu
+          exempted: Bàyyi nañu
+          cancelled: Tas nañu
+        payment_methods:
+          cash: Xaalis
+          bank_transfer: Yónnee bànk
+          mobile_money: Mobile money
+          other: Beneen
+        branches:
+          jiwu: Jiwu (Mbootaay)
+          lawtan: Lawtan (Kayon)
+          toor_toor: Toor-Toor (Ñawka)
+          menneef: Meññeef (Gàlle)
+          encadrement: Njiitu xale
+      membership_fee_rate:
+        year: At
+        branche: Bos
+        amount: Pàcc
+        amount_cents: Pàcc (santimet)
+        currency: Xaalis
+        description: Yenneen wax

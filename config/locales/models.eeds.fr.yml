@@ -403,3 +403,40 @@ fr:
       district: District
       region: Région
       national: National
+      membership_fee:
+        person_id: Membre
+        group_id: Groupe local
+        year: Année
+        branche: Branche
+        amount: Montant
+        amount_cents: Montant (centimes)
+        currency: Devise
+        status: Statut
+        paid_at: Payée le
+        payment_method: Mode de paiement
+        reference: Référence
+        comment: Commentaire
+        recorded_by_id: Enregistrée par
+        statuses:
+          pending: En attente
+          paid: Payée
+          exempted: Exemptée
+          cancelled: Annulée
+        payment_methods:
+          cash: Espèces
+          bank_transfer: Virement
+          mobile_money: Mobile money
+          other: Autre
+        branches:
+          jiwu: Jiwu (Mbootaay)
+          lawtan: Lawtan (Kayon)
+          toor_toor: Toor-Toor (Ñawka)
+          menneef: Meññeef (Gàlle)
+          encadrement: Encadrement
+      membership_fee_rate:
+        year: Année
+        branche: Branche
+        amount: Montant
+        amount_cents: Montant (centimes)
+        currency: Devise
+        description: Description
