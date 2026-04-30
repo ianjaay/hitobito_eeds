@@ -20,6 +20,8 @@ fr:
       back: Retour
       confirm: Confirmer
       search: Rechercher
+      export_csv: Exporter (CSV)
+      export_xlsx: Exporter (Excel)
 
   groups:
     nav:

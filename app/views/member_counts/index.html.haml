@@ -7,6 +7,8 @@
   = button_to t("member_counts.index.recompute"), recompute_group_member_counts_path(@group, year: @year),
       method: :post, class: "btn btn-success",
       data: {confirm: t("member_counts.index.recompute_confirm")}
+  = link_to t("global.button.export_csv"), export_group_member_counts_path(@group, year: @year, format: :csv), class: "btn btn-default"
+  = link_to t("global.button.export_xlsx"), export_group_member_counts_path(@group, year: @year, format: :xlsx), class: "btn btn-default"
 
 %table.table.table-striped.table-bordered
   %thead

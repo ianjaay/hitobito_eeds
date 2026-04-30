@@ -38,6 +38,12 @@
     method: :post,
     class: "btn btn-default",
     data: {confirm: t(".remind_confirm")}
+  = link_to t("global.button.export_csv"),
+    export_group_membership_fees_path(@group, year: @year, branche: @branche, status: @status, format: :csv),
+    class: "btn btn-default"
+  = link_to t("global.button.export_xlsx"),
+    export_group_membership_fees_path(@group, year: @year, branche: @branche, status: @status, format: :xlsx),
+    class: "btn btn-default"
 
 - if @fees.empty?
   %p.muted= t(".no_fees")

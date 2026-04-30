@@ -30,11 +30,23 @@ class BlacklistsController < CrudController
     end
   end
 
+  def export
+    list = Blacklist.search_by(params[:q].presence).order(:last_name, :first_name)
+    case params[:format]
+    when "xlsx"
+      send_data Export::Tabular::Blacklists::List.xlsx(list),
+        type: :xlsx, filename: "blacklist_#{Time.zone.today}.xlsx"
+    else
+      send_data Export::Tabular::Blacklists::List.csv(list),
+        type: :csv, filename: "blacklist_#{Time.zone.today}.csv"
+    end
+  end
+
   private
 
   def authorize_action
     case action_name
-    when "index", "show", "new", "create"
+    when "index", "show", "new", "create", "export"
       authorize!(:index, Blacklist)
     else
       authorize!(:update, entry)

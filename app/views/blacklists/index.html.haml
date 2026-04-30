@@ -4,6 +4,8 @@
   = text_field_tag :q, @term, class: "form-control", placeholder: t("blacklists.index.search_ph")
   = submit_tag t("global.button.filter"), class: "btn btn-primary"
   = link_to t("blacklists.index.new"), new_blacklist_path, class: "btn btn-danger"
+  = link_to t("global.button.export_csv"), export_blacklists_path(q: @term, format: :csv), class: "btn btn-default"
+  = link_to t("global.button.export_xlsx"), export_blacklists_path(q: @term, format: :xlsx), class: "btn btn-default"
 
 %table.table.table-striped
   %thead

@@ -48,6 +48,19 @@ class CrisesController < CrudController
       notice: I18n.t("crises.flash.completed", default: "Crise clôturée.")
   end
 
+  def export
+    crises = Crisis.for_group(group).order(created_at: :desc)
+      .includes(:creator, :acknowledged_by, :completed_by, :group)
+    case params[:format]
+    when "xlsx"
+      send_data Export::Tabular::Crises::List.xlsx(crises),
+        type: :xlsx, filename: "crises_#{Time.zone.today}.xlsx"
+    else
+      send_data Export::Tabular::Crises::List.csv(crises),
+        type: :csv, filename: "crises_#{Time.zone.today}.csv"
+    end
+  end
+
   private
 
   def model_scope
@@ -61,6 +74,8 @@ class CrisesController < CrudController
   def authorize_action
     case action_name
     when "index", "show"
+      authorize!(:show, Crisis.new(group: group))
+    when "export"
       authorize!(:show, Crisis.new(group: group))
     when "new", "create"
       authorize!(:create, Crisis.new(group: group, creator: current_user))

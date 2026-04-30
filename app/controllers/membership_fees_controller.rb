@@ -71,6 +71,21 @@ class MembershipFeesController < CrudController
         default: "%{count} rappel(s) envoyé(s).")
   end
 
+  def export
+    @year = params[:year].presence&.to_i || default_year
+    @branche = params[:branche].presence
+    @status  = params[:status].presence
+    fees = list_entries.includes(:person, :recorded_by, :group)
+    case params[:format]
+    when "xlsx"
+      send_data Export::Tabular::MembershipFees::List.xlsx(fees),
+        type: :xlsx, filename: "cotisations_#{@year}.xlsx"
+    else
+      send_data Export::Tabular::MembershipFees::List.csv(fees),
+        type: :csv, filename: "cotisations_#{@year}.csv"
+    end
+  end
+
   private
 
   def default_year
@@ -101,6 +116,8 @@ class MembershipFeesController < CrudController
   def authorize_action
     case action_name
     when "index"
+      authorize!(:show, MembershipFee.new(group: group))
+    when "export"
       authorize!(:show, MembershipFee.new(group: group))
     when "generate", "remind"
       authorize!(:create, MembershipFee.new(group: group))

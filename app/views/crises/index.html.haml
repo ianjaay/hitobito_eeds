@@ -2,6 +2,8 @@
 
 %p
   = link_to t("crises.index.new"), new_group_crisis_path(@group), class: "btn btn-danger"
+  = link_to t("global.button.export_csv"), export_group_crises_path(@group, format: :csv), class: "btn btn-default"
+  = link_to t("global.button.export_xlsx"), export_group_crises_path(@group, format: :xlsx), class: "btn btn-default"
 
 %table.table.table-striped.table-bordered
   %thead

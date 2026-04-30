@@ -20,6 +20,8 @@ wo:
       back: Dellu
       confirm: Dëggal
       search: Seet
+      export_csv: Génne (CSV)
+      export_xlsx: Génne (Excel)
     flash:
       saved: Denc nañu ko bu baax.
       deleted: Far nañu ko bu baax.

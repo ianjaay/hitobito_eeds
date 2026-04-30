@@ -35,13 +35,17 @@ Rails.application.routes.draw do
         collection do
           post :generate
           post :remind
+          get :export
         end
       end
 
       resources :membership_fee_rates
 
       resources :member_counts, only: [:index, :edit, :update] do
-        collection { post :recompute }
+        collection do
+          post :recompute
+          get :export
+        end
       end
 
       resources :crises, only: [:index, :new, :create] do
@@ -49,10 +53,13 @@ Rails.application.routes.draw do
           patch :acknowledge
           patch :complete
         end
+        collection { get :export }
       end
     end
 
     resources :censuses
-    resources :blacklists
+    resources :blacklists do
+      collection { get :export }
+    end
   end
 end

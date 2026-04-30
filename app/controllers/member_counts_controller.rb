@@ -32,6 +32,19 @@ class MemberCountsController < CrudController
       notice: I18n.t("member_counts.flash.recomputed", default: "Effectifs recalculés.")
   end
 
+  def export
+    @year = params[:year].presence&.to_i || default_year
+    counts = MemberCount.where(group_id: descendant_group_ids).for_year(@year).includes(:group)
+    case params[:format]
+    when "xlsx"
+      send_data Export::Tabular::MemberCounts::List.xlsx(counts),
+        type: :xlsx, filename: "effectifs_#{@year}.xlsx"
+    else
+      send_data Export::Tabular::MemberCounts::List.csv(counts),
+        type: :csv, filename: "effectifs_#{@year}.csv"
+    end
+  end
+
   private
 
   def default_year
@@ -52,7 +65,7 @@ class MemberCountsController < CrudController
   end
 
   def authorize_action
-    if %w[index show].include?(action_name)
+    if %w[index show export].include?(action_name)
       authorize!(:show, MemberCount.new(group: group))
     elsif action_name == "recompute"
       authorize!(:update, MemberCount.new(group: group))
