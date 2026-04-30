@@ -223,3 +223,9 @@ blacklists:
     reason: Sabab
   flash:
     created: "Yokku nañu ko ci liste signalement."
+
+  eeds:
+    tabs:
+      membership_fees: Galag
+      member_counts: Limu mbooloo
+      crises: Jafe-jafe

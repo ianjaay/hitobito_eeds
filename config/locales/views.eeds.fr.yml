@@ -224,3 +224,9 @@ blacklists:
     reason: Motif
   flash:
     created: "Entrée ajoutée à la liste de signalement."
+
+  eeds:
+    tabs:
+      membership_fees: Cotisations
+      member_counts: Effectifs
+      crises: Crises

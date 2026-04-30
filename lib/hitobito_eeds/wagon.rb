@@ -62,6 +62,16 @@ module HitobitoEeds
 
       # Blacklist (Phase 3F engine).
       Ability.store.register BlacklistAbility
+
+      # Group sheet (sub-navigation tabs): Camps, Cotisations, Effectifs, Crises.
+      Sheet::Group.include Eeds::Sheet::Group
+
+      # Main navigation: add Blacklist under :admin (admin-only filter via Ability).
+      admin_section = NavigationHelper::MAIN.find { |opts| opts[:label] == :admin }
+      if admin_section
+        admin_section[:active_for] ||= []
+        admin_section[:active_for] << "blacklists" unless admin_section[:active_for].include?("blacklists")
+      end
     end
 
     # We can't directly override the languages hash in a config file since

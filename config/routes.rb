@@ -17,6 +17,9 @@ Rails.application.routes.draw do
 
     resources :groups, only: [] do
       resources :events, only: [] do
+        collection do
+          get "camp" => "events#index", type: "Event::Camp"
+        end
         scope module: "event" do
           resources :participations, only: [] do
             resources :approvals, only: [:new, :create, :index]
