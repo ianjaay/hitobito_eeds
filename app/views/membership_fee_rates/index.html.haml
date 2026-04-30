@@ -1,0 +1,40 @@
+-#  Copyright (c) 2026, Éclaireuses et Éclaireurs du Sénégal. This file is part
+-#  of hitobito_eeds and licensed under the Affero General Public License
+-#  version 3 or later. See the COPYING file at the top-level directory or at
+-#  https://www.gnu.org/licenses/agpl-3.0.html.
+
+%h1= title(t(".title", year: @year))
+
+= form_tag group_membership_fee_rates_path(@group), method: :get, class: "form-inline" do
+  = label_tag :year
+  = number_field_tag :year, @year, class: "form-control input-sm", style: "width:6em"
+  = submit_tag t(".filter"), class: "btn btn-default btn-sm"
+
+%hr
+
+- if can?(:create, MembershipFee.new(group: @group))
+  = link_to t(".new"), new_group_membership_fee_rate_path(@group, year: @year), class: "btn btn-primary btn-sm"
+
+- if @rates.empty?
+  %p.muted= t(".no_rates")
+- else
+  %table.table
+    %thead
+      %tr
+        %th= MembershipFeeRate.human_attribute_name(:branche)
+        %th= MembershipFeeRate.human_attribute_name(:amount)
+        %th= MembershipFeeRate.human_attribute_name(:description)
+        %th
+    %tbody
+      - @rates.each do |rate|
+        %tr
+          %td= MembershipFee.human_attribute_name("branches.#{rate.branche}")
+          %td= "#{rate.amount.to_i} #{rate.currency}"
+          %td= rate.description
+          %td
+            - if can?(:create, MembershipFee.new(group: @group))
+              = link_to t("global.edit"), edit_group_membership_fee_rate_path(@group, rate), class: "btn btn-xs btn-default"
+              = link_to t("global.delete"),
+                group_membership_fee_rate_path(@group, rate),
+                method: :delete, data: {confirm: t("global.confirm_delete")},
+                class: "btn btn-xs btn-danger"

@@ -83,3 +83,43 @@ event:
     actions_approval:
       approve: Approuver
       reject: Rejeter
+
+membership_fees:
+  index:
+    title: "Cotisations de %{group} — %{year}"
+    year: Année
+    branche: Branche
+    status: Statut
+    all: Tous
+    filter: Filtrer
+    generate: "Générer les cotisations %{year}"
+    generate_confirm: "Générer toutes les cotisations manquantes pour %{year} ?"
+    remind: Envoyer les rappels
+    remind_confirm: Envoyer un email de rappel à tous les membres avec une cotisation impayée ?
+    no_fees: Aucune cotisation pour les filtres choisis.
+    actions: Actions
+    mark_paid: Marquer payée
+    mark_exempted: Exempter
+    cancel: Annuler
+    confirm_exempted: Exempter cette cotisation ?
+    confirm_cancel: Annuler cette cotisation ?
+  edit:
+    title: "Marquer payée — %{person}"
+    submit: Valider le paiement
+  flash:
+    paid: Cotisation marquée comme payée.
+    exempted: Cotisation exemptée.
+    cancelled: Cotisation annulée.
+    generated: "%{count} cotisation(s) générée(s)."
+    reminded: "%{count} rappel(s) envoyé(s)."
+
+membership_fee_rates:
+  index:
+    title: "Grille tarifaire — %{year}"
+    filter: Filtrer
+    new: Ajouter un tarif
+    no_rates: Aucun tarif défini pour cette année.
+  new:
+    title: Nouveau tarif de cotisation
+  edit:
+    title: "Modifier tarif — %{branche}"

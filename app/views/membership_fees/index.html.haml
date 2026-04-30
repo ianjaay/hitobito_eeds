@@ -1,0 +1,81 @@
+-#  Copyright (c) 2026, Éclaireuses et Éclaireurs du Sénégal. This file is part
+-#  of hitobito_eeds and licensed under the Affero General Public License
+-#  version 3 or later. See the COPYING file at the top-level directory or at
+-#  https://www.gnu.org/licenses/agpl-3.0.html.
+
+%h1= title(t(".title", group: @group.to_s, year: @year))
+
+= form_tag group_membership_fees_path(@group), method: :get, class: "form-inline" do
+  = label_tag :year, t(".year")
+  = number_field_tag :year, @year, class: "form-control input-sm", style: "width:6em"
+  &nbsp;
+  = label_tag :branche, t(".branche")
+  = select_tag :branche,
+    options_for_select([[t(".all"), nil]] +
+      MembershipFee::BRANCHES.map { |b| [MembershipFee.human_attribute_name("branches.#{b}"), b] },
+      @branche),
+    class: "form-control input-sm"
+  &nbsp;
+  = label_tag :status, t(".status")
+  = select_tag :status,
+    options_for_select([[t(".all"), nil]] +
+      MembershipFee::STATUSES.map { |s| [MembershipFee.human_attribute_name("statuses.#{s}"), s] },
+      @status),
+    class: "form-control input-sm"
+  &nbsp;
+  = submit_tag t(".filter"), class: "btn btn-default btn-sm"
+
+%hr
+
+.btn-toolbar
+  = button_to t(".generate"),
+    generate_group_membership_fees_path(@group, year: @year),
+    method: :post,
+    class: "btn btn-primary",
+    data: {confirm: t(".generate_confirm", year: @year)}
+  = button_to t(".remind"),
+    remind_group_membership_fees_path(@group, year: @year),
+    method: :post,
+    class: "btn btn-default",
+    data: {confirm: t(".remind_confirm")}
+
+- if @fees.empty?
+  %p.muted= t(".no_fees")
+- else
+  %table.table.table-hover
+    %thead
+      %tr
+        %th= MembershipFee.human_attribute_name(:person_id)
+        %th= MembershipFee.human_attribute_name(:branche)
+        %th= MembershipFee.human_attribute_name(:amount)
+        %th= MembershipFee.human_attribute_name(:status)
+        %th= MembershipFee.human_attribute_name(:paid_at)
+        %th= t(".actions")
+    %tbody
+      - @fees.each do |fee|
+        %tr
+          %td= link_to_if(can?(:show, fee.person), fee.person.to_s, fee.person)
+          %td= MembershipFee.human_attribute_name("branches.#{fee.branche}")
+          %td= "#{fee.amount.to_i} #{fee.currency}"
+          %td
+            - case fee.status
+            - when "paid"
+              %span.label.label-success= MembershipFee.human_attribute_name("statuses.paid")
+            - when "exempted"
+              %span.label.label-info= MembershipFee.human_attribute_name("statuses.exempted")
+            - when "cancelled"
+              %span.label= MembershipFee.human_attribute_name("statuses.cancelled")
+            - else
+              %span.label.label-warning= MembershipFee.human_attribute_name("statuses.pending")
+          %td= f(fee.paid_at)
+          %td
+            - if fee.pending? && can?(:update, fee)
+              = link_to t(".mark_paid"), edit_group_membership_fee_path(@group, fee), class: "btn btn-xs btn-success"
+              = button_to t(".mark_exempted"),
+                mark_exempted_group_membership_fee_path(@group, fee),
+                method: :patch, class: "btn btn-xs btn-info",
+                data: {confirm: t(".confirm_exempted")}
+              = button_to t(".cancel"),
+                cancel_group_membership_fee_path(@group, fee),
+                method: :patch, class: "btn btn-xs btn-default",
+                data: {confirm: t(".confirm_cancel")}

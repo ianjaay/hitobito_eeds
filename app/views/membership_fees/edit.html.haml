@@ -1,0 +1,30 @@
+-#  Copyright (c) 2026, Éclaireuses et Éclaireurs du Sénégal. This file is part
+-#  of hitobito_eeds and licensed under the Affero General Public License
+-#  version 3 or later. See the COPYING file at the top-level directory or at
+-#  https://www.gnu.org/licenses/agpl-3.0.html.
+
+%h1= title(t(".title", person: entry.person.to_s))
+
+= form_with model: entry, url: mark_paid_group_membership_fee_path(@group, entry),
+  method: :patch, scope: :membership_fee, html: {class: "form-horizontal"} do |f|
+  .control-group
+    = f.label :payment_method, MembershipFee.human_attribute_name(:payment_method), class: "control-label"
+    .controls
+      = f.select :payment_method,
+        MembershipFee::PAYMENT_METHODS.map { |m| [MembershipFee.human_attribute_name("payment_methods.#{m}"), m] },
+        {}, class: "form-control"
+  .control-group
+    = f.label :reference, MembershipFee.human_attribute_name(:reference), class: "control-label"
+    .controls
+      = f.text_field :reference, class: "form-control"
+  .control-group
+    = f.label :paid_at, MembershipFee.human_attribute_name(:paid_at), class: "control-label"
+    .controls
+      = f.date_field :paid_at, value: Time.zone.today, class: "form-control"
+  .control-group
+    = f.label :comment, MembershipFee.human_attribute_name(:comment), class: "control-label"
+    .controls
+      = f.text_area :comment, rows: 3, class: "form-control"
+  .form-actions
+    = f.submit t(".submit"), class: "btn btn-primary"
+    = link_to t("global.cancel"), group_membership_fees_path(@group, year: entry.year), class: "btn btn-default"

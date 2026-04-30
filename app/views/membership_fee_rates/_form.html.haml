@@ -1,0 +1,32 @@
+-#  Copyright (c) 2026, Éclaireuses et Éclaireurs du Sénégal. This file is part
+-#  of hitobito_eeds and licensed under the Affero General Public License
+-#  version 3 or later. See the COPYING file at the top-level directory or at
+-#  https://www.gnu.org/licenses/agpl-3.0.html.
+
+= form_with model: entry, url: form_url, scope: :membership_fee_rate,
+  html: {class: "form-horizontal"} do |f|
+  .control-group
+    = f.label :year, MembershipFeeRate.human_attribute_name(:year), class: "control-label"
+    .controls
+      = f.number_field :year, value: entry.year || (params[:year] || Time.zone.today.year), class: "form-control"
+  .control-group
+    = f.label :branche, MembershipFeeRate.human_attribute_name(:branche), class: "control-label"
+    .controls
+      = f.select :branche,
+        MembershipFee::BRANCHES.map { |b| [MembershipFee.human_attribute_name("branches.#{b}"), b] },
+        {}, class: "form-control"
+  .control-group
+    = f.label :amount_cents, MembershipFeeRate.human_attribute_name(:amount_cents), class: "control-label"
+    .controls
+      = f.number_field :amount_cents, class: "form-control"
+  .control-group
+    = f.label :currency, MembershipFeeRate.human_attribute_name(:currency), class: "control-label"
+    .controls
+      = f.text_field :currency, value: entry.currency || "XOF", class: "form-control"
+  .control-group
+    = f.label :description, MembershipFeeRate.human_attribute_name(:description), class: "control-label"
+    .controls
+      = f.text_area :description, rows: 3, class: "form-control"
+  .form-actions
+    = f.submit class: "btn btn-primary"
+    = link_to t("global.cancel"), group_membership_fee_rates_path(@group, year: entry.year), class: "btn btn-default"

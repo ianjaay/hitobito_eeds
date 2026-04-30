@@ -82,3 +82,43 @@ event:
     actions_approval:
       approve: Nangu
       reject: Bañ
+
+membership_fees:
+  index:
+    title: "Pàcc yi ci %{group} — %{year}"
+    year: At
+    branche: Bos
+    status: Anam
+    all: Lépp
+    filter: Tànn
+    generate: "Sos pàcc yi at %{year}"
+    generate_confirm: "Sos pàcc yi mën a fàtte ngir %{year} ?"
+    remind: Yónnee fàttalikuwaay
+    remind_confirm: Yónnee i email ngir fàttali ñépp ñu fey wula?
+    no_fees: Amul benn pàcc.
+    actions: Tànn
+    mark_paid: Bind ne fay nañu
+    mark_exempted: Bàyyi
+    cancel: Tas
+    confirm_exempted: Bàyyi pàcc bii ?
+    confirm_cancel: Tas pàcc bii ?
+  edit:
+    title: "Bind ne fay nañu — %{person}"
+    submit: Wottu paye bi
+  flash:
+    paid: Pàcc bi binde nañu ko ne fay nañu ko.
+    exempted: Bàyyi nañu pàcc bi.
+    cancelled: Tas nañu pàcc bi.
+    generated: "%{count} pàcc dañu sos."
+    reminded: "%{count} fàttalikuwaay yónnee nañu."
+
+membership_fee_rates:
+  index:
+    title: "Pàcc yi — %{year}"
+    filter: Tànn
+    new: Yokk benn pàcc
+    no_rates: Amul benn pàcc bu defar.
+  new:
+    title: Pàcc bu bees
+  edit:
+    title: "Soppi pàcc — %{branche}"

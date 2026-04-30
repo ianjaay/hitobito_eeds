@@ -15,7 +15,8 @@
 #   - finance + group_full              → propre groupe seulement
 class MembershipFeeAbility < AbilityDsl::Base
   on(MembershipFee) do
-    permission(:finance).may(:show, :index, :create, :update, :destroy, :record_payment).in_finance_scope
+    permission(:finance).may(:show, :index, :create, :update, :destroy,
+      :mark_paid, :mark_exempted, :cancel, :generate, :remind, :record_payment).in_finance_scope
   end
 
   def in_finance_scope

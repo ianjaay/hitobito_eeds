@@ -25,6 +25,20 @@ Rails.application.routes.draw do
           resources :approvals, only: [:index]
         end
       end
+
+      resources :membership_fees, only: [:index, :edit] do
+        member do
+          patch :mark_paid
+          patch :mark_exempted
+          patch :cancel
+        end
+        collection do
+          post :generate
+          post :remind
+        end
+      end
+
+      resources :membership_fee_rates
     end
   end
 end

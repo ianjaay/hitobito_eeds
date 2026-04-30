@@ -45,3 +45,45 @@ CustomContent::Translation.seed(:custom_content_id, :locale,
      Jërëjëf,
      Mboolo EEDS
    BODY
+
+# --- Cotisation impayée : rappel par email ----------------------------------
+CustomContent.seed(:key,
+  {key: MembershipFeeMailer::CONTENT_UNPAID_REMINDER,
+   placeholders_required: "recipient-name, year, branche, amount, group-name"})
+
+reminder = CustomContent.find_or_initialize_by(key: MembershipFeeMailer::CONTENT_UNPAID_REMINDER)
+
+CustomContent::Translation.seed(:custom_content_id, :locale,
+  {custom_content_id: reminder.id,
+   locale: "fr",
+   label: "Rappel : cotisation EEDS impayée",
+   subject: "[EEDS] Rappel cotisation {year}",
+   body: <<~BODY},
+     Bonjour {recipient-name},
+
+     Notre système indique que votre cotisation EEDS pour l'année {year}
+     ({branche}) d'un montant de {amount} n'a pas encore été enregistrée
+     auprès de {group-name}.
+
+     Merci de vous rapprocher de votre trésorier·ère pour régulariser votre
+     situation.
+
+     Fraternellement,
+     L'équipe EEDS
+   BODY
+
+  {custom_content_id: reminder.id,
+   locale: "wo",
+   label: "Fàttali : pàcc EEDS bu fey wul",
+   subject: "[EEDS] Fàttali pàcc {year}",
+   body: <<~BODY})
+     Asalaa Maalekum {recipient-name},
+
+     Sunu sistem mu wone ne sa pàcc EEDS at {year} ({branche}) ngir {amount}
+     du fey ci {group-name}.
+
+     Lëkkalool ak sa caytukat ngir di ko fay.
+
+     Ak jàmm,
+     Mboolo EEDS
+   BODY
