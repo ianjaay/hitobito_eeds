@@ -66,6 +66,10 @@ module HitobitoEeds
       # Group sheet (sub-navigation tabs): Camps, Cotisations, Effectifs, Crises.
       Sheet::Group.include Eeds::Sheet::Group
 
+      # Allow any logged-in user to see the Camps tab (per-camp visibility
+      # still controlled by EventAbility).
+      GroupAbility.include Eeds::GroupAbility
+
       # Main navigation: add Blacklist under :admin (admin-only filter via Ability).
       admin_section = NavigationHelper::MAIN.find { |opts| opts[:label] == :admin }
       if admin_section

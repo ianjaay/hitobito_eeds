@@ -17,6 +17,8 @@ class MembershipFeeAbility < AbilityDsl::Base
   on(MembershipFee) do
     permission(:finance).may(:show, :index, :create, :update, :destroy,
       :mark_paid, :mark_exempted, :cancel, :generate, :remind, :record_payment).in_finance_scope
+    permission(:admin).may(:show, :index, :create, :update, :destroy,
+      :mark_paid, :mark_exempted, :cancel, :generate, :remind, :record_payment).all
   end
 
   def in_finance_scope
