@@ -1,0 +1,22 @@
+- content_for :title, "#{t('member_counts.edit.title')} — #{@entry.group.name} #{@entry.year}"
+
+= form_for @entry, url: group_member_count_path(@group, @entry), method: :patch do |f|
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th= t("member_counts.fields.branche")
+        %th F
+        %th M
+        %th= t("member_counts.fields.unknown")
+    %tbody
+      - MemberCount::CATEGORIES.each do |c|
+        %tr
+          %th= t("member_counts.branche.#{c}")
+          %td= f.number_field :"#{c}_f", min: 0, class: "form-control"
+          %td= f.number_field :"#{c}_m", min: 0, class: "form-control"
+          %td= f.number_field :"#{c}_u", min: 0, class: "form-control"
+
+  .form-actions
+    = f.submit t("global.button.save"), class: "btn btn-primary"
+    = link_to t("global.button.cancel"),
+        group_member_counts_path(@group, year: @entry.year), class: "btn btn-default"

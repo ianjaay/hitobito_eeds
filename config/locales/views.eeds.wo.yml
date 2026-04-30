@@ -122,3 +122,38 @@ membership_fee_rates:
     title: Pàcc bu bees
   edit:
     title: "Soppi pàcc — %{branche}"
+member_counts:
+  index:
+    title: "Limu ñoom"
+    year: At
+    recompute: Waxaat xayma
+    recompute_confirm: "Ndax dangay waxaat xayma ñoom yu jëfandikoo ?"
+    empty: Amul ay xayma ci at mi.
+  edit:
+    title: "Soppi xayma"
+  branche:
+    jiwu: Jiwu
+    lawtan: Lawtan
+    toor_toor: Toor-toor
+    menneef: Meññeef
+    encadrement: Njiit yi
+  fields:
+    group: Mbootaay
+    branche: Branche
+    total: Yepp
+    unknown: Genre xamuñu
+  flash:
+    recomputed: "Xaymay waxaatu."
+
+censuses:
+  index:
+    title: Recensement yi
+    new: Recensement bu bees
+  new:
+    title: Recensement bu bees
+  edit:
+    title: Soppi recensement
+  fields:
+    year: At
+    start_at: Tambali
+    finish_at: Mat

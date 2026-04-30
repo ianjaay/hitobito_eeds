@@ -123,3 +123,38 @@ membership_fee_rates:
     title: Nouveau tarif de cotisation
   edit:
     title: "Modifier tarif — %{branche}"
+member_counts:
+  index:
+    title: "Effectifs"
+    year: Année
+    recompute: Recalculer
+    recompute_confirm: "Recalculer les effectifs depuis les rôles actifs ?"
+    empty: Aucun effectif pour cette année.
+  edit:
+    title: "Modifier effectifs"
+  branche:
+    jiwu: Jiwu
+    lawtan: Lawtan
+    toor_toor: Toor-toor
+    menneef: Meññeef
+    encadrement: Encadrement
+  fields:
+    group: Groupe
+    branche: Branche
+    total: Total
+    unknown: Genre n.r.
+  flash:
+    recomputed: "Effectifs recalculés."
+
+censuses:
+  index:
+    title: Recensements
+    new: Nouveau recensement
+  new:
+    title: Nouveau recensement
+  edit:
+    title: Modifier recensement
+  fields:
+    year: Année
+    start_at: Début
+    finish_at: Fin

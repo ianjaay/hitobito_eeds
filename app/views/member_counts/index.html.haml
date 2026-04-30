@@ -1,0 +1,34 @@
+- content_for :title, "#{t('member_counts.index.title')} #{@year}"
+
+= form_tag group_member_counts_path(@group), method: :get, class: "well form-inline" do
+  = label_tag :year, t("member_counts.index.year")
+  = number_field_tag :year, @year, class: "form-control", min: 2000, max: 2100
+  = submit_tag t("global.button.filter"), class: "btn btn-primary"
+  = button_to t("member_counts.index.recompute"), recompute_group_member_counts_path(@group, year: @year),
+      method: :post, class: "btn btn-success",
+      data: {confirm: t("member_counts.index.recompute_confirm")}
+
+%table.table.table-striped.table-bordered
+  %thead
+    %tr
+      %th= t("member_counts.fields.group")
+      - MemberCount::CATEGORIES.each do |c|
+        %th= t("member_counts.branche.#{c}")
+      %th= t("member_counts.fields.total")
+      %th
+  %tbody
+    - if @counts.empty?
+      %tr
+        %td{colspan: MemberCount::CATEGORIES.size + 3}= t("member_counts.index.empty")
+    - @counts.each do |mc|
+      %tr
+        %td= mc.group.name
+        - MemberCount::CATEGORIES.each do |c|
+          %td
+            = "#{mc.send(:"#{c}_f")}F / #{mc.send(:"#{c}_m")}M"
+            - if mc.send(:"#{c}_u").to_i.positive?
+              = " / #{mc.send(:"#{c}_u")}?"
+        %td= mc.total
+        %td
+          = link_to t("global.link.edit"),
+              edit_group_member_count_path(@group, mc), class: "btn btn-default btn-xs"

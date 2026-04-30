@@ -1,0 +1,13 @@
+= form_for @entry do |f|
+  .form-group
+    = f.label :year
+    = f.number_field :year, class: "form-control", min: 2000, max: 2100
+  .form-group
+    = f.label :start_at
+    = f.date_field :start_at, class: "form-control"
+  .form-group
+    = f.label :finish_at
+    = f.date_field :finish_at, class: "form-control"
+  .form-actions
+    = f.submit t("global.button.save"), class: "btn btn-primary"
+    = link_to t("global.button.cancel"), censuses_path, class: "btn btn-default"

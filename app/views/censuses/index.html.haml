@@ -1,0 +1,21 @@
+- content_for :title, t("censuses.index.title")
+
+%p= link_to t("censuses.index.new"), new_census_path, class: "btn btn-primary"
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= t("censuses.fields.year")
+      %th= t("censuses.fields.start_at")
+      %th= t("censuses.fields.finish_at")
+      %th
+  %tbody
+    - @entries.each do |c|
+      %tr
+        %td= c.year
+        %td= l(c.start_at)
+        %td= c.finish_at && l(c.finish_at)
+        %td
+          = link_to t("global.link.edit"), edit_census_path(c), class: "btn btn-default btn-xs"
+          = link_to t("global.link.delete"), census_path(c), method: :delete,
+              data: {confirm: t("global.confirm_delete")}, class: "btn btn-danger btn-xs"

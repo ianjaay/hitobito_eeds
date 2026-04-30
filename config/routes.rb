@@ -39,6 +39,12 @@ Rails.application.routes.draw do
       end
 
       resources :membership_fee_rates
+
+      resources :member_counts, only: [:index, :edit, :update] do
+        collection { post :recompute }
+      end
     end
+
+    resources :censuses
   end
 end
