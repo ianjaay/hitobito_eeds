@@ -53,5 +53,6 @@ Rails.application.routes.draw do
     end
 
     resources :censuses
+    resources :blacklists
   end
 end

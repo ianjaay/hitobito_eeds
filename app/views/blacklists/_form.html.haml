@@ -1,0 +1,10 @@
+= form_for @entry do |f|
+  - [:first_name, :last_name, :matricule_scout, :email, :phone_number,
+    :reason, :reference_name, :reference_phone_number].each do |attr|
+    .form-group
+      = f.label attr, t("blacklists.fields.#{attr}", default: attr.to_s.humanize)
+      = attr == :reason ? f.text_area(attr, rows: 3, class: "form-control")
+                        : f.text_field(attr, class: "form-control")
+  .form-actions
+    = f.submit t("global.button.save"), class: "btn btn-primary"
+    = link_to t("global.button.cancel"), blacklists_path, class: "btn btn-default"

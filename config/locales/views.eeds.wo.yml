@@ -197,3 +197,27 @@ crises:
     cannot_acknowledge: "Mënul nangu (mat na ba pare)."
   errors:
     another_active: "Am na ben crise bu indi ci mbootaay mi."
+blacklists:
+  index:
+    title: Liste signalement
+    new: Yokk
+    search_ph: "Seet (tur, email, matricule, telefon…)"
+    empty: Amul ay nit.
+  new:
+    title: Nit bu bees
+  edit:
+    title: Soppi nit
+  fields:
+    first_name: Tur
+    last_name: Sant
+    matricule: Matricule
+    matricule_scout: Matricule scout
+    email: Email
+    phone: Telefon
+    phone_number: Telefon
+    reference: Reference
+    reference_name: Tur ki ref
+    reference_phone_number: Telefon ki ref
+    reason: Sabab
+  flash:
+    created: "Yokku nañu ko ci liste signalement."

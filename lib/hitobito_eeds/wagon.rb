@@ -59,6 +59,9 @@ module HitobitoEeds
 
       # Crises / incidents (Phase 3E engine).
       Ability.store.register CrisisAbility
+
+      # Blacklist (Phase 3F engine).
+      Ability.store.register BlacklistAbility
     end
 
     # We can't directly override the languages hash in a config file since

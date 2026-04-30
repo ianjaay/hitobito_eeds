@@ -198,3 +198,27 @@ crises:
     cannot_acknowledge: "Impossible d'acquitter (déjà clôturée)."
   errors:
     another_active: "Une crise active existe déjà sur ce groupe."
+blacklists:
+  index:
+    title: Liste de signalement
+    new: Ajouter
+    search_ph: "Rechercher (nom, email, matricule, tél…)"
+    empty: Aucune entrée.
+  new:
+    title: Nouvelle entrée
+  edit:
+    title: Modifier l'entrée
+  fields:
+    first_name: Prénom
+    last_name: Nom
+    matricule: Matricule
+    matricule_scout: Matricule scout
+    email: Email
+    phone: Téléphone
+    phone_number: Téléphone
+    reference: Référence
+    reference_name: Nom du référent
+    reference_phone_number: Téléphone du référent
+    reason: Motif
+  flash:
+    created: "Entrée ajoutée à la liste de signalement."
