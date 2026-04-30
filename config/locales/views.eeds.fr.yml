@@ -63,170 +63,184 @@ fr:
       success: "Import réussi : %{count} ligne(s) traitée(s)."
       failed: L'import a échoué.
 
-event/approvals:
-  index:
-    title: "Approbations du camp %{event}"
-    no_approvals: Aucune candidature en attente d'approbation.
-  form:
-    title_approve: "Approuver la candidature de %{participant}"
-    title_reject: "Rejeter la candidature de %{participant}"
-    approve_button: Approuver
-    reject_button: Rejeter
-  statuses:
-    pending: En attente
-    approved: Approuvée
-    rejected: Rejetée
-  flash:
-    approved: Candidature approuvée.
-    rejected: Candidature rejetée.
+  event/approvals:
+    index:
+      title: "Approbations du camp %{event}"
+      no_approvals: Aucune candidature en attente d'approbation.
+    form:
+      title_approve: "Approuver la candidature de %{participant}"
+      title_reject: "Rejeter la candidature de %{participant}"
+      approve_button: Approuver
+      reject_button: Rejeter
+    statuses:
+      pending: En attente
+      approved: Approuvée
+      rejected: Rejetée
+    flash:
+      approved: Candidature approuvée.
+      rejected: Candidature rejetée.
 
-event:
-  participations:
-    actions_approval:
-      approve: Approuver
-      reject: Rejeter
+  event:
+    participations:
+      actions_approval:
+        approve: Approuver
+        reject: Rejeter
 
-membership_fees:
-  index:
-    title: "Cotisations de %{group} — %{year}"
-    year: Année
-    branche: Branche
-    status: Statut
-    all: Tous
-    filter: Filtrer
-    generate: "Générer les cotisations %{year}"
-    generate_confirm: "Générer toutes les cotisations manquantes pour %{year} ?"
-    remind: Envoyer les rappels
-    remind_confirm: Envoyer un email de rappel à tous les membres avec une cotisation impayée ?
-    no_fees: Aucune cotisation pour les filtres choisis.
-    actions: Actions
-    mark_paid: Marquer payée
-    mark_exempted: Exempter
-    cancel: Annuler
-    confirm_exempted: Exempter cette cotisation ?
-    confirm_cancel: Annuler cette cotisation ?
-  edit:
-    title: "Marquer payée — %{person}"
-    submit: Valider le paiement
-  flash:
-    paid: Cotisation marquée comme payée.
-    exempted: Cotisation exemptée.
-    cancelled: Cotisation annulée.
-    generated: "%{count} cotisation(s) générée(s)."
-    reminded: "%{count} rappel(s) envoyé(s)."
+  membership_fees:
+    index:
+      title: "Cotisations de %{group} — %{year}"
+      year: Année
+      branche: Branche
+      status: Statut
+      all: Tous
+      filter: Filtrer
+      generate: "Générer les cotisations %{year}"
+      generate_confirm: "Générer toutes les cotisations manquantes pour %{year} ?"
+      remind: Envoyer les rappels
+      remind_confirm: Envoyer un email de rappel à tous les membres avec une cotisation impayée ?
+      no_fees: Aucune cotisation pour les filtres choisis.
+      actions: Actions
+      mark_paid: Marquer payée
+      mark_exempted: Exempter
+      cancel: Annuler
+      confirm_exempted: Exempter cette cotisation ?
+      confirm_cancel: Annuler cette cotisation ?
+    edit:
+      title: "Marquer payée — %{person}"
+      submit: Valider le paiement
+    flash:
+      paid: Cotisation marquée comme payée.
+      exempted: Cotisation exemptée.
+      cancelled: Cotisation annulée.
+      generated: "%{count} cotisation(s) générée(s)."
+      reminded: "%{count} rappel(s) envoyé(s)."
 
-membership_fee_rates:
-  index:
-    title: "Grille tarifaire — %{year}"
-    filter: Filtrer
-    new: Ajouter un tarif
-    no_rates: Aucun tarif défini pour cette année.
-  new:
-    title: Nouveau tarif de cotisation
-  edit:
-    title: "Modifier tarif — %{branche}"
-member_counts:
-  index:
-    title: "Effectifs"
-    year: Année
-    recompute: Recalculer
-    recompute_confirm: "Recalculer les effectifs depuis les rôles actifs ?"
-    empty: Aucun effectif pour cette année.
-  edit:
-    title: "Modifier effectifs"
-  branche:
-    jiwu: Jiwu
-    lawtan: Lawtan
-    toor_toor: Toor-toor
-    menneef: Meññeef
-    encadrement: Encadrement
-  fields:
-    group: Groupe
-    branche: Branche
-    total: Total
-    unknown: Genre n.r.
-  flash:
-    recomputed: "Effectifs recalculés."
+  membership_fee_rates:
+    index:
+      title: "Grille tarifaire — %{year}"
+      filter: Filtrer
+      new: Ajouter un tarif
+      no_rates: Aucun tarif défini pour cette année.
+    new:
+      title: Nouveau tarif de cotisation
+    edit:
+      title: "Modifier tarif — %{branche}"
+  member_counts:
+    index:
+      title: "Effectifs"
+      year: Année
+      recompute: Recalculer
+      recompute_confirm: "Recalculer les effectifs depuis les rôles actifs ?"
+      empty: Aucun effectif pour cette année.
+    edit:
+      title: "Modifier effectifs"
+    branche:
+      jiwu: Jiwu
+      lawtan: Lawtan
+      toor_toor: Toor-toor
+      menneef: Meññeef
+      encadrement: Encadrement
+    fields:
+      group: Groupe
+      branche: Branche
+      total: Total
+      unknown: Genre n.r.
+    flash:
+      recomputed: "Effectifs recalculés."
 
-censuses:
-  index:
-    title: Recensements
-    new: Nouveau recensement
-  new:
-    title: Nouveau recensement
-  edit:
-    title: Modifier recensement
-  fields:
-    year: Année
-    start_at: Début
-    finish_at: Fin
-crises:
-  index:
-    title: Crises et incidents
-    new: Déclencher une crise
-    empty: Aucune crise enregistrée.
-  new:
-    title: Déclencher une crise
-    submit: Déclencher
-  fields:
-    created_at: Déclenchée le
-    kind: Type
-    severity: Gravité
-    creator: Auteur
-    status: Statut
-  kind:
-    accident: Accident
-    abus: Abus
-    conflit: Conflit
-    sante: Santé
-    autre: Autre
-  severity:
-    low: Faible
-    medium: Moyenne
-    high: Haute
-    critical: Critique
-  status:
-    pending: En attente
-    acknowledged: Acquittée
-    completed: Clôturée
-  button:
-    acknowledge: Acquitter
-    complete: Clôturer
-    complete_confirm: "Confirmer la clôture de cette crise ?"
-  flash:
-    created: "Crise déclenchée et notifications envoyées."
-    acknowledged: "Crise acquittée."
-    completed: "Crise clôturée."
-    cannot_acknowledge: "Impossible d'acquitter (déjà clôturée)."
-  errors:
-    another_active: "Une crise active existe déjà sur ce groupe."
-blacklists:
-  index:
-    title: Liste de signalement
-    new: Ajouter
-    search_ph: "Rechercher (nom, email, matricule, tél…)"
-    empty: Aucune entrée.
-  new:
-    title: Nouvelle entrée
-  edit:
-    title: Modifier l'entrée
-  fields:
-    first_name: Prénom
-    last_name: Nom
-    matricule: Matricule
-    matricule_scout: Matricule scout
-    email: Email
-    phone: Téléphone
-    phone_number: Téléphone
-    reference: Référence
-    reference_name: Nom du référent
-    reference_phone_number: Téléphone du référent
-    reason: Motif
-  flash:
-    created: "Entrée ajoutée à la liste de signalement."
+  censuses:
+    index:
+      title: Recensements
+      new: Nouveau recensement
+    new:
+      title: Nouveau recensement
+    edit:
+      title: Modifier recensement
+    fields:
+      year: Année
+      start_at: Début
+      finish_at: Fin
+  crises:
+    index:
+      title: Crises et incidents
+      new: Déclencher une crise
+      empty: Aucune crise enregistrée.
+    new:
+      title: Déclencher une crise
+      submit: Déclencher
+    fields:
+      created_at: Déclenchée le
+      kind: Type
+      severity: Gravité
+      creator: Auteur
+      status: Statut
+    kind:
+      accident: Accident
+      abus: Abus
+      conflit: Conflit
+      sante: Santé
+      autre: Autre
+    severity:
+      low: Faible
+      medium: Moyenne
+      high: Haute
+      critical: Critique
+    status:
+      pending: En attente
+      acknowledged: Acquittée
+      completed: Clôturée
+    button:
+      acknowledge: Acquitter
+      complete: Clôturer
+      complete_confirm: "Confirmer la clôture de cette crise ?"
+    flash:
+      created: "Crise déclenchée et notifications envoyées."
+      acknowledged: "Crise acquittée."
+      completed: "Crise clôturée."
+      cannot_acknowledge: "Impossible d'acquitter (déjà clôturée)."
+    errors:
+      another_active: "Une crise active existe déjà sur ce groupe."
+  blacklists:
+    index:
+      title: Liste de signalement
+      new: Ajouter
+      search_ph: "Rechercher (nom, email, matricule, tél…)"
+      empty: Aucune entrée.
+    new:
+      title: Nouvelle entrée
+    edit:
+      title: Modifier l'entrée
+    fields:
+      first_name: Prénom
+      last_name: Nom
+      matricule: Matricule
+      matricule_scout: Matricule scout
+      email: Email
+      phone: Téléphone
+      phone_number: Téléphone
+      reference: Référence
+      reference_name: Nom du référent
+      reference_phone_number: Téléphone du référent
+      reason: Motif
+    flash:
+      created: "Entrée ajoutée à la liste de signalement."
+
+    eeds:
+      tabs:
+        membership_fees: Cotisations
+        member_counts: Effectifs
+        crises: Crises
 
   eeds:
     tabs:
       membership_fees: Cotisations
       member_counts: Effectifs
       crises: Crises
+
+  events:
+    global:
+      link:
+        add_event/camp: Ajouter un camp
+    list:
+      camp:
+        title: Camps

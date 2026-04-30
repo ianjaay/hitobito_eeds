@@ -62,170 +62,184 @@ wo:
       success: "Yebbi nañu liisteer bi bu baax : %{count} liñ."
       failed: Yebbi gi antuwul.
 
-event/approvals:
-  index:
-    title: "Nangu yi camp %{event}"
-    no_approvals: Amul kandidatuur buy xaar nangu.
-  form:
-    title_approve: "Nangu kandidatuur bu %{participant}"
-    title_reject: "Bañ kandidatuur bu %{participant}"
-    approve_button: Nangu
-    reject_button: Bañ
-  statuses:
-    pending: Mungi xaar
-    approved: Nangu
-    rejected: Bañ
-  flash:
-    approved: Kandidatuur nangu nañ ko.
-    rejected: Kandidatuur bañ nañ ko.
+  event/approvals:
+    index:
+      title: "Nangu yi camp %{event}"
+      no_approvals: Amul kandidatuur buy xaar nangu.
+    form:
+      title_approve: "Nangu kandidatuur bu %{participant}"
+      title_reject: "Bañ kandidatuur bu %{participant}"
+      approve_button: Nangu
+      reject_button: Bañ
+    statuses:
+      pending: Mungi xaar
+      approved: Nangu
+      rejected: Bañ
+    flash:
+      approved: Kandidatuur nangu nañ ko.
+      rejected: Kandidatuur bañ nañ ko.
 
-event:
-  participations:
-    actions_approval:
-      approve: Nangu
-      reject: Bañ
+  event:
+    participations:
+      actions_approval:
+        approve: Nangu
+        reject: Bañ
 
-membership_fees:
-  index:
-    title: "Pàcc yi ci %{group} — %{year}"
-    year: At
-    branche: Bos
-    status: Anam
-    all: Lépp
-    filter: Tànn
-    generate: "Sos pàcc yi at %{year}"
-    generate_confirm: "Sos pàcc yi mën a fàtte ngir %{year} ?"
-    remind: Yónnee fàttalikuwaay
-    remind_confirm: Yónnee i email ngir fàttali ñépp ñu fey wula?
-    no_fees: Amul benn pàcc.
-    actions: Tànn
-    mark_paid: Bind ne fay nañu
-    mark_exempted: Bàyyi
-    cancel: Tas
-    confirm_exempted: Bàyyi pàcc bii ?
-    confirm_cancel: Tas pàcc bii ?
-  edit:
-    title: "Bind ne fay nañu — %{person}"
-    submit: Wottu paye bi
-  flash:
-    paid: Pàcc bi binde nañu ko ne fay nañu ko.
-    exempted: Bàyyi nañu pàcc bi.
-    cancelled: Tas nañu pàcc bi.
-    generated: "%{count} pàcc dañu sos."
-    reminded: "%{count} fàttalikuwaay yónnee nañu."
+  membership_fees:
+    index:
+      title: "Pàcc yi ci %{group} — %{year}"
+      year: At
+      branche: Bos
+      status: Anam
+      all: Lépp
+      filter: Tànn
+      generate: "Sos pàcc yi at %{year}"
+      generate_confirm: "Sos pàcc yi mën a fàtte ngir %{year} ?"
+      remind: Yónnee fàttalikuwaay
+      remind_confirm: Yónnee i email ngir fàttali ñépp ñu fey wula?
+      no_fees: Amul benn pàcc.
+      actions: Tànn
+      mark_paid: Bind ne fay nañu
+      mark_exempted: Bàyyi
+      cancel: Tas
+      confirm_exempted: Bàyyi pàcc bii ?
+      confirm_cancel: Tas pàcc bii ?
+    edit:
+      title: "Bind ne fay nañu — %{person}"
+      submit: Wottu paye bi
+    flash:
+      paid: Pàcc bi binde nañu ko ne fay nañu ko.
+      exempted: Bàyyi nañu pàcc bi.
+      cancelled: Tas nañu pàcc bi.
+      generated: "%{count} pàcc dañu sos."
+      reminded: "%{count} fàttalikuwaay yónnee nañu."
 
-membership_fee_rates:
-  index:
-    title: "Pàcc yi — %{year}"
-    filter: Tànn
-    new: Yokk benn pàcc
-    no_rates: Amul benn pàcc bu defar.
-  new:
-    title: Pàcc bu bees
-  edit:
-    title: "Soppi pàcc — %{branche}"
-member_counts:
-  index:
-    title: "Limu ñoom"
-    year: At
-    recompute: Waxaat xayma
-    recompute_confirm: "Ndax dangay waxaat xayma ñoom yu jëfandikoo ?"
-    empty: Amul ay xayma ci at mi.
-  edit:
-    title: "Soppi xayma"
-  branche:
-    jiwu: Jiwu
-    lawtan: Lawtan
-    toor_toor: Toor-toor
-    menneef: Meññeef
-    encadrement: Njiit yi
-  fields:
-    group: Mbootaay
-    branche: Branche
-    total: Yepp
-    unknown: Genre xamuñu
-  flash:
-    recomputed: "Xaymay waxaatu."
+  membership_fee_rates:
+    index:
+      title: "Pàcc yi — %{year}"
+      filter: Tànn
+      new: Yokk benn pàcc
+      no_rates: Amul benn pàcc bu defar.
+    new:
+      title: Pàcc bu bees
+    edit:
+      title: "Soppi pàcc — %{branche}"
+  member_counts:
+    index:
+      title: "Limu ñoom"
+      year: At
+      recompute: Waxaat xayma
+      recompute_confirm: "Ndax dangay waxaat xayma ñoom yu jëfandikoo ?"
+      empty: Amul ay xayma ci at mi.
+    edit:
+      title: "Soppi xayma"
+    branche:
+      jiwu: Jiwu
+      lawtan: Lawtan
+      toor_toor: Toor-toor
+      menneef: Meññeef
+      encadrement: Njiit yi
+    fields:
+      group: Mbootaay
+      branche: Branche
+      total: Yepp
+      unknown: Genre xamuñu
+    flash:
+      recomputed: "Xaymay waxaatu."
 
-censuses:
-  index:
-    title: Recensement yi
-    new: Recensement bu bees
-  new:
-    title: Recensement bu bees
-  edit:
-    title: Soppi recensement
-  fields:
-    year: At
-    start_at: Tambali
-    finish_at: Mat
-crises:
-  index:
-    title: Crise yi
-    new: Tegi ab crise
-    empty: Amul ay crise.
-  new:
-    title: Tegi ab crise
-    submit: Tegi
-  fields:
-    created_at: Bés
-    kind: Xeet
-    severity: Mën
-    creator: Ki ko bind
-    status: Anam
-  kind:
-    accident: Aksidaa
-    abus: Sàcc
-    conflit: Xuloo
-    sante: Wér gi
-    autre: Yeneen
-  severity:
-    low: Néew
-    medium: Diggante
-    high: Réy
-    critical: Tas
-  status:
-    pending: Mu ngi xaar
-    acknowledged: Nangu nañu ko
-    completed: Mat
-  button:
-    acknowledge: Nangu
-    complete: Tëj
-    complete_confirm: "Ndax dangay tëj crise bi ?"
-  flash:
-    created: "Crise tegi nañu, ndaw nañu xibaar."
-    acknowledged: "Crise nangu nañu ko."
-    completed: "Crise tëj nañu ko."
-    cannot_acknowledge: "Mënul nangu (mat na ba pare)."
-  errors:
-    another_active: "Am na ben crise bu indi ci mbootaay mi."
-blacklists:
-  index:
-    title: Liste signalement
-    new: Yokk
-    search_ph: "Seet (tur, email, matricule, telefon…)"
-    empty: Amul ay nit.
-  new:
-    title: Nit bu bees
-  edit:
-    title: Soppi nit
-  fields:
-    first_name: Tur
-    last_name: Sant
-    matricule: Matricule
-    matricule_scout: Matricule scout
-    email: Email
-    phone: Telefon
-    phone_number: Telefon
-    reference: Reference
-    reference_name: Tur ki ref
-    reference_phone_number: Telefon ki ref
-    reason: Sabab
-  flash:
-    created: "Yokku nañu ko ci liste signalement."
+  censuses:
+    index:
+      title: Recensement yi
+      new: Recensement bu bees
+    new:
+      title: Recensement bu bees
+    edit:
+      title: Soppi recensement
+    fields:
+      year: At
+      start_at: Tambali
+      finish_at: Mat
+  crises:
+    index:
+      title: Crise yi
+      new: Tegi ab crise
+      empty: Amul ay crise.
+    new:
+      title: Tegi ab crise
+      submit: Tegi
+    fields:
+      created_at: Bés
+      kind: Xeet
+      severity: Mën
+      creator: Ki ko bind
+      status: Anam
+    kind:
+      accident: Aksidaa
+      abus: Sàcc
+      conflit: Xuloo
+      sante: Wér gi
+      autre: Yeneen
+    severity:
+      low: Néew
+      medium: Diggante
+      high: Réy
+      critical: Tas
+    status:
+      pending: Mu ngi xaar
+      acknowledged: Nangu nañu ko
+      completed: Mat
+    button:
+      acknowledge: Nangu
+      complete: Tëj
+      complete_confirm: "Ndax dangay tëj crise bi ?"
+    flash:
+      created: "Crise tegi nañu, ndaw nañu xibaar."
+      acknowledged: "Crise nangu nañu ko."
+      completed: "Crise tëj nañu ko."
+      cannot_acknowledge: "Mënul nangu (mat na ba pare)."
+    errors:
+      another_active: "Am na ben crise bu indi ci mbootaay mi."
+  blacklists:
+    index:
+      title: Liste signalement
+      new: Yokk
+      search_ph: "Seet (tur, email, matricule, telefon…)"
+      empty: Amul ay nit.
+    new:
+      title: Nit bu bees
+    edit:
+      title: Soppi nit
+    fields:
+      first_name: Tur
+      last_name: Sant
+      matricule: Matricule
+      matricule_scout: Matricule scout
+      email: Email
+      phone: Telefon
+      phone_number: Telefon
+      reference: Reference
+      reference_name: Tur ki ref
+      reference_phone_number: Telefon ki ref
+      reason: Sabab
+    flash:
+      created: "Yokku nañu ko ci liste signalement."
+
+    eeds:
+      tabs:
+        membership_fees: Galag
+        member_counts: Limu mbooloo
+        crises: Jafe-jafe
 
   eeds:
     tabs:
       membership_fees: Galag
       member_counts: Limu mbooloo
       crises: Jafe-jafe
+
+  events:
+    global:
+      link:
+        add_event/camp: Yokk benn camp
+    list:
+      camp:
+        title: Camps
