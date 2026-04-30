@@ -56,6 +56,9 @@ module HitobitoEeds
 
       # Recensement / effectifs (Phase 3D engine).
       Ability.store.register MemberCountAbility
+
+      # Crises / incidents (Phase 3E engine).
+      Ability.store.register CrisisAbility
     end
 
     # We can't directly override the languages hash in a config file since

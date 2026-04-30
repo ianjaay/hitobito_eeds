@@ -157,3 +157,43 @@ censuses:
     year: At
     start_at: Tambali
     finish_at: Mat
+crises:
+  index:
+    title: Crise yi
+    new: Tegi ab crise
+    empty: Amul ay crise.
+  new:
+    title: Tegi ab crise
+    submit: Tegi
+  fields:
+    created_at: Bés
+    kind: Xeet
+    severity: Mën
+    creator: Ki ko bind
+    status: Anam
+  kind:
+    accident: Aksidaa
+    abus: Sàcc
+    conflit: Xuloo
+    sante: Wér gi
+    autre: Yeneen
+  severity:
+    low: Néew
+    medium: Diggante
+    high: Réy
+    critical: Tas
+  status:
+    pending: Mu ngi xaar
+    acknowledged: Nangu nañu ko
+    completed: Mat
+  button:
+    acknowledge: Nangu
+    complete: Tëj
+    complete_confirm: "Ndax dangay tëj crise bi ?"
+  flash:
+    created: "Crise tegi nañu, ndaw nañu xibaar."
+    acknowledged: "Crise nangu nañu ko."
+    completed: "Crise tëj nañu ko."
+    cannot_acknowledge: "Mënul nangu (mat na ba pare)."
+  errors:
+    another_active: "Am na ben crise bu indi ci mbootaay mi."

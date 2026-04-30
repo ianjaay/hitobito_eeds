@@ -1,0 +1,17 @@
+- content_for :title, t("crises.new.title")
+
+= form_for @entry, url: group_crises_path(@group) do |f|
+  .form-group
+    = f.label :kind
+    = f.select :kind, Crisis::KINDS.map { |k| [t("crises.kind.#{k}", default: k), k] },
+        {}, class: "form-control"
+  .form-group
+    = f.label :severity
+    = f.select :severity, Crisis::SEVERITIES.map { |s| [t("crises.severity.#{s}", default: s), s] },
+        {}, class: "form-control"
+  .form-group
+    = f.label :description
+    = f.text_area :description, rows: 6, class: "form-control"
+  .form-actions
+    = f.submit t("crises.new.submit"), class: "btn btn-danger"
+    = link_to t("global.button.cancel"), group_crises_path(@group), class: "btn btn-default"

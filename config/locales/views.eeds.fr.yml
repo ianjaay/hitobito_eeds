@@ -158,3 +158,43 @@ censuses:
     year: Année
     start_at: Début
     finish_at: Fin
+crises:
+  index:
+    title: Crises et incidents
+    new: Déclencher une crise
+    empty: Aucune crise enregistrée.
+  new:
+    title: Déclencher une crise
+    submit: Déclencher
+  fields:
+    created_at: Déclenchée le
+    kind: Type
+    severity: Gravité
+    creator: Auteur
+    status: Statut
+  kind:
+    accident: Accident
+    abus: Abus
+    conflit: Conflit
+    sante: Santé
+    autre: Autre
+  severity:
+    low: Faible
+    medium: Moyenne
+    high: Haute
+    critical: Critique
+  status:
+    pending: En attente
+    acknowledged: Acquittée
+    completed: Clôturée
+  button:
+    acknowledge: Acquitter
+    complete: Clôturer
+    complete_confirm: "Confirmer la clôture de cette crise ?"
+  flash:
+    created: "Crise déclenchée et notifications envoyées."
+    acknowledged: "Crise acquittée."
+    completed: "Crise clôturée."
+    cannot_acknowledge: "Impossible d'acquitter (déjà clôturée)."
+  errors:
+    another_active: "Une crise active existe déjà sur ce groupe."

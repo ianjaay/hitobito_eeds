@@ -43,6 +43,13 @@ Rails.application.routes.draw do
       resources :member_counts, only: [:index, :edit, :update] do
         collection { post :recompute }
       end
+
+      resources :crises, only: [:index, :new, :create] do
+        member do
+          patch :acknowledge
+          patch :complete
+        end
+      end
     end
 
     resources :censuses

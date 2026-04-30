@@ -1,0 +1,35 @@
+- content_for :title, t("crises.index.title")
+
+%p
+  = link_to t("crises.index.new"), new_group_crisis_path(@group), class: "btn btn-danger"
+
+%table.table.table-striped.table-bordered
+  %thead
+    %tr
+      %th= t("crises.fields.created_at")
+      %th= t("crises.fields.kind")
+      %th= t("crises.fields.severity")
+      %th= t("crises.fields.creator")
+      %th= t("crises.fields.status")
+      %th
+  %tbody
+    - if @entries.empty?
+      %tr
+        %td{colspan: 6}= t("crises.index.empty")
+    - @entries.each do |c|
+      %tr{class: ("danger" if c.severity == "critical")}
+        %td= l(c.created_at)
+        %td= t("crises.kind.#{c.kind}", default: c.kind)
+        %td= t("crises.severity.#{c.severity}", default: c.severity)
+        %td= c.creator&.to_s
+        %td= t("crises.status.#{c.status}", default: c.status.to_s)
+        %td
+          - if !c.acknowledged && can?(:acknowledge, c)
+            = button_to t("crises.button.acknowledge"),
+                acknowledge_group_crisis_path(@group, c), method: :patch,
+                class: "btn btn-warning btn-xs"
+          - if !c.completed && can?(:complete, c)
+            = button_to t("crises.button.complete"),
+                complete_group_crisis_path(@group, c), method: :patch,
+                class: "btn btn-success btn-xs",
+                data: {confirm: t("crises.button.complete_confirm")}

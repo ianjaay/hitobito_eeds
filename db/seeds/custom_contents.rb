@@ -87,3 +87,51 @@ CustomContent::Translation.seed(:custom_content_id, :locale,
      Ak jàmm,
      Mboolo EEDS
    BODY
+
+# --- Crise / incident : notifications ----------------------------------------
+[
+  [CrisisMailer::CONTENT_TRIGGERED,    "Crise déclenchée",  "Crise tegi nañu"],
+  [CrisisMailer::CONTENT_ACKNOWLEDGED, "Crise acquittée",   "Crise nangu nañu ko"],
+  [CrisisMailer::CONTENT_COMPLETED,    "Crise clôturée",    "Crise tëj nañu ko"]
+].each do |key, label_fr, label_wo|
+  CustomContent.seed(:key,
+    {key: key,
+     placeholders_required: "group-name, kind, severity, creator-name, description"})
+
+  cc = CustomContent.find_or_initialize_by(key: key)
+
+  CustomContent::Translation.seed(:custom_content_id, :locale,
+    {custom_content_id: cc.id,
+     locale: "fr",
+     label: label_fr,
+     subject: "[EEDS] #{label_fr} — {group-name}",
+     body: <<~BODY},
+       #{label_fr} sur le groupe {group-name}.
+
+       Type     : {kind}
+       Gravité  : {severity}
+       Auteur   : {creator-name}
+
+       Description :
+       {description}
+
+       Connectez-vous à la plateforme EEDS pour traiter cette crise.
+     BODY
+
+    {custom_content_id: cc.id,
+     locale: "wo",
+     label: label_wo,
+     subject: "[EEDS] #{label_wo} — {group-name}",
+     body: <<~BODY})
+       #{label_wo} ci mbootaay {group-name}.
+
+       Xeet    : {kind}
+       Mën     : {severity}
+       Bind    : {creator-name}
+
+       Tekki :
+       {description}
+
+       Dugg ci EEDS ngir def liy ñaaw.
+     BODY
+end
