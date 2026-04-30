@@ -31,5 +31,4 @@
         %td= "#{b.reference_name} (#{b.reference_phone_number})"
         %td
           = link_to t("global.link.edit"), edit_blacklist_path(b), class: "btn btn-default btn-xs"
-          = link_to t("global.link.delete"), blacklist_path(b), method: :delete,
-              data: {confirm: t("global.confirm_delete")}, class: "btn btn-danger btn-xs"
+          = link_to t("global.link.delete"), blacklist_path(b), method: :delete, data: {confirm: t("global.confirm_delete")}, class: "btn btn-danger btn-xs"

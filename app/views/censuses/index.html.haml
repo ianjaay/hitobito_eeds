@@ -17,5 +17,4 @@
         %td= c.finish_at && l(c.finish_at)
         %td
           = link_to t("global.link.edit"), edit_census_path(c), class: "btn btn-default btn-xs"
-          = link_to t("global.link.delete"), census_path(c), method: :delete,
-              data: {confirm: t("global.confirm_delete")}, class: "btn btn-danger btn-xs"
+          = link_to t("global.link.delete"), census_path(c), method: :delete, data: {confirm: t("global.confirm_delete")}, class: "btn btn-danger btn-xs"

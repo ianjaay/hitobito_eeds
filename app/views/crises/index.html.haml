@@ -27,11 +27,6 @@
         %td= t("crises.status.#{c.status}", default: c.status.to_s)
         %td
           - if !c.acknowledged && can?(:acknowledge, c)
-            = button_to t("crises.button.acknowledge"),
-                acknowledge_group_crisis_path(@group, c), method: :patch,
-                class: "btn btn-warning btn-xs"
+            = button_to t("crises.button.acknowledge"), acknowledge_group_crisis_path(@group, c), method: :patch, class: "btn btn-warning btn-xs"
           - if !c.completed && can?(:complete, c)
-            = button_to t("crises.button.complete"),
-                complete_group_crisis_path(@group, c), method: :patch,
-                class: "btn btn-success btn-xs",
-                data: {confirm: t("crises.button.complete_confirm")}
+            = button_to t("crises.button.complete"), complete_group_crisis_path(@group, c), method: :patch, class: "btn btn-success btn-xs", data: {confirm: t("crises.button.complete_confirm")}

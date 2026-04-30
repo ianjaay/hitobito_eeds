@@ -34,7 +34,4 @@
           %td
             - if can?(:create, MembershipFee.new(group: @group))
               = link_to t("global.edit"), edit_group_membership_fee_rate_path(@group, rate), class: "btn btn-xs btn-default"
-              = link_to t("global.delete"),
-                group_membership_fee_rate_path(@group, rate),
-                method: :delete, data: {confirm: t("global.confirm_delete")},
-                class: "btn btn-xs btn-danger"
+              = link_to t("global.delete"), group_membership_fee_rate_path(@group, rate), method: :delete, data: {confirm: t("global.confirm_delete")}, class: "btn btn-xs btn-danger"

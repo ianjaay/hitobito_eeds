@@ -18,5 +18,4 @@
 
   .form-actions
     = f.submit t("global.button.save"), class: "btn btn-primary"
-    = link_to t("global.button.cancel"),
-        group_member_counts_path(@group, year: @entry.year), class: "btn btn-default"
+    = link_to t("global.button.cancel"), group_member_counts_path(@group, year: @entry.year), class: "btn btn-default"

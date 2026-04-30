@@ -10,40 +10,22 @@
   = number_field_tag :year, @year, class: "form-control input-sm", style: "width:6em"
   &nbsp;
   = label_tag :branche, t(".branche")
-  = select_tag :branche,
-    options_for_select([[t(".all"), nil]] +
-      MembershipFee::BRANCHES.map { |b| [MembershipFee.human_attribute_name("branches.#{b}"), b] },
-      @branche),
-    class: "form-control input-sm"
+  - branche_opts = [[t(".all"), nil]] + MembershipFee::BRANCHES.map { |b| [MembershipFee.human_attribute_name("branches.#{b}"), b] }
+  = select_tag :branche, options_for_select(branche_opts, @branche), class: "form-control input-sm"
   &nbsp;
   = label_tag :status, t(".status")
-  = select_tag :status,
-    options_for_select([[t(".all"), nil]] +
-      MembershipFee::STATUSES.map { |s| [MembershipFee.human_attribute_name("statuses.#{s}"), s] },
-      @status),
-    class: "form-control input-sm"
+  - status_opts = [[t(".all"), nil]] + MembershipFee::STATUSES.map { |s| [MembershipFee.human_attribute_name("statuses.#{s}"), s] }
+  = select_tag :status, options_for_select(status_opts, @status), class: "form-control input-sm"
   &nbsp;
   = submit_tag t(".filter"), class: "btn btn-default btn-sm"
 
 %hr
 
 .btn-toolbar
-  = button_to t(".generate"),
-    generate_group_membership_fees_path(@group, year: @year),
-    method: :post,
-    class: "btn btn-primary",
-    data: {confirm: t(".generate_confirm", year: @year)}
-  = button_to t(".remind"),
-    remind_group_membership_fees_path(@group, year: @year),
-    method: :post,
-    class: "btn btn-default",
-    data: {confirm: t(".remind_confirm")}
-  = link_to t("global.button.export_csv"),
-    export_group_membership_fees_path(@group, year: @year, branche: @branche, status: @status, format: :csv),
-    class: "btn btn-default"
-  = link_to t("global.button.export_xlsx"),
-    export_group_membership_fees_path(@group, year: @year, branche: @branche, status: @status, format: :xlsx),
-    class: "btn btn-default"
+  = button_to t(".generate"), generate_group_membership_fees_path(@group, year: @year), method: :post, class: "btn btn-primary", data: {confirm: t(".generate_confirm", year: @year)}
+  = button_to t(".remind"), remind_group_membership_fees_path(@group, year: @year), method: :post, class: "btn btn-default", data: {confirm: t(".remind_confirm")}
+  = link_to t("global.button.export_csv"), export_group_membership_fees_path(@group, year: @year, branche: @branche, status: @status, format: :csv), class: "btn btn-default"
+  = link_to t("global.button.export_xlsx"), export_group_membership_fees_path(@group, year: @year, branche: @branche, status: @status, format: :xlsx), class: "btn btn-default"
 
 - if @fees.empty?
   %p.muted= t(".no_fees")
@@ -77,11 +59,5 @@
           %td
             - if fee.pending? && can?(:update, fee)
               = link_to t(".mark_paid"), edit_group_membership_fee_path(@group, fee), class: "btn btn-xs btn-success"
-              = button_to t(".mark_exempted"),
-                mark_exempted_group_membership_fee_path(@group, fee),
-                method: :patch, class: "btn btn-xs btn-info",
-                data: {confirm: t(".confirm_exempted")}
-              = button_to t(".cancel"),
-                cancel_group_membership_fee_path(@group, fee),
-                method: :patch, class: "btn btn-xs btn-default",
-                data: {confirm: t(".confirm_cancel")}
+              = button_to t(".mark_exempted"), mark_exempted_group_membership_fee_path(@group, fee), method: :patch, class: "btn btn-xs btn-info", data: {confirm: t(".confirm_exempted")}
+              = button_to t(".cancel"), cancel_group_membership_fee_path(@group, fee), method: :patch, class: "btn btn-xs btn-default", data: {confirm: t(".confirm_cancel")}
