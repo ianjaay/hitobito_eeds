@@ -53,6 +53,9 @@ module HitobitoEeds
 
       # Cotisations (Phase 3C engine).
       Ability.store.register MembershipFeeAbility
+
+      # Recensement / effectifs (Phase 3D engine).
+      Ability.store.register MemberCountAbility
     end
 
     # We can't directly override the languages hash in a config file since
