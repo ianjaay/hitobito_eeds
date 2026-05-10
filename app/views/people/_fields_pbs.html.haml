@@ -1,7 +1,5 @@
 -#  EEDS — Override de `_fields_pbs.html.haml` :
--#  on retire grade_of_school (Classe scolaire — système scolaire SN différent)
--#  ainsi que pronouns / title / salutation (Pronoms / Civilité / Formule de
--#  politesse — non pertinents dans le contexte EEDS).
-
-= field_set_tag do
-  = f.labeled_input_fields(:entry_date, :leaving_date)
+-#  on retire grade_of_school (Classe scolaire), pronouns / title / salutation
+-#  (Pronoms / Civilité / Formule de politesse), et entry_date / leaving_date
+-#  (Membre depuis / Date de départ — déplacés dans le bloc
+-#  "Informations dans le scoutisme", cf. _fields_eeds.html.haml).
