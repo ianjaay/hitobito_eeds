@@ -24,7 +24,10 @@ module HitobitoEeds
       # j_s_number = N° Jeunesse+Sport (programme suisse) — sans objet pour EEDS
       PeopleController.permitted_attrs -= [:j_s_number]
       # Ajouter les attributs EEDS aux paramètres autorisés
-      PeopleController.permitted_attrs += [:birthplace, :nationality, :administrative_region]
+      PeopleController.permitted_attrs += [
+        :birthplace, :nationality, :administrative_region,
+        :emergency_contact_name, :emergency_contact_phone, :emergency_contact_relation
+      ]
     end
 
     initializer "hitobito_eeds.add_settings" do |_app|

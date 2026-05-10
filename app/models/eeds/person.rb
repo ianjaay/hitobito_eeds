@@ -27,7 +27,8 @@ module Eeds::Person
 
   included do
     # Attributs d'identité EEDS exposés publiquement.
-    Person::PUBLIC_ATTRS << :birthplace << :nationality << :administrative_region
+    Person::PUBLIC_ATTRS << :birthplace << :nationality << :administrative_region <<
+      :emergency_contact_name << :emergency_contact_phone << :emergency_contact_relation
     Person::ADDRESS_ATTRS << "administrative_region"
     Person::SEARCHABLE_ATTRS << :nationality
 

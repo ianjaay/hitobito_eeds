@@ -5,3 +5,6 @@ fr:
         birthplace: Lieu de naissance
         nationality: Nationalité
         administrative_region: Région (administrative)
+        emergency_contact_name: Personne à contacter en cas d'urgence
+        emergency_contact_phone: Téléphone d'urgence
+        emergency_contact_relation: Lien de parenté

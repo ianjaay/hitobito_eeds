@@ -44,3 +44,12 @@ additional_address:
     - Travail
     - Parents
     - Internat
+
+# Activer les responsables légaux (parent → enfant) pour gérer
+# proprement les mineurs. Les champs emergency_contact_* (sur Person)
+# restent un raccourci d'info rapide.
+people:
+  people_managers:
+    enabled: true
+    self_service_managed_creation:
+      enabled: true
