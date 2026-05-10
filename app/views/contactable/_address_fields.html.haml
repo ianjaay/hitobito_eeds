@@ -14,9 +14,10 @@
 
   = f.labeled_input_field(:street)
   = f.labeled_input_field(:town)
-  = f.labeled_collection_select :administrative_region,
-    Eeds::Person::SENEGAL_REGIONS, :to_s, :to_s,
-    { include_blank: '' }, class: 'form-select form-select-sm'
+  - if f.object.respond_to?(:administrative_region)
+    = f.labeled_collection_select :administrative_region,
+      Eeds::Person::SENEGAL_REGIONS, :to_s, :to_s,
+      { include_blank: '' }, class: 'form-select form-select-sm'
   = f.labeled(:country) do
     .shown.ms-0
       = f.country_field
