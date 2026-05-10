@@ -1,6 +1,8 @@
--#  EEDS — Override de `_details_pbs.html.haml` : on retire `grade_of_school`.
+-#  EEDS — Override de `_details_pbs.html.haml` :
+-#  on retire grade_of_school + salutation (Formule de politesse) — non pertinents
+-#  pour EEDS.
 
-= render_attrs(entry, :pbs_number, :salutation, :language)
+= render_attrs(entry, :pbs_number, :language)
 
 %dl.dl-horizontal
   - sibling_context = parent.try(:layer_group) || parent

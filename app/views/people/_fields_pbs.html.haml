@@ -1,11 +1,7 @@
 -#  EEDS — Override de `_fields_pbs.html.haml` :
--#  on retire `grade_of_school` (Classe scolaire — non pertinent au Sénégal,
--#  système scolaire différent du système suisse).
-
-= field_set_tag do
-  = f.labeled_input_field :pronouns
-  = f.labeled_input_field :title
-  = f.labeled_collection_select :salutation, Salutation.available, :first, :last, { include_blank: "" }, class: 'form-select form-select-sm'
+-#  on retire grade_of_school (Classe scolaire — système scolaire SN différent)
+-#  ainsi que pronouns / title / salutation (Pronoms / Civilité / Formule de
+-#  politesse — non pertinents dans le contexte EEDS).
 
 = field_set_tag do
   = f.labeled_input_fields(:entry_date, :leaving_date)
