@@ -1,0 +1,15 @@
+fr:
+  activerecord:
+    models:
+      group/subgroup:
+        one: Sous-groupe
+        other: Sous-groupes
+      group/subgroup/leader:
+        one: Animateur·trice de sous-groupe
+        other: Animateur·trice·s de sous-groupe
+      group/subgroup/member:
+        one: Membre
+        other: Membres
+    attributes:
+      group/subgroup:
+        name: Nom du sous-groupe (équipe / patrouille / sizaine)

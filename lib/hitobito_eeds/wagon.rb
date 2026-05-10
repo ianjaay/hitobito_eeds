@@ -28,6 +28,15 @@ module HitobitoEeds
         :birthplace, :nationality, :administrative_region,
         :emergency_contact_name, :emergency_contact_phone, :emergency_contact_relation
       ]
+
+      ### group types — autoriser le sous-groupe sous chaque unité
+      # (Mbotaay, Kayon, Ñawka, Gàlle = Woelfe, Pfadi, Pio, Rover en interne PBS)
+      [Group::Woelfe, Group::Pfadi, Group::Pio, Group::Rover].each do |unit|
+        unit.children(Group::Subgroup) unless unit.possible_children.include?(Group::Subgroup)
+      end
+      # Invalider les caches de types sans toucher aux root_types
+      Group.class_variable_set(:@@all_types, nil) if Group.class_variable_defined?(:@@all_types)
+      Role.reset_types!
     end
 
     initializer "hitobito_eeds.add_settings" do |_app|
