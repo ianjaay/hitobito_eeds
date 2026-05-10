@@ -1,0 +1,6 @@
+fr:
+  activerecord:
+    attributes:
+      person:
+        birthplace: Lieu de naissance
+        nationality: Nationalité

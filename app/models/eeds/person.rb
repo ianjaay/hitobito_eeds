@@ -7,6 +7,10 @@ module Eeds::Person
   extend ActiveSupport::Concern
 
   included do
+    # Attributs d'identité EEDS exposés publiquement.
+    Person::PUBLIC_ATTRS << :birthplace << :nationality
+    Person::SEARCHABLE_ATTRS << :nationality
+
     # Désactiver l'envoi automatique de mails liés à la BlackList suisse.
     # Le système de blacklist hitobito_pbs est conçu pour la Suisse (numéros de tél
     # interdits, etc.) ; non pertinent dans le contexte EEDS.

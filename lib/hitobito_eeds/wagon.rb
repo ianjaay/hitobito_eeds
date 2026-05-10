@@ -23,6 +23,8 @@ module HitobitoEeds
       ### controllers — retirer les attributs Suisse-spécifiques exposés par PBS
       # j_s_number = N° Jeunesse+Sport (programme suisse) — sans objet pour EEDS
       PeopleController.permitted_attrs -= [:j_s_number]
+      # Ajouter les attributs EEDS aux paramètres autorisés
+      PeopleController.permitted_attrs += [:birthplace, :nationality]
     end
 
     initializer "hitobito_eeds.add_settings" do |_app|
