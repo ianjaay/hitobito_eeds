@@ -24,8 +24,4 @@
 
   = render_extensions :address_fields, locals: { f: f }
 
-- if entry.is_a?(Person) && FeatureGate.enabled?('people.family_members')
-  = field_set_tag do
-    = f.labeled_inline_fields_for :family_members, 'person/family/fields'
-
 = render_extensions :additional_fields, locals: { f: f }

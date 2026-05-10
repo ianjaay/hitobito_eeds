@@ -26,7 +26,8 @@ module HitobitoEeds
       # Ajouter les attributs EEDS aux paramètres autorisés
       PeopleController.permitted_attrs += [
         :birthplace, :nationality, :administrative_region,
-        :emergency_contact_name, :emergency_contact_phone, :emergency_contact_relation
+        :emergency_contact_name, :emergency_contact_phone, :emergency_contact_relation,
+        :has_family_in_scouting
       ]
 
       ### group types — autoriser le sous-groupe sous chaque unité

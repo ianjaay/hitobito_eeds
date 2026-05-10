@@ -7,6 +7,16 @@
 -#  - La région administrative est intégrée au bloc d'adresse
 -#    (cf. contactable/_address_fields.html.haml dans ce wagon).
 
+= field_set_tag t('.section_scouting_info'), data: { controller: 'form-field-toggle' } do
+  - if entry.persisted? && entry.pbs_number.present?
+    = labeled(Person.human_attribute_name(:pbs_number)) do
+      %strong= entry.pbs_number
+  = f.labeled_boolean_field :has_family_in_scouting,
+      data: { action: 'change->form-field-toggle#toggle' }
+  - if entry.is_a?(Person) && FeatureGate.enabled?('people.family_members')
+    %div{data: {'form-field-toggle-target': 'toggle'}, class: (entry.has_family_in_scouting ? '' : 'hidden')}
+      = f.labeled_inline_fields_for :family_members, 'person/family/fields'
+
 = field_set_tag t('.section_emergency_contact') do
   = f.labeled_input_field :emergency_contact_name
   = f.labeled_input_field :emergency_contact_phone

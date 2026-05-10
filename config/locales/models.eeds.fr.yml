@@ -1,7 +1,7 @@
 fr:
   people:
     fields_eeds:
-      section_identity_eeds: Identité EEDS
+      section_scouting_info: Informations dans le scoutisme
       section_emergency_contact: Contact d'urgence
   activerecord:
     attributes:
@@ -11,6 +11,7 @@ fr:
         administrative_region: Région
         birthplace: Lieu de naissance
         nationality: Nationalité
+        has_family_in_scouting: A un membre de sa famille dans le scoutisme
         emergency_contact_name: Personne à contacter en cas d'urgence
         emergency_contact_phone: Téléphone d'urgence
         emergency_contact_relation: Lien de parenté
