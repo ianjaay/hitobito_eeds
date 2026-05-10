@@ -17,9 +17,12 @@ module HitobitoEeds
     ]
 
     config.to_prepare do
-      ### models — extensions EEDS (à brancher au fil des phases)
-      # Person.include Eeds::Person
-      # Group.include Eeds::Group
+      ### models — extensions EEDS
+      Person.include Eeds::Person
+
+      ### controllers — retirer les attributs Suisse-spécifiques exposés par PBS
+      # j_s_number = N° Jeunesse+Sport (programme suisse) — sans objet pour EEDS
+      PeopleController.permitted_attrs -= [:j_s_number]
     end
 
     initializer "hitobito_eeds.add_settings" do |_app|
