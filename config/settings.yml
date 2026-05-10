@@ -1,0 +1,46 @@
+# Settings spécifiques EEDS — chargés après ceux de hitobito_pbs.
+# Override les libellés prédéfinis pour téléphones, comptes sociaux, adresses.
+
+phone_number:
+  custom_label:
+    enabled: false
+  predefined_labels:
+    - Domicile
+    - GSM
+    - Travail
+    - Père
+    - Mère
+    - Fax
+    - Autre
+
+social_account:
+  custom_label:
+    enabled: true
+  predefined_labels:
+    - WhatsApp
+    - Facebook
+    - Instagram
+    - Skype
+    - Site web
+    - Autre
+
+people_relation:
+  kinds:
+    enabled: true
+  predefined_labels:
+    - Domicile
+    - Travail
+    - Père
+    - Mère
+    - Tuteur
+    - Tutrice
+    - Autre
+
+additional_address:
+  custom_label:
+    enabled: true
+  enabled: true
+  predefined_labels:
+    - Travail
+    - Parents
+    - Internat

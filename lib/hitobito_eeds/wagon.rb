@@ -26,7 +26,16 @@ module HitobitoEeds
     end
 
     initializer "hitobito_eeds.add_settings" do |_app|
-      # Place pour overrider les Settings (labels téléphone/social etc.)
+      Settings.add_source!(File.join(paths["config"].existent, "settings.yml"))
+      Settings.reload!
+    end
+
+    # Le mécanisme par défaut de Config gem concatène les arrays au lieu de les remplacer.
+    # On force l'écrasement des labels prédéfinis pour avoir UNIQUEMENT les libellés EEDS.
+    initializer "hitobito_eeds.override_predefined_labels", after: :load_config_initializers do |_app|
+      Settings.phone_number.predefined_labels = %w[Domicile GSM Travail Père Mère Fax Autre]
+      Settings.social_account.predefined_labels = ["WhatsApp", "Facebook", "Instagram", "Skype", "Site web", "Autre"]
+      Settings.additional_address.predefined_labels = %w[Travail Parents Internat]
     end
 
     private
