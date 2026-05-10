@@ -1,0 +1,13 @@
+-#  EEDS — Affichage des attributs additionnels sur la fiche personne.
+
+= render_attrs(entry, :birthplace, :nationality, :administrative_region)
+
+- branch = entry.current_branch
+- if branch
+  %dl.dl-horizontal
+    = labeled(t('activerecord.models.qualification_kind.one', default: 'Branche actuelle')) do
+      = branch.qualification_kind.label
+      %small.text-muted
+        = " — #{l(branch.start_at)}"
+
+= render_attrs(entry, :emergency_contact_name, :emergency_contact_phone, :emergency_contact_relation)

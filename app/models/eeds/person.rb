@@ -34,7 +34,18 @@ module Eeds::Person
     Person::PUBLIC_ATTRS << :birthplace << :nationality << :administrative_region <<
       :emergency_contact_name << :emergency_contact_phone << :emergency_contact_relation
     Person::ADDRESS_ATTRS << "administrative_region"
-    Person::SEARCHABLE_ATTRS << :nationality
+    Person::SEARCHABLE_ATTRS << :nationality << :birthplace <<
+      :emergency_contact_name << :emergency_contact_phone
+
+    # Filtres avancés de la liste des personnes (search_strategy + Quicksearch).
+    Person::FILTER_ATTRS.push(
+      :birthplace,
+      :nationality,
+      :administrative_region,
+      :emergency_contact_name,
+      :emergency_contact_phone,
+      :emergency_contact_relation
+    )
 
     validates :administrative_region,
       inclusion: {in: SENEGAL_REGIONS, allow_blank: true}

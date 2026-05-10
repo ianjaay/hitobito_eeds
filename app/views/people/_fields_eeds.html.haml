@@ -1,0 +1,17 @@
+-#  EEDS — Champs additionnels de la fiche personne (formulaire).
+-#  Ce partial est rendu en plus de _fields_pbs grâce au mécanisme
+-#  render_extensions de la gem `wagons`.
+
+= field_set_tag t('.section_identity_eeds') do
+  = f.labeled_input_field :birthplace
+  = f.labeled_collection_select :nationality, %w[Sénégalaise Autre], :to_s, :to_s,
+    { include_blank: '' }, class: 'form-select form-select-sm'
+
+= field_set_tag t('.section_administrative_region') do
+  = f.labeled_collection_select :administrative_region, Eeds::Person::SENEGAL_REGIONS,
+    :to_s, :to_s, { include_blank: '' }, class: 'form-select form-select-sm'
+
+= field_set_tag t('.section_emergency_contact') do
+  = f.labeled_input_field :emergency_contact_name
+  = f.labeled_input_field :emergency_contact_phone
+  = f.labeled_input_field :emergency_contact_relation

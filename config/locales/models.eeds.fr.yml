@@ -1,4 +1,9 @@
 fr:
+  people:
+    fields_eeds:
+      section_identity_eeds: Identité EEDS
+      section_administrative_region: Région administrative
+      section_emergency_contact: Contact d'urgence
   activerecord:
     attributes:
       person:
