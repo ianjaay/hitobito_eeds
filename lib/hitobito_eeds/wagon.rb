@@ -56,7 +56,7 @@ module HitobitoEeds
 
     def seed_fixtures
       fixtures = root.join("db", "seeds")
-      ENV["NO_ENV"] ? [fixtures] : [fixtures, ENV["RAILS_ENV"]]
+      ENV["NO_ENV"] ? [fixtures] : [fixtures, File.join(fixtures, Rails.env)]
     end
   end
 end

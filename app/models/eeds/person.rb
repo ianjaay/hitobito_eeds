@@ -25,6 +25,10 @@ module Eeds::Person
     "Ziguinchor"
   ].freeze
 
+  # IDs des QualificationKind représentant les 4 branches de progression EEDS
+  # (cf. db/seeds/branches.rb). Réservés dans la plage 1001-1099.
+  EEDS_BRANCH_IDS = [1001, 1002, 1003, 1004].freeze
+
   included do
     # Attributs d'identité EEDS exposés publiquement.
     Person::PUBLIC_ATTRS << :birthplace << :nationality << :administrative_region <<
@@ -46,5 +50,14 @@ module Eeds::Person
   # Voir `app/models/pbs/role.rb:56` et `app/models/pbs/event/participation.rb:38`.
   def black_listed?
     false
+  end
+
+  # Renvoie la dernière qualification de progression EEDS (Jiwu / Lawtan /
+  # Toor-Toor / Mennef) obtenue par la personne, ou nil.
+  def current_branch
+    qualifications
+      .where(qualification_kind_id: EEDS_BRANCH_IDS)
+      .order(start_at: :desc, id: :desc)
+      .first
   end
 end
