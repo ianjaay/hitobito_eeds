@@ -1,0 +1,34 @@
+-#  EEDS — Override de `app/views/people/_fields.html.haml`.
+-#  But : grouper sexe / date de naissance / lieu de naissance / nationalité
+-#  dans un seul bloc « Informations personnelles ».
+
+-# BEWARE: ce partial est aussi utilisé depuis event/register/register.
+-#         Ne pas utiliser de chemins relatifs.
+
+= field_set_tag do
+  = render 'person_name_fields', f: f
+  = render_extensions :name_fields, locals: { f: f }
+
+= render 'contactable/fields', f: f
+
+= field_set_tag do
+  = render 'gender_field', f: f
+
+  = f.labeled_string_field(:birthday,
+                           value: f.date_value(:birthday),
+                           help_inline: t('.format_birthday'),
+                           class: 'col-2 form-control form-control-sm d-inline')
+
+  -# EEDS : lieu de naissance + nationalité regroupés ici plutôt que dans
+  -# une section séparée (cf. _fields_eeds.html.haml).
+  = f.labeled_input_field(:birthplace)
+  = f.labeled_collection_select(:nationality, %w[Sénégalaise Autre], :to_s, :to_s,
+    { include_blank: '' }, class: 'form-select form-select-sm')
+
+  - if Person.language_labels.many?
+    = f.labeled_i18n_enum_field :language, Person.language_labels.to_a, class: 'form-select form-select-sm'
+
+= render_extensions :fields, locals: { f: f }
+
+= field_set_tag do
+  = f.labeled_input_field(:additional_information, help: t('.no_sensitive_information'))
