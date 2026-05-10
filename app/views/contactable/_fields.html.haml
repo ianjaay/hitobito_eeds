@@ -6,7 +6,7 @@
 -#  Les sections `additional_emails`, `additional_addresses`, `social_accounts`
 -#  et `family_members` restent rendues séparément, comme dans le partial core.
 
-= info_field_set_tag do
+= info_field_set_tag t('.section_contact') do
   = render 'contactable/address_fields', f: f
 
   -# Email principal et téléphones intégrés au bloc d'adresse (EEDS)
