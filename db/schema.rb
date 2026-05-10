@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_10_175930) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_10_181500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -1231,7 +1231,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_10_175930) do
     t.string "reset_password_sent_to"
     t.integer "two_factor_authentication"
     t.text "encrypted_two_fa_secret"
-    t.string "language", default: "de", null: false
+    t.string "language", default: "fr", null: false
     t.datetime "privacy_policy_accepted_at", precision: nil
     t.datetime "minimized_at", precision: nil
     t.bigint "self_registration_reason_id"
@@ -1268,10 +1268,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_10_175930) do
     t.string "birthplace"
     t.string "nationality", default: "Sénégalaise"
     t.string "administrative_region"
-    t.virtual "search_column", type: :tsvector, as: "to_tsvector('french'::regconfig, ((((((((((((((((((((((((((((((((COALESCE((first_name)::text, ''::text) || ' '::text) || COALESCE((last_name)::text, ''::text)) || ' '::text) || COALESCE((company_name)::text, ''::text)) || ' '::text) || COALESCE((nickname)::text, ''::text)) || ' '::text) || COALESCE((email)::text, ''::text)) || ' '::text) || regexp_replace(COALESCE((email)::text, ''::text), '[@_+-]'::text, ' '::text, 'g'::text)) || ' '::text) || COALESCE((street)::text, ''::text)) || ' '::text) || COALESCE((housenumber)::text, ''::text)) || ' '::text) || COALESCE((zip_code)::text, ''::text)) || ' '::text) || COALESCE((town)::text, ''::text)) || ' '::text) || COALESCE((country)::text, ''::text)) || ' '::text) ||\nCASE\n    WHEN (birthday IS NOT NULL) THEN (((((EXTRACT(year FROM birthday))::text || '-'::text) || lpad((EXTRACT(month FROM birthday))::text, 2, '0'::text)) || '-'::text) || lpad((EXTRACT(day FROM birthday))::text, 2, '0'::text))\n    ELSE ''::text\nEND) || ' '::text) || COALESCE(additional_information, ''::text)) || ' '::text) || COALESCE((j_s_number)::text, ''::text)) || ' '::text) || COALESCE((title)::text, ''::text)) || ' '::text) || COALESCE((pbs_number)::text, ''::text)) || ' '::text) || COALESCE((nationality)::text, ''::text)))", stored: true
     t.string "emergency_contact_name"
     t.string "emergency_contact_phone"
     t.string "emergency_contact_relation"
+    t.virtual "search_column", type: :tsvector, as: "to_tsvector('french'::regconfig, ((((((((((((((((((((((((((((((((((((((COALESCE((first_name)::text, ''::text) || ' '::text) || COALESCE((last_name)::text, ''::text)) || ' '::text) || COALESCE((company_name)::text, ''::text)) || ' '::text) || COALESCE((nickname)::text, ''::text)) || ' '::text) || COALESCE((email)::text, ''::text)) || ' '::text) || regexp_replace(COALESCE((email)::text, ''::text), '[@_+-]'::text, ' '::text, 'g'::text)) || ' '::text) || COALESCE((street)::text, ''::text)) || ' '::text) || COALESCE((housenumber)::text, ''::text)) || ' '::text) || COALESCE((zip_code)::text, ''::text)) || ' '::text) || COALESCE((town)::text, ''::text)) || ' '::text) || COALESCE((country)::text, ''::text)) || ' '::text) ||\nCASE\n    WHEN (birthday IS NOT NULL) THEN (((((EXTRACT(year FROM birthday))::text || '-'::text) || lpad((EXTRACT(month FROM birthday))::text, 2, '0'::text)) || '-'::text) || lpad((EXTRACT(day FROM birthday))::text, 2, '0'::text))\n    ELSE ''::text\nEND) || ' '::text) || COALESCE(additional_information, ''::text)) || ' '::text) || COALESCE((j_s_number)::text, ''::text)) || ' '::text) || COALESCE((title)::text, ''::text)) || ' '::text) || COALESCE((pbs_number)::text, ''::text)) || ' '::text) || COALESCE((nationality)::text, ''::text)) || ' '::text) || COALESCE((birthplace)::text, ''::text)) || ' '::text) || COALESCE((emergency_contact_name)::text, ''::text)) || ' '::text) || COALESCE((emergency_contact_phone)::text, ''::text)))", stored: true
     t.index ["authentication_token"], name: "index_people_on_authentication_token"
     t.index ["branche"], name: "index_people_on_branche"
     t.index ["confirmation_token"], name: "index_people_on_confirmation_token", unique: true
