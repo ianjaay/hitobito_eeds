@@ -1,0 +1,32 @@
+-#  EEDS — Override de `contactable/_fields.html.haml`.
+-#  Bloc d'adresse étendu : Adresse + Commune + Région + Pays + Email + Téléphones,
+-#  parce que pour le contexte EEDS, le téléphone et l'email sont les éléments
+-#  de contact principaux et doivent être visibles d'un coup d'œil avec l'adresse.
+-#
+-#  Les sections `additional_emails`, `additional_addresses`, `social_accounts`
+-#  et `family_members` restent rendues séparément, comme dans le partial core.
+
+= info_field_set_tag do
+  = render 'contactable/address_fields', f: f
+
+  -# Email principal et téléphones intégrés au bloc d'adresse (EEDS)
+  = render 'email_field', f: f
+  = render 'contactable/phone_numbers_fields', f: f
+
+  = render_extensions :address_fields, locals: { f: f }
+
+= field_set_tag do
+  = f.labeled_inline_fields_for :additional_emails, 'contactable/additional_email_fields'
+
+- if FeatureGate.enabled?('additional_address')
+  = field_set_tag do
+    = f.labeled_inline_fields_for :additional_addresses, 'contactable/additional_address_fields'
+
+= field_set_tag do
+  = f.labeled_inline_fields_for :social_accounts, 'contactable/social_account_fields'
+
+- if entry.is_a?(Person) && FeatureGate.enabled?('people.family_members')
+  = field_set_tag do
+    = f.labeled_inline_fields_for :family_members, 'person/family/fields'
+
+= render_extensions :additional_fields, locals: { f: f }
