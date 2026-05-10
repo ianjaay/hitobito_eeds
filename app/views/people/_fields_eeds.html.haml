@@ -2,13 +2,10 @@
 -#  Ce partial est rendu en plus de _fields_pbs grâce au mécanisme
 -#  render_extensions de la gem `wagons`.
 -#
--#  La région administrative est désormais intégrée au bloc d'adresse
--#  (cf. contactable/_address_fields.html.haml dans ce wagon).
-
-= field_set_tag t('.section_identity_eeds') do
-  = f.labeled_input_field :birthplace
-  = f.labeled_collection_select :nationality, %w[Sénégalaise Autre], :to_s, :to_s,
-    { include_blank: '' }, class: 'form-select form-select-sm'
+-#  - Lieu de naissance + Nationalité sont rendus directement dans le bloc
+-#    "Informations personnelles" (cf. _fields.html.haml override).
+-#  - La région administrative est intégrée au bloc d'adresse
+-#    (cf. contactable/_address_fields.html.haml dans ce wagon).
 
 = field_set_tag t('.section_emergency_contact') do
   = f.labeled_input_field :emergency_contact_name
