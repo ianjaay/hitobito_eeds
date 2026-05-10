@@ -1,0 +1,16 @@
+-#  EEDS — Override de _show_right_advisors.html.haml de hitobito_pbs.
+-#  On n'affiche que le `leader`, les autres rôles encadrants Suisse / J+S
+-#  ayant été retirés de used_attributes côté EEDS (cf. Event::Campy).
+- if entry.is_a?(Event::Campy)
+  = section(t('.advisors')) do
+    %dl.dl-vertical
+      = labeled(captionize(:leader_id, entry.klass)) do
+        %strong= format_attr(entry, :leader_id)
+        - if can?(:show_crisis_contacts, entry) && entry.leader_id
+          = entry.leader.compact_contact_info(false)
+
+- elsif entry.is_a?(Event::Course) && entry.advisor_id.present?
+  = section(t('.advisors')) do
+    %dl.dl-vertical
+      = labeled(captionize(:advisor_id, entry.klass)) do
+        = format_attr(entry, :advisor_id)
