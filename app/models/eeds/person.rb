@@ -6,10 +6,33 @@
 module Eeds::Person
   extend ActiveSupport::Concern
 
+  # Liste des 14 régions administratives du Sénégal (ordre alphabétique).
+  # Utilisée pour le select du champ `administrative_region` dans le form personne.
+  SENEGAL_REGIONS = [
+    "Dakar",
+    "Diourbel",
+    "Fatick",
+    "Kaffrine",
+    "Kaolack",
+    "Kédougou",
+    "Kolda",
+    "Louga",
+    "Matam",
+    "Saint-Louis",
+    "Sédhiou",
+    "Tambacounda",
+    "Thiès",
+    "Ziguinchor"
+  ].freeze
+
   included do
     # Attributs d'identité EEDS exposés publiquement.
-    Person::PUBLIC_ATTRS << :birthplace << :nationality
+    Person::PUBLIC_ATTRS << :birthplace << :nationality << :administrative_region
+    Person::ADDRESS_ATTRS << "administrative_region"
     Person::SEARCHABLE_ATTRS << :nationality
+
+    validates :administrative_region,
+      inclusion: {in: SENEGAL_REGIONS, allow_blank: true}
 
     # Désactiver l'envoi automatique de mails liés à la BlackList suisse.
     # Le système de blacklist hitobito_pbs est conçu pour la Suisse (numéros de tél
