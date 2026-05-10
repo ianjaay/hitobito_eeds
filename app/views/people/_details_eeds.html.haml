@@ -1,6 +1,7 @@
 -#  EEDS — Affichage des attributs additionnels sur la fiche personne.
+-#  La région administrative est affichée dans le bloc d'adresse standard.
 
-= render_attrs(entry, :birthplace, :nationality, :administrative_region)
+= render_attrs(entry, :birthplace, :nationality)
 
 - branch = entry.current_branch
 - if branch

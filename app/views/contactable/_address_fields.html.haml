@@ -1,0 +1,22 @@
+-#  EEDS — Bloc d'adresse simplifié pour le contexte Sénégal.
+-#  On retire les champs spécifiques Suisse/Europe :
+-#    address_care_of, postbox, housenumber, zip_code
+-#  (au Sénégal le code postal n'est pas largement utilisé, et il n'y a pas
+-#  de système de boîte postale standardisé sur le formulaire principal).
+-#  On garde 4 champs : Adresse, Commune/Département, Région, Pays.
+-#
+-#  Le champ administrative_region (cf. Eeds::Person) est intégré ici
+-#  plutôt que dans une section séparée.
+
+.address-input-fields
+  - if f.object.respond_to?(:household_key) && f.object.household_key.present?
+    %div.alert.alert-warning.updates-household-address= t('contactable.address_fields.updates_household_address')
+
+  = f.labeled_input_field(:street)
+  = f.labeled_input_field(:town)
+  = f.labeled_collection_select :administrative_region,
+    Eeds::Person::SENEGAL_REGIONS, :to_s, :to_s,
+    { include_blank: '' }, class: 'form-select form-select-sm'
+  = f.labeled(:country) do
+    .shown.ms-0
+      = f.country_field
