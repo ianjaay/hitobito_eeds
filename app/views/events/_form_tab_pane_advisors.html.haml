@@ -1,9 +1,0 @@
--#  EEDS — Override de _form_tab_pane_advisors.html.haml de hitobito_pbs.
--#  Les rôles spécifiques Suisse / J+S (coach, abteilungsleitung,
--#  advisor_*_security, al_visiting, coach_visiting…) ne font pas partie
--#  de used_attributes côté EEDS (cf. Event::Campy). Seul `leader` est
--#  conservé.
-- if entry.is_a?(Event::Campy)
-  #advisors.tab-pane
-    = field_set_tag do
-      = f.labeled_person_field :leader
