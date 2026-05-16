@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.version = HitobitoEeds::VERSION
   s.authors = ["EEDS - Éclaireuses et Éclaireurs du Sénégal"]
   s.email = ["contact@eeds.sn"]
-  s.summary = "EEDS specific features"
-  s.description = "Adaptation Hitobito pour les Éclaireuses et Éclaireurs du Sénégal (E-Gàlle)"
+  s.summary = "E-GALLE - EEDS"
+  s.description = "Plateforme de Gestion des Membres pour les Éclaireuses et Éclaireurs du Sénégal (E-Gàlle)"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile"]
 
