@@ -1,0 +1,270 @@
+-# Administration — Configuration des accès aux fonctionnalités EEDS
+- content_for(:title, "Gestion des Profils & Accès")
+
+- action_labels = { "read" => "Consulter", "create" => "Créer", "update" => "Modifier", "destroy" => "Supprimer", "manage" => "Gérer" }
+- meta = Admin::FeaturePermission::FEATURE_META
+
+.admin-feature-permissions
+
+  -# ═══ En-tête ═══
+  %div{style: "background: linear-gradient(135deg, #5D4296 0%, #7B5FB8 100%); border-radius: 16px; padding: 28px 32px; color: white; margin-bottom: 28px;"}
+    %div{style: "display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;"}
+      %div
+        %h1{style: "font-size: 24px; font-weight: 700; margin: 0;"}
+          %i.fas.fa-shield-alt{style: "margin-right: 10px;"}
+          Gestion des Profils & Accès
+        %p{style: "font-size: 14px; opacity: 0.85; margin: 6px 0 0; max-width: 600px;"}
+          Définissez précisément quelles fonctionnalités chaque rôle peut utiliser.
+          Sélectionnez une fonctionnalité, puis cochez les actions autorisées par rôle.
+      %div{style: "display: flex; gap: 8px; align-items: center;"}
+        %span{style: "background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 13px;"}
+          %i.fas.fa-users{style: "margin-right: 4px;"}
+          = "#{@role_data.size} rôles"
+        %span{style: "background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 13px;"}
+          %i.fas.fa-puzzle-piece{style: "margin-right: 4px;"}
+          = "#{@features.size} modules"
+
+  - if flash[:notice]
+    %div{style: "background: #d4edda; border: 1px solid #c3e6cb; border-radius: 10px; padding: 14px 20px; margin-bottom: 20px; color: #155724; display: flex; align-items: center; gap: 8px;"}
+      %i.fas.fa-check-circle
+      = flash[:notice]
+
+  = form_tag update_all_admin_feature_permissions_path, method: :patch, id: "permissions-form" do
+
+    -# ═══ Onglets fonctionnalités ═══
+    %div{style: "display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;"}
+      - @features.each_with_index do |feature, fi|
+        - m = meta[feature]
+        - active = (fi == 0)
+        %button.feature-tab{type: "button", "data-feature" => feature, onclick: "switchFeature('#{feature}')", style: "display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s; border: 2px solid #{active ? m[:color] : '#e0e0e0'}; background: #{active ? m[:color] : 'white'}; color: #{active ? 'white' : '#555'};"}
+          %i.fas{class: m[:icon]}
+          = m[:label]
+
+    -# ═══ Zone de contenu par fonctionnalité ═══
+    - @features.each_with_index do |feature, fi|
+      - m = meta[feature]
+      %div.feature-panel{id: "panel-#{feature}", style: "#{'display:none;' unless fi == 0}"}
+
+        -# Barre d'outils
+        %div{style: "background: white; border-radius: 12px; padding: 14px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap;"}
+          %div{style: "display: flex; align-items: center; gap: 12px; flex-wrap: wrap;"}
+            %label{style: "font-weight: 600; font-size: 13px; color: #555;"} Structure :
+            %select.group-filter{style: "padding: 6px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px;", "data-feature" => feature, onchange: "filterGroup('#{feature}', this.value)"}
+              %option{value: "all"} Toutes
+              - @grouped_roles.each do |group_key, roles_in_group|
+                %option{value: group_key}= roles_in_group.first[:group_label]
+            %span{style: "color: #ccc;"} |
+            %button.btn-quick{type: "button", onclick: "quickSet('#{feature}', 'all')", style: "padding: 5px 12px; background: #{m[:color]}; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 12px;"}
+              %i.fas.fa-check-double{style: "margin-right: 3px;"}
+              Tout cocher
+            %button.btn-quick{type: "button", onclick: "quickSet('#{feature}', 'none')", style: "padding: 5px 12px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 12px;"}
+              %i.fas.fa-times{style: "margin-right: 3px;"}
+              Tout décocher
+            %button.btn-quick{type: "button", onclick: "quickSet('#{feature}', 'read')", style: "padding: 5px 12px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 12px;"}
+              %i.fas.fa-eye{style: "margin-right: 3px;"}
+              Lecture seule
+          %div{style: "font-size: 12px; color: #999;"}
+            %i.fas{class: m[:icon], style: "color: #{m[:color]}; margin-right: 4px;"}
+            = m[:label]
+
+        -# Tableau par structure
+        - @grouped_roles.each do |group_key, roles_in_group|
+          - group_label = roles_in_group.first[:group_label]
+          %div.group-block{style: "background: white; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); overflow: hidden;", "data-group" => group_key, "data-feature" => feature}
+
+            %div.group-header{style: "padding: 10px 20px; border-bottom: 1px solid #f0f0f0; cursor: pointer; display: flex; align-items: center; justify-content: space-between;", onclick: "toggleBlock(this)"}
+              %div{style: "display: flex; align-items: center; gap: 8px;"}
+                %i.fas.fa-chevron-down.block-chevron{style: "font-size: 11px; color: #aaa; transition: transform 0.2s;"}
+                %span{style: "font-weight: 600; font-size: 14px; color: #333;"}= group_label
+                %span{style: "font-size: 11px; color: #aaa; background: #f5f5f5; padding: 2px 8px; border-radius: 10px;"}= "#{roles_in_group.size}"
+              %div{style: "display: flex; gap: 4px;"}
+                %button.btn-mini{type: "button", onclick: "event.stopPropagation(); setGroup('#{feature}', '#{group_key}', true)", style: "padding: 3px 8px; background: #{m[:color]}22; color: #{m[:color]}; border: 1px solid #{m[:color]}44; border-radius: 4px; cursor: pointer; font-size: 11px;"} Tout
+                %button.btn-mini{type: "button", onclick: "event.stopPropagation(); setGroup('#{feature}', '#{group_key}', false)", style: "padding: 3px 8px; background: #f8d7da; color: #dc3545; border: 1px solid #f5c6cb; border-radius: 4px; cursor: pointer; font-size: 11px;"} Aucun
+
+            %div.block-content
+              %table{style: "width: 100%; border-collapse: collapse; font-size: 13px;"}
+                %thead
+                  %tr{style: "background: #fafafa;"}
+                    %th{style: "padding: 8px 16px; text-align: left; font-weight: 600; border-bottom: 1px solid #eee; width: 260px;"} Rôle
+                    - @actions.each do |action|
+                      %th{style: "padding: 8px 10px; text-align: center; border-bottom: 1px solid #eee; width: 90px;"}
+                        %span{style: "font-size: 12px; color: #666;"}= action_labels[action]
+                    %th{style: "padding: 8px 10px; text-align: center; border-bottom: 1px solid #eee; width: 60px;"}
+                      %span{style: "font-size: 11px; color: #aaa;"} Profil
+                %tbody
+                  - roles_in_group.each_with_index do |role_info, idx|
+                    - role_type = role_info[:type_name]
+                    - role_label = role_info[:role_label]
+                    - bg = idx.even? ? "white" : "#fafbfc"
+                    - checks = @actions.map { |a| k = "#{feature}:#{a}"; @matrix.dig(role_type, k).nil? ? true : @matrix.dig(role_type, k) }
+                    - all_checked = checks.all?
+                    - none_checked = checks.none?
+                    - read_checked = checks.first
+                    - if all_checked
+                      - badge_style = "background: #{m[:color]}18; color: #{m[:color]}; border: 1px solid #{m[:color]}33;"
+                      - badge_text = "Complet"
+                      - badge_icon = "fa-check-circle"
+                    - elsif none_checked
+                      - badge_style = "background: #f8d7da; color: #dc3545; border: 1px solid #f5c6cb;"
+                      - badge_text = "Bloqué"
+                      - badge_icon = "fa-ban"
+                    - elsif read_checked
+                      - badge_style = "background: #fff3cd; color: #856404; border: 1px solid #ffeeba;"
+                      - badge_text = "Lecture"
+                      - badge_icon = "fa-eye"
+                    - else
+                      - badge_style = "background: #e2e3e5; color: #6c757d; border: 1px solid #d6d8db;"
+                      - badge_text = "Partiel"
+                      - badge_icon = "fa-minus-circle"
+                    %tr{style: "background: #{bg};", "data-role" => role_type}
+                      %td{style: "padding: 7px 16px; font-weight: 500; border-bottom: 1px solid #f0f0f0;"}
+                        = role_label
+                      - @actions.each do |action|
+                        - key = "#{feature}:#{action}"
+                        - checked = @matrix.dig(role_type, key).nil? ? true : @matrix.dig(role_type, key)
+                        %td{style: "padding: 7px 10px; text-align: center; border-bottom: 1px solid #f0f0f0;"}
+                          %input{type: "hidden", name: "permissions[#{role_type}][#{key}]", value: "0"}
+                          %label{style: "display: inline-block; cursor: pointer;"}
+                            %input.perm-cb{type: "checkbox", name: "permissions[#{role_type}][#{key}]", value: "1", checked: checked, "data-feature" => feature, "data-action" => action, "data-role" => role_type, "data-group" => group_key, style: "width: 17px; height: 17px; cursor: pointer; accent-color: #{m[:color]};", onchange: "updateBadge(this)"}
+                      %td{style: "padding: 7px 10px; text-align: center; border-bottom: 1px solid #f0f0f0;"}
+                        %span.role-badge{style: "display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; #{badge_style}", "data-role" => role_type, "data-feature" => feature}
+                          %i.fas{class: badge_icon, style: "font-size: 9px;"}
+                          = badge_text
+
+    -# ═══ Barre de sauvegarde flottante ═══
+    %div{style: "position: sticky; bottom: 16px; z-index: 100; margin-top: 20px;"}
+      %div{style: "background: white; border-radius: 14px; padding: 14px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;"}
+        %div{style: "display: flex; align-items: center; gap: 16px; font-size: 13px; color: #666;"}
+          %span#change-counter{style: "display: none; background: #fff3cd; color: #856404; padding: 4px 12px; border-radius: 8px; font-weight: 600;"}
+            %i.fas.fa-exclamation-triangle{style: "margin-right: 4px;"}
+            %span Modifications non sauvegardées
+          %div{style: "display: flex; gap: 12px;"}
+            %span{style: "display: flex; align-items: center; gap: 4px; font-size: 12px;"}
+              %span{style: "width: 10px; height: 10px; border-radius: 50%; background: #28a745; display: inline-block;"}
+              Complet
+            %span{style: "display: flex; align-items: center; gap: 4px; font-size: 12px;"}
+              %span{style: "width: 10px; height: 10px; border-radius: 50%; background: #ffc107; display: inline-block;"}
+              Lecture
+            %span{style: "display: flex; align-items: center; gap: 4px; font-size: 12px;"}
+              %span{style: "width: 10px; height: 10px; border-radius: 50%; background: #dc3545; display: inline-block;"}
+              Bloqué
+        %button{type: "submit", style: "padding: 12px 36px; background: linear-gradient(135deg, #5D4296, #7B5FB8); color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 15px; font-weight: 600; box-shadow: 0 2px 8px rgba(93,66,150,0.3); transition: transform 0.1s;", onmouseover: "this.style.transform='scale(1.02)'", onmouseout: "this.style.transform='scale(1)'"}
+          %i.fas.fa-save{style: "margin-right: 8px;"}
+          Enregistrer la configuration
+
+:javascript
+  var currentFeature = '#{@features.first}';
+  var featureMeta = #{meta.transform_values { |v| { color: v[:color], icon: v[:icon], label: v[:label] } }.to_json};
+  var actions = #{@actions.to_json};
+  var dirty = false;
+
+  function switchFeature(feature) {
+    currentFeature = feature;
+    document.querySelectorAll('.feature-panel').forEach(function(p) {
+      p.style.display = 'none';
+    });
+    document.getElementById('panel-' + feature).style.display = '';
+
+    document.querySelectorAll('.feature-tab').forEach(function(tab) {
+      var f = tab.dataset.feature;
+      var m = featureMeta[f];
+      if (f === feature) {
+        tab.style.background = m.color;
+        tab.style.borderColor = m.color;
+        tab.style.color = 'white';
+      } else {
+        tab.style.background = 'white';
+        tab.style.borderColor = '#e0e0e0';
+        tab.style.color = '#555';
+      }
+    });
+  }
+
+  function filterGroup(feature, value) {
+    var panel = document.getElementById('panel-' + feature);
+    panel.querySelectorAll('.group-block').forEach(function(block) {
+      block.style.display = (value === 'all' || block.dataset.group === value) ? '' : 'none';
+    });
+  }
+
+  function toggleBlock(header) {
+    var content = header.nextElementSibling;
+    var chevron = header.querySelector('.block-chevron');
+    if (content.style.display === 'none') {
+      content.style.display = '';
+      chevron.style.transform = '';
+    } else {
+      content.style.display = 'none';
+      chevron.style.transform = 'rotate(-90deg)';
+    }
+  }
+
+  function quickSet(feature, mode) {
+    var panel = document.getElementById('panel-' + feature);
+    var groupFilter = panel.querySelector('.group-filter').value;
+    panel.querySelectorAll('.group-block').forEach(function(block) {
+      if (groupFilter !== 'all' && block.dataset.group !== groupFilter) return;
+      block.querySelectorAll('.perm-cb').forEach(function(cb) {
+        if (mode === 'all') cb.checked = true;
+        else if (mode === 'none') cb.checked = false;
+        else if (mode === 'read') cb.checked = (cb.dataset.action === 'read');
+      });
+      block.querySelectorAll('.perm-cb').forEach(function(cb) { updateBadge(cb); });
+    });
+    markDirty();
+  }
+
+  function setGroup(feature, groupKey, checked) {
+    var panel = document.getElementById('panel-' + feature);
+    panel.querySelectorAll('.group-block[data-group="' + groupKey + '"] .perm-cb').forEach(function(cb) {
+      cb.checked = checked;
+    });
+    panel.querySelectorAll('.group-block[data-group="' + groupKey + '"] .perm-cb').forEach(function(cb) {
+      updateBadge(cb);
+    });
+    markDirty();
+  }
+
+  function updateBadge(cb) {
+    var role = cb.dataset.role;
+    var feature = cb.dataset.feature;
+    var badge = document.querySelector('.role-badge[data-role="' + role + '"][data-feature="' + feature + '"]');
+    if (!badge) return;
+
+    var row = cb.closest('tr');
+    var cbs = row.querySelectorAll('.perm-cb');
+    var total = cbs.length;
+    var checked = 0;
+    var readChecked = false;
+    cbs.forEach(function(c) {
+      if (c.checked) checked++;
+      if (c.dataset.action === 'read' && c.checked) readChecked = true;
+    });
+
+    var m = featureMeta[feature];
+    if (checked === total) {
+      badge.innerHTML = '<i class="fas fa-check-circle" style="font-size:9px;"></i> Complet';
+      badge.style.cssText = 'display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;background:' + m.color + '18;color:' + m.color + ';border:1px solid ' + m.color + '33;';
+    } else if (checked === 0) {
+      badge.innerHTML = '<i class="fas fa-ban" style="font-size:9px;"></i> Bloqué';
+      badge.style.cssText = 'display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;background:#f8d7da;color:#dc3545;border:1px solid #f5c6cb;';
+    } else if (readChecked && checked <= 2) {
+      badge.innerHTML = '<i class="fas fa-eye" style="font-size:9px;"></i> Lecture';
+      badge.style.cssText = 'display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;background:#fff3cd;color:#856404;border:1px solid #ffeeba;';
+    } else {
+      badge.innerHTML = '<i class="fas fa-minus-circle" style="font-size:9px;"></i> Partiel';
+      badge.style.cssText = 'display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;background:#e2e3e5;color:#6c757d;border:1px solid #d6d8db;';
+    }
+    markDirty();
+  }
+
+  function markDirty() {
+    if (!dirty) {
+      dirty = true;
+      document.getElementById('change-counter').style.display = '';
+    }
+  }
+
+  document.querySelectorAll('.perm-cb').forEach(function(cb) {
+    cb.addEventListener('change', function() { markDirty(); });
+  });

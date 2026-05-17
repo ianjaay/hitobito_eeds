@@ -7,6 +7,15 @@ Rails.application.routes.draw do
     # Administration centrale des JEEGO et MËN-MËN (Paramètres)
     resources :eeds_progression_badges, controller: "eeds/admin_progressions"
 
+    # ── ADMIN — Configuration des accès aux fonctionnalités ──
+    namespace :admin do
+      resources :feature_permissions, only: [:index] do
+        collection do
+          patch :update_all
+        end
+      end
+    end
+
     # ── MAAS — Module d'Adhésion Annuelle Solidaire ──
 
     # Admin national : gestion des campagnes et plans

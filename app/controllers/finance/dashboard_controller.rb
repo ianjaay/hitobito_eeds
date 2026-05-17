@@ -4,8 +4,11 @@
 # Affiche un résumé consolidé de toutes les activités financières (hiérarchique).
 # Accessible via /groups/:group_id/finance/dashboard
 class Finance::DashboardController < ApplicationController
+  include Admin::FeatureAccessConcern
+
   before_action :set_group
   before_action :authorize_finance
+  before_action -> { check_feature_access!("finance") }
 
   def index
     @descendant_group_ids = @group.self_and_descendants.pluck(:id)

@@ -3,6 +3,8 @@
 # Contrôleur de gestion des progressions pédagogiques EEDS.
 # Imbriqué sous /groups/:group_id/people/:person_id/progressions
 class Eeds::ProgressionsController < ApplicationController
+  include Admin::FeatureAccessConcern
+
   DOMAINE_ORDER = %w[enab_physique enab_intellectuel donn_social yees_spirituel enab_affectif].freeze
   MENMEN_ICONS = {
     "men_communicateur" => "📡", "men_environnementaliste" => "🌿",
@@ -13,6 +15,7 @@ class Eeds::ProgressionsController < ApplicationController
 
   before_action :set_group
   before_action :set_person
+  before_action -> { check_feature_access!("progression") }
   before_action :set_progression, only: [:show, :edit, :update, :validate_progression, :request_rework, :start, :add_comment]
   before_action :authorize_action
 

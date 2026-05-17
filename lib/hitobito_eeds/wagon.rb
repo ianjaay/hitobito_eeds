@@ -50,29 +50,6 @@ module HitobitoEeds
       MemberCount.const_set(:COUNT_CATEGORIES, [:leiter, :woelfe, :pfadis, :pios, :rover, :pta].freeze)
       MemberCount.const_set(:COUNT_COLUMNS, MemberCount::COUNT_CATEGORIES.collect { |c| [:"#{c}_f", :"#{c}_m"] }.flatten.freeze)
 
-      ### navigation principale — ajouter Finance dans la barre du haut
-      NavigationHelper.include Eeds::NavigationHelper
-
-      # Exclure les chemins finance de la section Groupes
-      groups_nav = NavigationHelper::MAIN.find { |opts| opts[:label] == :groups }
-      if groups_nav
-        groups_nav[:inactive_for] ||= []
-        groups_nav[:inactive_for] << "finance"
-      end
-
-      index_admin = NavigationHelper::MAIN.index { |opts| opts[:label] == :admin }
-      unless NavigationHelper::MAIN.any? { |opts| opts[:label] == :finances }
-        NavigationHelper::MAIN.insert(
-          index_admin,
-          label: :finances,
-          icon_name: "wallet",
-          url: :first_group_finance_or_root_path,
-          active_for: %w[finance/dashboard finance/activity_fees finance/obligations
-                         finance/event_finances finance/person_finances finance_receipts],
-          if: ->(_) { can?(:manage, Finance::Obligation) }
-        )
-      end
-
       ### sheets — navigation latérale pour les pages import Excel
       Sheet::Group.include Eeds::Sheet::Group
       Sheet::Person.include Eeds::Sheet::Person
@@ -85,6 +62,9 @@ module HitobitoEeds
 
       ### abilities — Finance (gestion financière des activités)
       Ability.store.register Finance::FinanceAbility
+
+      ### abilities — Admin (configuration des accès aux fonctionnalités)
+      Ability.store.register Admin::FeaturePermissionAbility
     end
 
     initializer "hitobito_eeds.add_settings" do |_app|

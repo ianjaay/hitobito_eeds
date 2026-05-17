@@ -1,0 +1,4 @@
+-# Extension admin_nav_main pour le wagon EEDS
+-# Ajoute le lien "Gestion des Profils" dans le menu admin latéral
+- if can?(:manage, Admin::FeaturePermission)
+  = nav "Gestion des Profils", admin_feature_permissions_path, %w(admin/feature_permissions)

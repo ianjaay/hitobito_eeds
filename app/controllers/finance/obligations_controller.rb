@@ -3,9 +3,12 @@
 # Gestion des obligations de paiement (inscriptions des participants).
 # Accessible via /groups/:group_id/finance/activity_fees/:activity_fee_id/obligations
 class Finance::ObligationsController < ApplicationController
+  include Admin::FeatureAccessConcern
+
   before_action :set_group
   before_action :set_fee
   before_action :authorize_finance
+  before_action -> { check_feature_access!("finance") }
   before_action :set_obligation, only: [:show, :versement, :create_versement]
 
   def index

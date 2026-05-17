@@ -3,8 +3,11 @@
 # Gestion des frais associés aux activités (events ou campagnes).
 # Accessible via /groups/:group_id/finance/activity_fees
 class Finance::ActivityFeesController < ApplicationController
+  include Admin::FeatureAccessConcern
+
   before_action :set_group
   before_action :authorize_finance
+  before_action -> { check_feature_access!("finance") }
   before_action :set_fee, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -35,6 +38,13 @@ class Finance::ActivityFeesController < ApplicationController
   def create
     @fee = Finance::ActivityFee.new(fee_params)
     @fee.group = @group
+
+    # Seul le niveau national peut créer des frais de type cotisation
+    if @fee.feeable_type == "Maas::MembershipCampaign" && !(@group.is_a?(Group::Root) || @group.is_a?(Group::Bund))
+      @fee.errors.add(:base, "Seul le niveau national peut creer des frais de type cotisation")
+      load_feeables
+      return render :new, status: :unprocessable_entity
+    end
 
     if @fee.save
       redirect_to group_finance_activity_fee_path(@group, @fee),
@@ -95,8 +105,9 @@ class Finance::ActivityFeesController < ApplicationController
                    .order(created_at: :desc)
                    .limit(50)
 
-    # Campagnes MAAS actives
-    @campaigns = Maas::MembershipCampaign.where(statut: %w[brouillon active]).order(annee: :desc)
+    # Seul le niveau national (Group::Root / Group::Bund) peut créer des frais de type cotisation
+    @can_create_cotisation = @group.is_a?(Group::Root) || @group.is_a?(Group::Bund)
+    @campaigns = @can_create_cotisation ? Maas::MembershipCampaign.where(statut: %w[brouillon active]).order(annee: :desc) : []
   end
 
   def authorize_finance

@@ -3,8 +3,11 @@
 # Interface responsable local : gestion des adhésions de son groupe.
 # Accessible via /groups/:group_id/maas/adhesions
 class Maas::AdhesionsController < ApplicationController
+  include Admin::FeatureAccessConcern
+
   before_action :set_group
   before_action :authorize_local
+  before_action -> { check_feature_access!("maas") }
   before_action :set_subscription, only: [:show, :versement, :create_versement]
 
   helper_method :branche_colors, :statut_config
