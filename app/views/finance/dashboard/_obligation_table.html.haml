@@ -1,0 +1,27 @@
+-# Partial : tableau d'obligations réutilisable
+%table.finance-table
+  %thead
+    %tr
+      %th Participant
+      %th Activité
+      %th Catégorie
+      %th Montant dû
+      %th Payé
+      %th Statut
+      %th Progression
+  %tbody
+    - obligations.each do |obligation|
+      %tr
+        %td
+          %strong= "#{obligation.person.first_name} #{obligation.person.last_name}"
+        %td= obligation.activite_nom
+        %td
+          %span.finance-badge{class: "badge-#{obligation.activity_fee.categorie}"}= obligation.activity_fee.categorie.humanize
+        %td= "#{number_with_delimiter(obligation.montant_total, delimiter: "'")} FCFA"
+        %td= "#{number_with_delimiter(obligation.montant_paye, delimiter: "'")} FCFA"
+        %td
+          %span.finance-badge{class: "badge-#{obligation.statut}"}= obligation.statut.humanize
+        %td{style: "min-width: 100px;"}
+          - pct = obligation.montant_total > 0 ? (obligation.montant_paye * 100 / obligation.montant_total) : 0
+          .finance-progress
+            .finance-progress-bar{style: "width: #{pct}%; background: #{pct >= 100 ? '#28a745' : pct >= 50 ? '#ffc107' : '#dc3545'};"}

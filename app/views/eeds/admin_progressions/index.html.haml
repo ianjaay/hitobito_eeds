@@ -1,0 +1,260 @@
+- title "Administration des Progressions"
+- branche_labels = { "mbootaay" => "Mbootaay", "kayon" => "Kayon", "dental" => "Dental", "galle" => "Gàlle" }
+- branche_colors = { "mbootaay" => "#FCD116", "kayon" => "#2ECC71", "dental" => "#0054A0", "galle" => "#E74C3C" }
+- domaine_labels = { "enab_physique" => "Physique", "enab_intellectuel" => "Intellectuel", "donn_social" => "Social", "yees_spirituel" => "Spirituel", "enab_affectif" => "Affectif" }
+- menmen_icons = { "men_communicateur" => "📡", "men_environnementaliste" => "🌿", "men_gestionnaire" => "📊", "men_secouriste" => "🏥", "men_citoyen" => "🏛️", "men_technologue" => "⚙️", "men_artiste" => "🎨", "men_leader" => "🌟" }
+
+:css
+  .eeds-admin { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  .eeds-admin-header {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 20px; padding: 28px 32px; color: #fff;
+    display: flex; align-items: center; gap: 20px; position: relative; overflow: hidden;
+  }
+  .eeds-admin-header .circle-d1 { position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(93,66,150,0.15); }
+  .eeds-admin-header .circle-d2 { position: absolute; bottom: -20px; right: 80px; width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+  .eeds-admin-title { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+  .eeds-admin-subtitle { font-size: 14px; opacity: 0.7; margin-top: 4px; }
+
+  .eeds-stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin: 20px 0; }
+  .eeds-stat-card { background: #fff; border-radius: 14px; padding: 16px 20px; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); text-align: center; }
+  .eeds-stat-number { font-size: 28px; font-weight: 800; }
+  .eeds-stat-label { font-size: 11px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  .eeds-section { margin-top: 28px; }
+  .eeds-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .eeds-section-title { font-size: 18px; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px; }
+  .eeds-branche-pill { padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; color: #fff; }
+
+  .eeds-badge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .eeds-badge-card {
+    background: #fff; border-radius: 14px; padding: 16px;
+    border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    cursor: pointer; transition: all 0.2s; text-decoration: none; color: inherit; display: block;
+    position: relative; overflow: hidden;
+  }
+  .eeds-badge-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+  .eeds-badge-card-stripe { position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+  .eeds-badge-label { font-size: 13px; font-weight: 700; color: #1e293b; margin-bottom: 6px; padding-left: 10px; }
+  .eeds-badge-meta { display: flex; gap: 6px; flex-wrap: wrap; padding-left: 10px; }
+  .eeds-badge-tag { padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: 600; background: #f1f5f9; color: #64748b; }
+  .eeds-badge-usage { position: absolute; top: 12px; right: 12px; font-size: 10px; color: #94a3b8; font-weight: 600; }
+
+  .eeds-menmen-card {
+    background: #fff; border-radius: 14px; padding: 16px 20px;
+    border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    cursor: pointer; transition: all 0.2s; text-decoration: none; color: inherit; display: flex;
+    align-items: center; gap: 14px;
+  }
+  .eeds-menmen-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(93,66,150,0.12); }
+  .eeds-menmen-icon { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #5D4296, #7c5cbf); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .eeds-menmen-info { flex: 1; min-width: 0; }
+  .eeds-menmen-label { font-size: 14px; font-weight: 700; color: #1e293b; }
+  .eeds-menmen-sub { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+  .eeds-btn { padding: 8px 20px; border-radius: 10px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: transform 0.15s, box-shadow 0.15s; }
+  .eeds-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  .eeds-btn-primary { background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; }
+  .eeds-btn-dark { background: linear-gradient(135deg, #1e293b, #334155); color: #fff; }
+  .eeds-btn-outline { background: #fff; border: 1.5px solid rgba(93,66,150,0.2); color: #5D4296; }
+
+  .eeds-tabs { display: flex; gap: 4px; background: #f1f5f9; border-radius: 12px; padding: 4px; margin-bottom: 20px; }
+  .eeds-tab { padding: 8px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; background: transparent; color: #64748b; transition: all 0.2s; }
+  .eeds-tab.active { background: #fff; color: #1e293b; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+  .eeds-view-toggle { display: flex; gap: 4px; background: #f1f5f9; border-radius: 10px; padding: 3px; }
+  .eeds-view-btn { width: 34px; height: 34px; border-radius: 8px; border: none; cursor: pointer; background: transparent; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.2s; }
+  .eeds-view-btn.active { background: #fff; color: #1e293b; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+  .eeds-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid rgba(93,66,150,0.08); font-size: 13px; }
+  .eeds-table thead tr { background: rgba(93,66,150,0.04); }
+  .eeds-table th { padding: 12px 14px; text-align: left; font-weight: 600; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .eeds-table td { padding: 12px 14px; border-top: 1px solid rgba(93,66,150,0.06); vertical-align: middle; }
+  .eeds-table tr { transition: background 0.15s; }
+  .eeds-table tbody tr:hover { background: rgba(93,66,150,0.02); }
+  .eeds-table-link { text-decoration: none; color: inherit; display: contents; }
+  .eeds-table-name { font-weight: 700; color: #1e293b; }
+  .eeds-table-img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; vertical-align: middle; margin-right: 8px; }
+
+.eeds-admin
+  -# HEADER
+  .eeds-admin-header
+    .circle-d1
+    .circle-d2
+    %div{style: "font-size: 40px;"} ⚙️
+    %div{style: "flex: 1; position: relative; z-index: 1;"}
+      .eeds-admin-title Administration des JEEGO & MËN-MËN
+      .eeds-admin-subtitle Gérez les badges de progression pédagogique pour toutes les branches
+    %div{style: "display: flex; gap: 10px; position: relative; z-index: 1;"}
+      = link_to new_eeds_progression_badge_path(category: "jeego"), class: "eeds-btn eeds-btn-primary" do
+        ➕ Nouveau JEEGO
+      = link_to new_eeds_progression_badge_path(category: "menmen"), class: "eeds-btn eeds-btn-outline" do
+        ➕ Nouveau MËN-MËN
+
+  -# STATS
+  .eeds-stats-row
+    .eeds-stat-card
+      .eeds-stat-number{style: "color: #0054A0;"}= @stats[:total_jeego]
+      .eeds-stat-label JEEGO
+    .eeds-stat-card
+      .eeds-stat-number{style: "color: #5D4296;"}= @stats[:total_menmen]
+      .eeds-stat-label MËN-MËN
+    - %w[mbootaay kayon dental galle].each do |br|
+      .eeds-stat-card
+        .eeds-stat-number{style: "color: #{branche_colors[br]};"}= @stats[:branches][br]
+        .eeds-stat-label= branche_labels[br]
+
+  -# TAB NAVIGATION + VIEW TOGGLE
+  %div{style: "display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;"}
+    .eeds-tabs{style: "margin-bottom: 0;"}
+      %button.eeds-tab.active{onclick: "switchTab('jeego')", id: "tab-jeego"} ⚜️ JEEGO
+      %button.eeds-tab{onclick: "switchTab('menmen')", id: "tab-menmen"} 🏅 MËN-MËN
+    .eeds-view-toggle
+      %button.eeds-view-btn.active{onclick: "switchView('grid')", id: "view-grid", title: "Vue grille"} ▦
+      %button.eeds-view-btn{onclick: "switchView('table')", id: "view-table", title: "Vue tableau"} ☰
+
+  -# JEEGO SECTION — GRID VIEW
+  #panel-jeego.view-grid
+    - %w[mbootaay kayon dental galle].each do |br|
+      .eeds-section
+        .eeds-section-header
+          .eeds-section-title
+            %span.eeds-branche-pill{style: "background: #{branche_colors[br]};"}= branche_labels[br]
+            = "#{@jeego_by_branche[br].size} badges"
+          = link_to new_eeds_progression_badge_path(category: "jeego", branche: br), class: "eeds-btn eeds-btn-dark", style: "font-size: 11px; padding: 5px 14px;" do
+            ➕ Ajouter
+        .eeds-badge-grid
+          - @jeego_by_branche[br].sort_by { |qk| [qk.metadata&.dig("domaine").to_s, qk.metadata&.dig("niveau").to_i] }.each do |qk|
+            = link_to eeds_progression_badge_path(qk), class: "eeds-badge-card" do
+              .eeds-badge-card-stripe{style: "background: #{branche_colors[br]};"}
+              - if qk.badge_image.attached?
+                %div{style: "padding-left: 10px; margin-bottom: 8px;"}
+                  = image_tag url_for(qk.badge_image.variant(:thumb)), style: "width: 40px; height: 40px; border-radius: 10px; object-fit: cover;"
+              .eeds-badge-label= qk.label
+              .eeds-badge-meta
+                .eeds-badge-tag= domaine_labels[qk.metadata&.dig("domaine")] || qk.metadata&.dig("domaine")
+                .eeds-badge-tag= "N#{qk.metadata&.dig('niveau')}"
+              .eeds-badge-usage= "#{@usage_counts[qk.id] || 0} utilisations"
+
+  -# JEEGO SECTION — TABLE VIEW
+  #panel-jeego-table.view-table{style: "display: none;"}
+    - %w[mbootaay kayon dental galle].each do |br|
+      .eeds-section
+        .eeds-section-header
+          .eeds-section-title
+            %span.eeds-branche-pill{style: "background: #{branche_colors[br]};"}= branche_labels[br]
+            = "#{@jeego_by_branche[br].size} badges"
+          = link_to new_eeds_progression_badge_path(category: "jeego", branche: br), class: "eeds-btn eeds-btn-dark", style: "font-size: 11px; padding: 5px 14px;" do
+            ➕ Ajouter
+        %table.eeds-table
+          %thead
+            %tr
+              %th Badge
+              %th Domaine
+              %th Niveau
+              %th Utilisations
+              %th
+          %tbody
+            - @jeego_by_branche[br].sort_by { |qk| [qk.metadata&.dig("domaine").to_s, qk.metadata&.dig("niveau").to_i] }.each do |qk|
+              %tr{onclick: "window.location='#{eeds_progression_badge_path(qk)}'", style: "cursor: pointer;"}
+                %td
+                  - if qk.badge_image.attached?
+                    = image_tag url_for(qk.badge_image.variant(:thumb)), class: "eeds-table-img"
+                  %span.eeds-table-name= qk.label
+                %td
+                  .eeds-badge-tag= domaine_labels[qk.metadata&.dig("domaine")] || qk.metadata&.dig("domaine")
+                %td
+                  .eeds-badge-tag= "N#{qk.metadata&.dig('niveau')}"
+                %td{style: "color: #94a3b8; font-size: 12px;"}= "#{@usage_counts[qk.id] || 0}"
+                %td
+                  = link_to eeds_progression_badge_path(qk), style: "color: #5D4296; font-weight: 600; text-decoration: none; font-size: 12px;" do
+                    Voir →
+
+  -# MËN-MËN SECTION — GRID VIEW
+  #panel-menmen.view-grid{style: "display: none;"}
+    .eeds-section
+      .eeds-section-header
+        .eeds-section-title 🏅 Badges MËN-MËN
+      .eeds-badge-grid
+        - @menmen.each do |qk|
+          = link_to eeds_progression_badge_path(qk), class: "eeds-menmen-card" do
+            .eeds-menmen-icon
+              - if qk.badge_image.attached?
+                = image_tag url_for(qk.badge_image.variant(:thumb)), style: "width: 44px; height: 44px; border-radius: 50%; object-fit: cover;"
+              - else
+                = menmen_icons[qk.key] || "🏅"
+            .eeds-menmen-info
+              .eeds-menmen-label= qk.label
+              .eeds-menmen-sub
+                = "#{@criteria_counts[qk.id] || 0} critères · #{@usage_counts[qk.id] || 0} utilisations"
+
+  -# MËN-MËN SECTION — TABLE VIEW
+  #panel-menmen-table.view-table{style: "display: none;"}
+    .eeds-section
+      .eeds-section-header
+        .eeds-section-title 🏅 Badges MËN-MËN
+      %table.eeds-table
+        %thead
+          %tr
+            %th Badge
+            %th Clé
+            %th Critères
+            %th Utilisations
+            %th
+        %tbody
+          - @menmen.each do |qk|
+            %tr{onclick: "window.location='#{eeds_progression_badge_path(qk)}'", style: "cursor: pointer;"}
+              %td
+                - if qk.badge_image.attached?
+                  = image_tag url_for(qk.badge_image.variant(:thumb)), class: "eeds-table-img"
+                - else
+                  %span{style: "font-size: 20px; margin-right: 8px; vertical-align: middle;"}= menmen_icons[qk.key] || "🏅"
+                %span.eeds-table-name= qk.label
+              %td
+                .eeds-badge-tag= qk.key
+              %td{style: "color: #64748b;"}= @criteria_counts[qk.id] || 0
+              %td{style: "color: #94a3b8; font-size: 12px;"}= @usage_counts[qk.id] || 0
+              %td
+                = link_to eeds_progression_badge_path(qk), style: "color: #5D4296; font-weight: 600; text-decoration: none; font-size: 12px;" do
+                  Voir →
+
+:javascript
+  var currentTab = 'jeego';
+  var currentView = 'grid';
+
+  function updatePanels() {
+    // Hide all panels
+    document.getElementById('panel-jeego').style.display = 'none';
+    document.getElementById('panel-jeego-table').style.display = 'none';
+    document.getElementById('panel-menmen').style.display = 'none';
+    document.getElementById('panel-menmen-table').style.display = 'none';
+
+    // Show the correct panel
+    if (currentTab === 'jeego') {
+      if (currentView === 'grid') {
+        document.getElementById('panel-jeego').style.display = 'block';
+      } else {
+        document.getElementById('panel-jeego-table').style.display = 'block';
+      }
+    } else {
+      if (currentView === 'grid') {
+        document.getElementById('panel-menmen').style.display = 'block';
+      } else {
+        document.getElementById('panel-menmen-table').style.display = 'block';
+      }
+    }
+  }
+
+  function switchTab(tab) {
+    currentTab = tab;
+    document.getElementById('tab-jeego').classList.toggle('active', tab === 'jeego');
+    document.getElementById('tab-menmen').classList.toggle('active', tab === 'menmen');
+    updatePanels();
+  }
+
+  function switchView(view) {
+    currentView = view;
+    document.getElementById('view-grid').classList.toggle('active', view === 'grid');
+    document.getElementById('view-table').classList.toggle('active', view === 'table');
+    updatePanels();
+  }

@@ -1,0 +1,724 @@
+# frozen_string_literal: true
+
+# Catalogue des QualificationKinds EEDS
+# 60 JEEGO (4 branches × 5 domaines × 3 niveaux)
+# + 8 MËN-MËN (brevets individuels)
+#
+# Convention de nommage :
+#   JEEGO : jeego_{branche}_{domaine}_{niveau}
+#   MËN-MËN : men_{specialite}
+
+# ────────────────────────────────────────────────────────────
+# JEEGO — Progression collective
+# ────────────────────────────────────────────────────────────
+
+# Branches et leurs codes internes
+branches:
+  mbootaay:
+    label: "Mbootaay"
+    age_range: "6-8"
+  kayon:
+    label: "Kayon"
+    age_range: "8-12"
+  dental:
+    label: "Dental"
+    age_range: "12-16"
+  galle:
+    label: "Gàlle"
+    age_range: "16-20"
+
+# Domaines pédagogiques
+domaines:
+  enab_physique:
+    label: "Enabilité physique"
+    description: "Endurance, hygiène de vie, sport"
+  enab_intellectuel:
+    label: "Enabilité intellectuelle"
+    description: "Réflexion, observation, techniques"
+  donn_social:
+    label: "Donnerie / Njaak social"
+    description: "Vie en société, service, entraide"
+  yees_spirituel:
+    label: "Yeesal / Spiritualité"
+    description: "Valeurs, engagement, spiritualité"
+  enab_affectif:
+    label: "Enabilité affective"
+    description: "Expression, émotions, relations"
+
+# ────────────────────────────────────────────────────────────
+# JEEGO par branche — Mbootaay (6-8 ans)
+# ────────────────────────────────────────────────────────────
+
+jeego_mbootaay_enab_physique_n1:
+  label: "JEEGO Mbootaay – Enabilité physique N1"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: enab_physique
+    niveau: 1
+    prerequisite:
+
+jeego_mbootaay_enab_physique_n2:
+  label: "JEEGO Mbootaay – Enabilité physique N2"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: enab_physique
+    niveau: 2
+    prerequisite: jeego_mbootaay_enab_physique_n1
+
+jeego_mbootaay_enab_physique_n3:
+  label: "JEEGO Mbootaay – Enabilité physique N3"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: enab_physique
+    niveau: 3
+    prerequisite: jeego_mbootaay_enab_physique_n2
+
+jeego_mbootaay_enab_intellectuel_n1:
+  label: "JEEGO Mbootaay – Enabilité intellectuelle N1"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: enab_intellectuel
+    niveau: 1
+    prerequisite:
+
+jeego_mbootaay_enab_intellectuel_n2:
+  label: "JEEGO Mbootaay – Enabilité intellectuelle N2"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: enab_intellectuel
+    niveau: 2
+    prerequisite: jeego_mbootaay_enab_intellectuel_n1
+
+jeego_mbootaay_enab_intellectuel_n3:
+  label: "JEEGO Mbootaay – Enabilité intellectuelle N3"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: enab_intellectuel
+    niveau: 3
+    prerequisite: jeego_mbootaay_enab_intellectuel_n2
+
+jeego_mbootaay_donn_social_n1:
+  label: "JEEGO Mbootaay – Donnerie / Njaak social N1"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: donn_social
+    niveau: 1
+    prerequisite:
+
+jeego_mbootaay_donn_social_n2:
+  label: "JEEGO Mbootaay – Donnerie / Njaak social N2"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: donn_social
+    niveau: 2
+    prerequisite: jeego_mbootaay_donn_social_n1
+
+jeego_mbootaay_donn_social_n3:
+  label: "JEEGO Mbootaay – Donnerie / Njaak social N3"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: donn_social
+    niveau: 3
+    prerequisite: jeego_mbootaay_donn_social_n2
+
+jeego_mbootaay_yees_spirituel_n1:
+  label: "JEEGO Mbootaay – Yeesal / Spiritualité N1"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: yees_spirituel
+    niveau: 1
+    prerequisite:
+
+jeego_mbootaay_yees_spirituel_n2:
+  label: "JEEGO Mbootaay – Yeesal / Spiritualité N2"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: yees_spirituel
+    niveau: 2
+    prerequisite: jeego_mbootaay_yees_spirituel_n1
+
+jeego_mbootaay_yees_spirituel_n3:
+  label: "JEEGO Mbootaay – Yeesal / Spiritualité N3"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: yees_spirituel
+    niveau: 3
+    prerequisite: jeego_mbootaay_yees_spirituel_n2
+
+jeego_mbootaay_enab_affectif_n1:
+  label: "JEEGO Mbootaay – Enabilité affective N1"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: enab_affectif
+    niveau: 1
+    prerequisite:
+
+jeego_mbootaay_enab_affectif_n2:
+  label: "JEEGO Mbootaay – Enabilité affective N2"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: enab_affectif
+    niveau: 2
+    prerequisite: jeego_mbootaay_enab_affectif_n1
+
+jeego_mbootaay_enab_affectif_n3:
+  label: "JEEGO Mbootaay – Enabilité affective N3"
+  category: jeego
+  metadata:
+    branche: mbootaay
+    domaine: enab_affectif
+    niveau: 3
+    prerequisite: jeego_mbootaay_enab_affectif_n2
+
+# ────────────────────────────────────────────────────────────
+# JEEGO par branche — Kayon (8-12 ans)
+# ────────────────────────────────────────────────────────────
+
+jeego_kayon_enab_physique_n1:
+  label: "JEEGO Kayon – Enabilité physique N1"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: enab_physique
+    niveau: 1
+    prerequisite:
+
+jeego_kayon_enab_physique_n2:
+  label: "JEEGO Kayon – Enabilité physique N2"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: enab_physique
+    niveau: 2
+    prerequisite: jeego_kayon_enab_physique_n1
+
+jeego_kayon_enab_physique_n3:
+  label: "JEEGO Kayon – Enabilité physique N3"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: enab_physique
+    niveau: 3
+    prerequisite: jeego_kayon_enab_physique_n2
+
+jeego_kayon_enab_intellectuel_n1:
+  label: "JEEGO Kayon – Enabilité intellectuelle N1"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: enab_intellectuel
+    niveau: 1
+    prerequisite:
+
+jeego_kayon_enab_intellectuel_n2:
+  label: "JEEGO Kayon – Enabilité intellectuelle N2"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: enab_intellectuel
+    niveau: 2
+    prerequisite: jeego_kayon_enab_intellectuel_n1
+
+jeego_kayon_enab_intellectuel_n3:
+  label: "JEEGO Kayon – Enabilité intellectuelle N3"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: enab_intellectuel
+    niveau: 3
+    prerequisite: jeego_kayon_enab_intellectuel_n2
+
+jeego_kayon_donn_social_n1:
+  label: "JEEGO Kayon – Donnerie / Njaak social N1"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: donn_social
+    niveau: 1
+    prerequisite:
+
+jeego_kayon_donn_social_n2:
+  label: "JEEGO Kayon – Donnerie / Njaak social N2"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: donn_social
+    niveau: 2
+    prerequisite: jeego_kayon_donn_social_n1
+
+jeego_kayon_donn_social_n3:
+  label: "JEEGO Kayon – Donnerie / Njaak social N3"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: donn_social
+    niveau: 3
+    prerequisite: jeego_kayon_donn_social_n2
+
+jeego_kayon_yees_spirituel_n1:
+  label: "JEEGO Kayon – Yeesal / Spiritualité N1"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: yees_spirituel
+    niveau: 1
+    prerequisite:
+
+jeego_kayon_yees_spirituel_n2:
+  label: "JEEGO Kayon – Yeesal / Spiritualité N2"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: yees_spirituel
+    niveau: 2
+    prerequisite: jeego_kayon_yees_spirituel_n1
+
+jeego_kayon_yees_spirituel_n3:
+  label: "JEEGO Kayon – Yeesal / Spiritualité N3"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: yees_spirituel
+    niveau: 3
+    prerequisite: jeego_kayon_yees_spirituel_n2
+
+jeego_kayon_enab_affectif_n1:
+  label: "JEEGO Kayon – Enabilité affective N1"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: enab_affectif
+    niveau: 1
+    prerequisite:
+
+jeego_kayon_enab_affectif_n2:
+  label: "JEEGO Kayon – Enabilité affective N2"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: enab_affectif
+    niveau: 2
+    prerequisite: jeego_kayon_enab_affectif_n1
+
+jeego_kayon_enab_affectif_n3:
+  label: "JEEGO Kayon – Enabilité affective N3"
+  category: jeego
+  metadata:
+    branche: kayon
+    domaine: enab_affectif
+    niveau: 3
+    prerequisite: jeego_kayon_enab_affectif_n2
+
+# ────────────────────────────────────────────────────────────
+# JEEGO par branche — Dental (12-16 ans)
+# ────────────────────────────────────────────────────────────
+
+jeego_dental_enab_physique_n1:
+  label: "JEEGO Dental – Enabilité physique N1"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: enab_physique
+    niveau: 1
+    prerequisite:
+
+jeego_dental_enab_physique_n2:
+  label: "JEEGO Dental – Enabilité physique N2"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: enab_physique
+    niveau: 2
+    prerequisite: jeego_dental_enab_physique_n1
+
+jeego_dental_enab_physique_n3:
+  label: "JEEGO Dental – Enabilité physique N3"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: enab_physique
+    niveau: 3
+    prerequisite: jeego_dental_enab_physique_n2
+
+jeego_dental_enab_intellectuel_n1:
+  label: "JEEGO Dental – Enabilité intellectuelle N1"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: enab_intellectuel
+    niveau: 1
+    prerequisite:
+
+jeego_dental_enab_intellectuel_n2:
+  label: "JEEGO Dental – Enabilité intellectuelle N2"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: enab_intellectuel
+    niveau: 2
+    prerequisite: jeego_dental_enab_intellectuel_n1
+
+jeego_dental_enab_intellectuel_n3:
+  label: "JEEGO Dental – Enabilité intellectuelle N3"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: enab_intellectuel
+    niveau: 3
+    prerequisite: jeego_dental_enab_intellectuel_n2
+
+jeego_dental_donn_social_n1:
+  label: "JEEGO Dental – Donnerie / Njaak social N1"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: donn_social
+    niveau: 1
+    prerequisite:
+
+jeego_dental_donn_social_n2:
+  label: "JEEGO Dental – Donnerie / Njaak social N2"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: donn_social
+    niveau: 2
+    prerequisite: jeego_dental_donn_social_n1
+
+jeego_dental_donn_social_n3:
+  label: "JEEGO Dental – Donnerie / Njaak social N3"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: donn_social
+    niveau: 3
+    prerequisite: jeego_dental_donn_social_n2
+
+jeego_dental_yees_spirituel_n1:
+  label: "JEEGO Dental – Yeesal / Spiritualité N1"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: yees_spirituel
+    niveau: 1
+    prerequisite:
+
+jeego_dental_yees_spirituel_n2:
+  label: "JEEGO Dental – Yeesal / Spiritualité N2"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: yees_spirituel
+    niveau: 2
+    prerequisite: jeego_dental_yees_spirituel_n1
+
+jeego_dental_yees_spirituel_n3:
+  label: "JEEGO Dental – Yeesal / Spiritualité N3"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: yees_spirituel
+    niveau: 3
+    prerequisite: jeego_dental_yees_spirituel_n2
+
+jeego_dental_enab_affectif_n1:
+  label: "JEEGO Dental – Enabilité affective N1"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: enab_affectif
+    niveau: 1
+    prerequisite:
+
+jeego_dental_enab_affectif_n2:
+  label: "JEEGO Dental – Enabilité affective N2"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: enab_affectif
+    niveau: 2
+    prerequisite: jeego_dental_enab_affectif_n1
+
+jeego_dental_enab_affectif_n3:
+  label: "JEEGO Dental – Enabilité affective N3"
+  category: jeego
+  metadata:
+    branche: dental
+    domaine: enab_affectif
+    niveau: 3
+    prerequisite: jeego_dental_enab_affectif_n2
+
+# ────────────────────────────────────────────────────────────
+# JEEGO par branche — Gàlle (16-20 ans)
+# ────────────────────────────────────────────────────────────
+
+jeego_galle_enab_physique_n1:
+  label: "JEEGO Gàlle – Enabilité physique N1"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: enab_physique
+    niveau: 1
+    prerequisite:
+
+jeego_galle_enab_physique_n2:
+  label: "JEEGO Gàlle – Enabilité physique N2"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: enab_physique
+    niveau: 2
+    prerequisite: jeego_galle_enab_physique_n1
+
+jeego_galle_enab_physique_n3:
+  label: "JEEGO Gàlle – Enabilité physique N3"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: enab_physique
+    niveau: 3
+    prerequisite: jeego_galle_enab_physique_n2
+
+jeego_galle_enab_intellectuel_n1:
+  label: "JEEGO Gàlle – Enabilité intellectuelle N1"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: enab_intellectuel
+    niveau: 1
+    prerequisite:
+
+jeego_galle_enab_intellectuel_n2:
+  label: "JEEGO Gàlle – Enabilité intellectuelle N2"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: enab_intellectuel
+    niveau: 2
+    prerequisite: jeego_galle_enab_intellectuel_n1
+
+jeego_galle_enab_intellectuel_n3:
+  label: "JEEGO Gàlle – Enabilité intellectuelle N3"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: enab_intellectuel
+    niveau: 3
+    prerequisite: jeego_galle_enab_intellectuel_n2
+
+jeego_galle_donn_social_n1:
+  label: "JEEGO Gàlle – Donnerie / Njaak social N1"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: donn_social
+    niveau: 1
+    prerequisite:
+
+jeego_galle_donn_social_n2:
+  label: "JEEGO Gàlle – Donnerie / Njaak social N2"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: donn_social
+    niveau: 2
+    prerequisite: jeego_galle_donn_social_n1
+
+jeego_galle_donn_social_n3:
+  label: "JEEGO Gàlle – Donnerie / Njaak social N3"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: donn_social
+    niveau: 3
+    prerequisite: jeego_galle_donn_social_n2
+
+jeego_galle_yees_spirituel_n1:
+  label: "JEEGO Gàlle – Yeesal / Spiritualité N1"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: yees_spirituel
+    niveau: 1
+    prerequisite:
+
+jeego_galle_yees_spirituel_n2:
+  label: "JEEGO Gàlle – Yeesal / Spiritualité N2"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: yees_spirituel
+    niveau: 2
+    prerequisite: jeego_galle_yees_spirituel_n1
+
+jeego_galle_yees_spirituel_n3:
+  label: "JEEGO Gàlle – Yeesal / Spiritualité N3"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: yees_spirituel
+    niveau: 3
+    prerequisite: jeego_galle_yees_spirituel_n2
+
+jeego_galle_enab_affectif_n1:
+  label: "JEEGO Gàlle – Enabilité affective N1"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: enab_affectif
+    niveau: 1
+    prerequisite:
+
+jeego_galle_enab_affectif_n2:
+  label: "JEEGO Gàlle – Enabilité affective N2"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: enab_affectif
+    niveau: 2
+    prerequisite: jeego_galle_enab_affectif_n1
+
+jeego_galle_enab_affectif_n3:
+  label: "JEEGO Gàlle – Enabilité affective N3"
+  category: jeego
+  metadata:
+    branche: galle
+    domaine: enab_affectif
+    niveau: 3
+    prerequisite: jeego_galle_enab_affectif_n2
+
+# ────────────────────────────────────────────────────────────
+# MËN-MËN — Brevets individuels
+# ────────────────────────────────────────────────────────────
+
+men_communicateur:
+  label: "MËN-MËN Communicateur"
+  category: menmen
+  metadata:
+    domaine: communication
+    minimum_criteria: 3
+    available_branches:
+      - kayon
+      - dental
+      - galle
+    tags:
+      - communication
+      - médias
+      - expression
+
+men_environnementaliste:
+  label: "MËN-MËN Environnementaliste"
+  category: menmen
+  metadata:
+    domaine: environnement
+    minimum_criteria: 3
+    available_branches:
+      - mbootaay
+      - kayon
+      - dental
+      - galle
+    tags:
+      - nature
+      - écologie
+      - reboisement
+
+men_gestionnaire:
+  label: "MËN-MËN Gestionnaire"
+  category: menmen
+  metadata:
+    domaine: gestion
+    minimum_criteria: 3
+    available_branches:
+      - dental
+      - galle
+    tags:
+      - budget
+      - planification
+      - organisation
+
+men_secouriste:
+  label: "MËN-MËN Secouriste"
+  category: menmen
+  metadata:
+    domaine: sante
+    minimum_criteria: 3
+    available_branches:
+      - kayon
+      - dental
+      - galle
+    tags:
+      - premiers secours
+      - hygiène
+      - prévention
+
+men_citoyen:
+  label: "MËN-MËN Citoyen"
+  category: menmen
+  metadata:
+    domaine: citoyennete
+    minimum_criteria: 3
+    available_branches:
+      - dental
+      - galle
+    tags:
+      - engagement
+      - droits
+      - civisme
+
+men_technologue:
+  label: "MËN-MËN Technologue"
+  category: menmen
+  metadata:
+    domaine: technologie
+    minimum_criteria: 3
+    available_branches:
+      - dental
+      - galle
+    tags:
+      - numérique
+      - programmation
+      - innovation
+
+men_artiste:
+  label: "MËN-MËN Artiste"
+  category: menmen
+  metadata:
+    domaine: arts_culture
+    minimum_criteria: 3
+    available_branches:
+      - mbootaay
+      - kayon
+      - dental
+      - galle
+    tags:
+      - art
+      - patrimoine
+      - théâtre
+
+men_leader:
+  label: "MËN-MËN Leader"
+  category: menmen
+  metadata:
+    domaine: leadership
+    minimum_criteria: 3
+    available_branches:
+      - dental
+      - galle
+    tags:
+      - animation
+      - médiation
+      - décision

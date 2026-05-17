@@ -1,0 +1,123 @@
+# frozen_string_literal: true
+
+# Configuration par branche pédagogique EEDS.
+# Définit les JEEGO disponibles, les MËN-MËN accessibles,
+# et les règles par tranche d'âge.
+
+mbootaay:
+  age_range: "6-8"
+  color: "#FCD116"
+  group_type: "Group::Woelfe"
+  jeego:
+    - jeego_mbootaay_enab_physique_n1
+    - jeego_mbootaay_enab_physique_n2
+    - jeego_mbootaay_enab_physique_n3
+    - jeego_mbootaay_enab_intellectuel_n1
+    - jeego_mbootaay_enab_intellectuel_n2
+    - jeego_mbootaay_enab_intellectuel_n3
+    - jeego_mbootaay_donn_social_n1
+    - jeego_mbootaay_donn_social_n2
+    - jeego_mbootaay_donn_social_n3
+    - jeego_mbootaay_yees_spirituel_n1
+    - jeego_mbootaay_yees_spirituel_n2
+    - jeego_mbootaay_yees_spirituel_n3
+    - jeego_mbootaay_enab_affectif_n1
+    - jeego_mbootaay_enab_affectif_n2
+    - jeego_mbootaay_enab_affectif_n3
+  menmen_available:
+    - men_artiste
+    - men_environnementaliste
+  max_menmen_simultaneous: 1
+  auto_generate_progressions: true
+
+kayon:
+  age_range: "8-12"
+  color: "#2ECC71"
+  group_type: "Group::Pfadi"
+  jeego:
+    - jeego_kayon_enab_physique_n1
+    - jeego_kayon_enab_physique_n2
+    - jeego_kayon_enab_physique_n3
+    - jeego_kayon_enab_intellectuel_n1
+    - jeego_kayon_enab_intellectuel_n2
+    - jeego_kayon_enab_intellectuel_n3
+    - jeego_kayon_donn_social_n1
+    - jeego_kayon_donn_social_n2
+    - jeego_kayon_donn_social_n3
+    - jeego_kayon_yees_spirituel_n1
+    - jeego_kayon_yees_spirituel_n2
+    - jeego_kayon_yees_spirituel_n3
+    - jeego_kayon_enab_affectif_n1
+    - jeego_kayon_enab_affectif_n2
+    - jeego_kayon_enab_affectif_n3
+  menmen_available:
+    - men_communicateur
+    - men_environnementaliste
+    - men_secouriste
+    - men_artiste
+  max_menmen_simultaneous: 2
+  auto_generate_progressions: true
+
+dental:
+  age_range: "12-16"
+  color: "#0054A0"
+  group_type: "Group::Pio"
+  jeego:
+    - jeego_dental_enab_physique_n1
+    - jeego_dental_enab_physique_n2
+    - jeego_dental_enab_physique_n3
+    - jeego_dental_enab_intellectuel_n1
+    - jeego_dental_enab_intellectuel_n2
+    - jeego_dental_enab_intellectuel_n3
+    - jeego_dental_donn_social_n1
+    - jeego_dental_donn_social_n2
+    - jeego_dental_donn_social_n3
+    - jeego_dental_yees_spirituel_n1
+    - jeego_dental_yees_spirituel_n2
+    - jeego_dental_yees_spirituel_n3
+    - jeego_dental_enab_affectif_n1
+    - jeego_dental_enab_affectif_n2
+    - jeego_dental_enab_affectif_n3
+  menmen_available:
+    - men_communicateur
+    - men_environnementaliste
+    - men_gestionnaire
+    - men_secouriste
+    - men_citoyen
+    - men_technologue
+    - men_artiste
+    - men_leader
+  max_menmen_simultaneous: 3
+  auto_generate_progressions: true
+
+galle:
+  age_range: "16-20"
+  color: "#E74C3C"
+  group_type: "Group::Rover"
+  jeego:
+    - jeego_galle_enab_physique_n1
+    - jeego_galle_enab_physique_n2
+    - jeego_galle_enab_physique_n3
+    - jeego_galle_enab_intellectuel_n1
+    - jeego_galle_enab_intellectuel_n2
+    - jeego_galle_enab_intellectuel_n3
+    - jeego_galle_donn_social_n1
+    - jeego_galle_donn_social_n2
+    - jeego_galle_donn_social_n3
+    - jeego_galle_yees_spirituel_n1
+    - jeego_galle_yees_spirituel_n2
+    - jeego_galle_yees_spirituel_n3
+    - jeego_galle_enab_affectif_n1
+    - jeego_galle_enab_affectif_n2
+    - jeego_galle_enab_affectif_n3
+  menmen_available:
+    - men_communicateur
+    - men_environnementaliste
+    - men_gestionnaire
+    - men_secouriste
+    - men_citoyen
+    - men_technologue
+    - men_artiste
+    - men_leader
+  max_menmen_simultaneous: 4
+  auto_generate_progressions: true

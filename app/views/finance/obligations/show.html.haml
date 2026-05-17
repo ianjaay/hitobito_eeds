@@ -1,0 +1,57 @@
+-# Détail d'une obligation (paiements, reçus)
+- content_for(:title, "#{@obligation.person.first_name} #{@obligation.person.last_name} — #{@fee.libelle}")
+
+.finance-container
+  .finance-header
+    %div{style: "display: flex; align-items: center;"}
+      .finance-header-icon 👤
+      %div
+        %h1= "#{@obligation.person.first_name} #{@obligation.person.last_name}"
+        %p= "#{@fee.libelle} — #{@obligation.group.name}"
+    .finance-actions
+      - unless @obligation.fully_paid?
+        = link_to versement_group_finance_activity_fee_obligation_path(@group, @fee, @obligation), class: "finance-btn finance-btn-primary" do
+          💳 Nouveau versement
+
+  .finance-stats
+    .finance-stat
+      .value= "#{number_with_delimiter(@obligation.montant_total, delimiter: "'")} FCFA"
+      .label Montant dû
+    .finance-stat
+      .value= "#{number_with_delimiter(@obligation.montant_paye, delimiter: "'")} FCFA"
+      .label Payé
+    .finance-stat
+      .value= "#{number_with_delimiter(@obligation.solde_restant, delimiter: "'")} FCFA"
+      .label Solde restant
+    .finance-stat
+      .value
+        %span.finance-badge{class: "badge-#{@obligation.statut}", style: "font-size: 14px;"}= @obligation.statut.humanize
+      .label Statut
+
+  .finance-section
+    %h2 💳 Historique des versements
+    - if @payments.any?
+      %table.finance-table
+        %thead
+          %tr
+            %th Date
+            %th Montant
+            %th Modalité
+            %th Référence
+            %th Statut
+            %th Reçu
+        %tbody
+          - @payments.each do |payment|
+            %tr
+              %td= I18n.l(payment.created_at, format: :short)
+              %td
+                %strong= "#{number_with_delimiter(payment.montant, delimiter: "'")} FCFA"
+              %td= payment.modalite
+              %td= payment.reference_externe.presence || "—"
+              %td
+                %span.finance-badge{class: "badge-#{payment.statut}"}= payment.statut.humanize
+              %td
+                - if payment.receipt.present?
+                  = link_to "📄 PDF", group_person_finance_receipt_path(@group, @obligation.person, payment.receipt, format: :pdf), target: "_blank", style: "color: #5D4296; text-decoration: none;"
+    - else
+      %p{style: "text-align: center; color: #888; padding: 20px;"} Aucun versement enregistré.

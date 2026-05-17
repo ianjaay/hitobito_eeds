@@ -1,0 +1,276 @@
+-# Cotisations du membre — onglet profil
+- content_for(:title, "Cotisations — #{person}")
+
+-# Couleurs et config
+- branche_colors = Maas::PersonAdhesionsController::BRANCHE_COLORS
+- statut_config = Maas::PersonAdhesionsController::STATUT_CONFIG
+
+%style
+  :plain
+    .maas-profile-header {
+      background: linear-gradient(135deg, #5D4296 0%, #7B5FB8 100%);
+      color: #fff;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .maas-profile-header .icon { font-size: 2.4rem; }
+    .maas-profile-header .info h3 { margin: 0; font-size: 1.3rem; font-weight: 600; }
+    .maas-profile-header .info p { margin: 4px 0 0; opacity: 0.85; font-size: 0.95rem; }
+
+    .maas-card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #e9ecef;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .maas-card h4 {
+      margin: 0 0 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .maas-active-card {
+      border-left: 4px solid #5D4296;
+    }
+
+    .maas-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .maas-branche-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .maas-progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e9ecef;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    .maas-progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    .maas-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .maas-detail-item label {
+      display: block;
+      font-size: 0.78rem;
+      color: #6c757d;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .maas-detail-item .value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .maas-tx-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .maas-tx-table th {
+      text-align: left;
+      padding: 10px 12px;
+      background: #f8f9fa;
+      border-bottom: 2px solid #dee2e6;
+      font-weight: 600;
+      color: #495057;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .maas-tx-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
+    .maas-tx-table tr:hover td { background: #f8f9fa; }
+
+    .maas-empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: #6c757d;
+    }
+    .maas-empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+    .maas-empty-state p { font-size: 1rem; }
+
+    .maas-history-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .maas-history-row:last-child { border-bottom: none; }
+
+.maas-profile-header
+  .icon 🎫
+  .info
+    %h3 Cotisations
+    %p Historique des adhésions annuelles de #{person}
+
+- if @subscriptions.empty?
+  .maas-card
+    .maas-empty-state
+      .icon 📋
+      %p Aucune cotisation enregistrée pour ce membre.
+
+- else
+  -# ── Adhésion active / en cours ──
+  - if @active_subscription
+    - sub = @active_subscription
+    - plan = sub.membership_plan
+    - campaign = sub.membership_campaign
+    - sc = statut_config[sub.statut] || statut_config["en_attente"]
+    - bc = branche_colors[plan&.branche] || "#5D4296"
+    - pct = sub.montant_total > 0 ? [(sub.montant_paye.to_f / sub.montant_total * 100).round, 100].min : 0
+
+    .maas-card.maas-active-card
+      %h4
+        Campagne #{campaign.annee}
+        %span.maas-badge{style: "background: #{sc[:color]}; margin-left: 12px;"}
+          = sc[:icon]
+          = sc[:label]
+
+      .maas-detail-grid
+        .maas-detail-item
+          %label Branche
+          .value
+            %span.maas-branche-badge{style: "background: #{bc};"}
+              = plan&.branche
+
+        .maas-detail-item
+          %label Montant total
+          .value= number_to_currency(sub.montant_total, unit: "FCFA ", separator: ",", delimiter: ".")
+
+        .maas-detail-item
+          %label Montant payé
+          .value= number_to_currency(sub.montant_paye, unit: "FCFA ", separator: ",", delimiter: ".")
+
+        .maas-detail-item
+          %label Solde restant
+          .value{style: sub.solde_restant > 0 ? "color: #dc3545;" : "color: #28a745;"}
+            = number_to_currency(sub.solde_restant, unit: "FCFA ", separator: ",", delimiter: ".")
+
+        .maas-detail-item
+          %label Groupe
+          .value= sub.group&.name
+
+        .maas-detail-item
+          %label Échéance
+          .value= sub.expires_at ? l(sub.expires_at.to_date, format: :long) : "-"
+
+      -# Barre de progression
+      .maas-progress-bar
+        .maas-progress-fill{style: "width: #{pct}%; background: #{pct >= 100 ? '#28a745' : '#5D4296'};"}
+      %small{style: "color: #6c757d;"}= "#{pct}% payé"
+
+      - if sub.assurance_active?
+        %p{style: "margin-top: 12px;"}
+          %span.maas-badge{style: "background: #17a2b8;"} 🛡️ Assurance active
+
+      -# Transactions de cette adhésion
+      - txs = sub.payment_transactions.order(created_at: :desc)
+      - if txs.any?
+        %h4{style: "margin-top: 24px;"} Historique des paiements
+        %table.maas-tx-table
+          %thead
+            %tr
+              %th Date
+              %th Montant
+              %th Modalité
+              %th Référence
+              %th Statut
+              %th Reçu
+          %tbody
+            - txs.each do |tx|
+              - receipt = tx.receipt
+              %tr
+                %td= l(tx.created_at.to_date, format: :long)
+                %td= number_to_currency(tx.montant, unit: "FCFA ", separator: ",", delimiter: ".")
+                %td= tx.modalite
+                %td= tx.reference_manuelle.presence || "-"
+                - tx_sc = { "enregistre" => ["#17a2b8", "Enregistré"], "valide" => ["#28a745", "Validé"], "annule" => ["#dc3545", "Annulé"] }[tx.statut] || ["#6c757d", tx.statut]
+                %td
+                  %span.maas-badge{style: "background: #{tx_sc[0]};"}= tx_sc[1]
+                %td
+                  - if receipt
+                    = link_to group_person_maas_receipt_path(group, person, receipt, format: :pdf), target: "_blank", style: "color: #5D4296; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;" do
+                      📄 PDF
+
+  -# ── Historique des adhésions précédentes ──
+  - if @history.any?
+    .maas-card
+      %h4 📜 Historique des adhésions précédentes
+      - @history.each do |sub|
+        - plan = sub.membership_plan
+        - campaign = sub.membership_campaign
+        - sc = statut_config[sub.statut] || statut_config["en_attente"]
+        - bc = branche_colors[plan&.branche] || "#5D4296"
+
+        .maas-history-row
+          %span.maas-branche-badge{style: "background: #{bc};"}= plan&.branche
+          %span{style: "font-weight: 600;"} Campagne #{campaign.annee}
+          %span.maas-badge{style: "background: #{sc[:color]};"}
+            = sc[:icon]
+            = sc[:label]
+          %span= number_to_currency(sub.montant_paye, unit: "FCFA ", separator: ",", delimiter: ".") + " / " + number_to_currency(sub.montant_total, unit: "FCFA ", separator: ",", delimiter: ".")
+          %span{style: "color: #6c757d; font-size: 0.85rem;"}= sub.group&.name
+
+  -# ── Reçus téléchargeables ──
+  - if @receipts.any?
+    .maas-card
+      %h4 🧾 Reçus de paiement
+      %table.maas-tx-table
+        %thead
+          %tr
+            %th N° Reçu
+            %th Date
+            %th Campagne
+            %th Branche
+            %th Montant
+            %th
+        %tbody
+          - @receipts.each do |receipt|
+            %tr
+              %td{style: "font-weight: 600; color: #5D4296;"}= receipt.numero
+              %td= l(receipt.emis_at.to_date, format: :long)
+              %td= receipt.annee_campagne
+              %td
+                - rc = branche_colors[receipt.branche] || "#5D4296"
+                %span.maas-branche-badge{style: "background: #{rc};"}= receipt.branche
+              %td= number_to_currency(receipt.montant, unit: "FCFA ", separator: ",", delimiter: ".")
+              %td
+                = link_to group_person_maas_receipt_path(group, person, receipt, format: :pdf), target: "_blank", style: "display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; border-radius: 8px; font-size: 0.82rem; font-weight: 600; text-decoration: none;" do
+                  📄 Télécharger PDF

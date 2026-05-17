@@ -1,0 +1,26 @@
+- title "Modifier — #{@progression.qualification_kind.label}"
+
+= form_with(model: @progression, url: group_person_progression_path(@group, @person, @progression), method: :patch) do |f|
+  - if @progression.errors.any?
+    .alert.alert-danger
+      %ul.mb-0
+        - @progression.errors.full_messages.each do |msg|
+          %li= msg
+
+  - if @progression.qualification_kind.category == "menmen"
+    .card.mb-3
+      .card-header
+        %h5.mb-0 Critères validés
+      .card-body
+        - @progression.qualification_kind.criteria.each do |criterion|
+          .form-check.mb-2
+            = f.check_box :criteria_met, { multiple: true, class: "form-check-input", id: "criterion_#{criterion.id}", checked: Array(@progression.criteria_met).include?(criterion.id.to_s) }, criterion.id.to_s, nil
+            = f.label "criterion_#{criterion.id}", criterion.label, class: "form-check-label"
+
+  .mb-3
+    = f.label :notes, "Notes", class: "form-label"
+    = f.text_area :notes, class: "form-control", rows: 3
+
+  .d-flex.gap-2
+    = f.submit "Enregistrer", class: "btn btn-primary"
+    = link_to "Annuler", group_person_progression_path(@group, @person, @progression), class: "btn btn-outline-secondary"

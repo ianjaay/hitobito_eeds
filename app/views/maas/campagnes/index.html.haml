@@ -1,0 +1,98 @@
+- title t("maas.campagne.title_index")
+
+:css
+  .maas-admin { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  .maas-header {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 20px; padding: 28px 32px; color: #fff;
+    display: flex; align-items: center; gap: 20px; position: relative; overflow: hidden;
+  }
+  .maas-header .circle-d1 { position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(93,66,150,0.15); }
+  .maas-header .circle-d2 { position: absolute; bottom: -20px; right: 80px; width: 100px; height: 100px; border-radius: 50%; background: rgba(252,209,22,0.08); }
+  .maas-title { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+  .maas-subtitle { font-size: 14px; opacity: 0.7; margin-top: 4px; }
+
+  .maas-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 20px 0; }
+  .maas-stat { background: #fff; border-radius: 14px; padding: 18px 20px; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); text-align: center; }
+  .maas-stat-num { font-size: 28px; font-weight: 800; }
+  .maas-stat-label { font-size: 11px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  .maas-campaigns { display: grid; gap: 14px; margin-top: 20px; }
+  .maas-campaign-card {
+    background: #fff; border-radius: 14px; padding: 20px 24px;
+    border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    display: flex; align-items: center; gap: 20px; text-decoration: none; color: inherit;
+    transition: all 0.2s; cursor: pointer;
+  }
+  .maas-campaign-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+  .maas-campaign-year { font-size: 32px; font-weight: 800; color: #5D4296; min-width: 80px; }
+  .maas-campaign-info { flex: 1; }
+  .maas-campaign-name { font-size: 16px; font-weight: 700; color: #1e293b; }
+  .maas-campaign-dates { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+  .maas-campaign-status { padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .maas-campaign-actions { display: flex; gap: 8px; align-items: center; }
+
+  .maas-btn { padding: 10px 22px; border-radius: 10px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: transform 0.15s, box-shadow 0.15s; }
+  .maas-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  .maas-btn-primary { background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; }
+  .maas-btn-outline { background: #fff; border: 1.5px solid rgba(93,66,150,0.2); color: #5D4296; }
+
+  .maas-empty { text-align: center; padding: 60px 20px; color: #94a3b8; }
+  .maas-empty-icon { font-size: 48px; margin-bottom: 12px; }
+  .maas-empty-text { font-size: 14px; margin-bottom: 20px; }
+
+- statut_styles = { "brouillon" => { bg: "#f1f5f9", fg: "#94a3b8" }, "active" => { bg: "#d1fae5", fg: "#10b981" }, "fermee" => { bg: "#fef3c7", fg: "#f59e0b" }, "archivee" => { bg: "#fee2e2", fg: "#ef4444" } }
+
+.maas-admin
+  .maas-header
+    .circle-d1
+    .circle-d2
+    %div{style: "font-size: 40px;"} 🎫
+    %div{style: "flex: 1; position: relative; z-index: 1;"}
+      .maas-title= t("maas.campagne.admin_title")
+      .maas-subtitle= t("maas.campagne.admin_subtitle")
+    %div{style: "position: relative; z-index: 1;"}
+      = link_to new_maas_campagne_path, class: "maas-btn maas-btn-primary" do
+        ➕ #{t("maas.campagne.new")}
+
+  - if @stats.present?
+    .maas-stats
+      .maas-stat
+        .maas-stat-num{style: "color: #5D4296;"}= @stats[:total_members]
+        .maas-stat-label Membres actifs
+      .maas-stat
+        .maas-stat-num{style: "color: #10b981;"}= @stats[:total_valide]
+        .maas-stat-label Cotisations validées
+      .maas-stat
+        .maas-stat-num{style: "color: #0054A0;"}= number_to_currency(@stats[:total_collected], unit: "FCFA ", precision: 0, format: "%n %u")
+        .maas-stat-label Collecté
+      .maas-stat
+        .maas-stat-num{style: "color: #f59e0b;"}= number_to_currency(@stats[:total_expected], unit: "FCFA ", precision: 0, format: "%n %u")
+        .maas-stat-label Attendu
+
+  - if @campaigns.any?
+    .maas-campaigns
+      - @campaigns.each do |campaign|
+        - ss = statut_styles[campaign.statut] || statut_styles["brouillon"]
+        .maas-campaign-card
+          = link_to maas_campagne_path(campaign), style: "display: flex; align-items: center; gap: 20px; flex: 1; text-decoration: none; color: inherit;" do
+            .maas-campaign-year= campaign.annee
+            .maas-campaign-info
+              .maas-campaign-name
+                = t("maas.campagne.label", annee: campaign.annee)
+                - if campaign.description.present?
+                  %span{style: "font-weight: 400; color: #94a3b8; font-size: 13px; margin-left: 8px;"}= truncate(campaign.description, length: 60)
+              .maas-campaign-dates
+                = "#{l(campaign.date_ouverture, format: :short)} → #{l(campaign.date_fermeture, format: :short)}"
+                = " · #{campaign.membership_subscriptions.count} adhésions"
+            %span.maas-campaign-status{style: "background: #{ss[:bg]}; color: #{ss[:fg]};"}
+              = t("maas.campagne.statuts.#{campaign.statut}")
+          .maas-campaign-actions
+            = button_to maas_campagne_path(campaign), method: :delete, data: { confirm: "Supprimer définitivement la campagne #{campaign.annee} ? Cette action est irréversible." }, style: "color: #ef4444; font-size: 18px; background: none; border: none; cursor: pointer; padding: 4px 8px;", title: "Supprimer" do
+              🗑️
+  - else
+    .maas-empty
+      .maas-empty-icon 🎫
+      .maas-empty-text= t("maas.campagne.empty")
+      = link_to new_maas_campagne_path, class: "maas-btn maas-btn-primary" do
+        ➕ #{t("maas.campagne.new")}

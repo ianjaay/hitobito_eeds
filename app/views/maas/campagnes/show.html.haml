@@ -1,0 +1,169 @@
+- title "#{t('maas.campagne.label', annee: @campaign.annee)}"
+- statut_styles = { "brouillon" => { bg: "#f1f5f9", fg: "#94a3b8" }, "active" => { bg: "#d1fae5", fg: "#10b981" }, "fermee" => { bg: "#fef3c7", fg: "#f59e0b" }, "archivee" => { bg: "#fee2e2", fg: "#ef4444" } }
+- ss = statut_styles[@campaign.statut] || statut_styles["brouillon"]
+
+:css
+  .maas-show { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  .maas-show-header {
+    background: linear-gradient(135deg, #5D4296 0%, #3a2870 100%);
+    border-radius: 20px; padding: 28px 32px; color: #fff;
+    display: flex; align-items: center; gap: 24px; position: relative; overflow: hidden;
+  }
+  .maas-show-header .circle-d1 { position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(252,209,22,0.12); }
+  .maas-show-header .circle-d2 { position: absolute; bottom: -20px; right: 80px; width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+  .maas-show-year { font-size: 48px; font-weight: 800; opacity: 0.3; position: relative; z-index: 1; }
+  .maas-show-title { font-size: 22px; font-weight: 700; }
+  .maas-show-dates { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+  .maas-status-pill { padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; margin-top: 8px; }
+  .maas-actions-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+
+  .maas-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin: 20px 0; }
+  .maas-stat { background: #fff; border-radius: 14px; padding: 16px 18px; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); text-align: center; }
+  .maas-stat-num { font-size: 24px; font-weight: 800; }
+  .maas-stat-label { font-size: 10px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  .maas-section { margin-top: 28px; }
+  .maas-section-title { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+  .maas-plans-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .maas-plan-card {
+    background: #fff; border-radius: 14px; padding: 20px; position: relative; overflow: hidden;
+    border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .maas-plan-stripe { position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+  .maas-plan-branche { font-size: 14px; font-weight: 700; color: #1e293b; padding-left: 10px; }
+  .maas-plan-montant { font-size: 24px; font-weight: 800; color: #5D4296; padding-left: 10px; margin-top: 8px; }
+  .maas-plan-details { font-size: 11px; color: #94a3b8; padding-left: 10px; margin-top: 4px; }
+  .maas-plan-actions { display: flex; gap: 8px; padding-left: 10px; margin-top: 12px; }
+
+  .maas-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid rgba(93,66,150,0.08); font-size: 13px; }
+  .maas-table thead tr { background: rgba(93,66,150,0.04); }
+  .maas-table th { padding: 12px 14px; text-align: left; font-weight: 600; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .maas-table td { padding: 12px 14px; border-top: 1px solid rgba(93,66,150,0.06); }
+  .maas-table tbody tr:hover { background: rgba(93,66,150,0.02); }
+
+  .maas-btn { padding: 8px 18px; border-radius: 10px; font-size: 12px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: transform 0.15s; }
+  .maas-btn:hover { transform: translateY(-1px); }
+  .maas-btn-primary { background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; }
+  .maas-btn-success { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+  .maas-btn-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+  .maas-btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
+  .maas-btn-outline { background: #fff; border: 1.5px solid rgba(93,66,150,0.2); color: #5D4296; }
+  .maas-btn-sm { padding: 4px 10px; font-size: 11px; }
+  .maas-btn-back { background: transparent; color: #5D4296; font-weight: 600; padding: 8px 0; font-size: 13px; border: none; cursor: pointer; text-decoration: none; }
+
+  .maas-badge-tag { padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: 600; display: inline-block; }
+
+.maas-show
+  = link_to maas_campagnes_path, class: "maas-btn-back" do
+    ← #{t("maas.campagne.back_to_list")}
+
+  .maas-show-header
+    .circle-d1
+    .circle-d2
+    .maas-show-year= @campaign.annee
+    %div{style: "flex: 1; position: relative; z-index: 1;"}
+      .maas-show-title= t("maas.campagne.label", annee: @campaign.annee)
+      .maas-show-dates
+        = "#{l(@campaign.date_ouverture, format: :short)} → #{l(@campaign.date_fermeture, format: :short)}"
+      %span.maas-status-pill{style: "background: #{ss[:bg]}; color: #{ss[:fg]};"}
+        = t("maas.campagne.statuts.#{@campaign.statut}")
+      - if @campaign.description.present?
+        %p{style: "font-size: 13px; opacity: 0.8; margin-top: 8px;"}= @campaign.description
+    %div{style: "display: flex; gap: 8px; flex-wrap: wrap; position: relative; z-index: 1;"}
+      = link_to edit_maas_campagne_path(@campaign), class: "maas-btn maas-btn-outline" do
+        ✏️ Modifier
+      - if @campaign.statut == "brouillon"
+        = link_to activate_maas_campagne_path(@campaign), method: :patch, class: "maas-btn maas-btn-success", data: { confirm: "Activer cette campagne ?" } do
+          ✓ Activer
+      - elsif @campaign.statut == "active"
+        = link_to fermer_maas_campagne_path(@campaign), method: :patch, class: "maas-btn maas-btn-warning", data: { confirm: "Fermer cette campagne ?" } do
+          🔒 Fermer
+      - elsif @campaign.statut == "fermee"
+        = link_to archiver_maas_campagne_path(@campaign), method: :patch, class: "maas-btn maas-btn-danger", data: { confirm: "Archiver cette campagne ?" } do
+          📦 Archiver
+      = button_to maas_campagne_path(@campaign), method: :delete, data: { confirm: "Supprimer définitivement cette campagne ? Cette action est irréversible." }, class: "maas-btn maas-btn-danger" do
+        🗑️ Supprimer
+
+  -# STATS
+  .maas-stats
+    .maas-stat
+      .maas-stat-num{style: "color: #5D4296;"}= @stats[:total]
+      .maas-stat-label Total cotisations
+    .maas-stat
+      .maas-stat-num{style: "color: #f59e0b;"}= @stats[:en_attente]
+      .maas-stat-label En attente
+    .maas-stat
+      .maas-stat-num{style: "color: #0054A0;"}= @stats[:partiel]
+      .maas-stat-label Partiels
+    .maas-stat
+      .maas-stat-num{style: "color: #10b981;"}= @stats[:valide]
+      .maas-stat-label Validés
+    .maas-stat
+      .maas-stat-num{style: "color: #5D4296;"}= number_to_currency(@stats[:collected], unit: "", precision: 0)
+      .maas-stat-label FCFA Collecté
+    .maas-stat
+      .maas-stat-num{style: "color: #94a3b8;"}= number_to_currency(@stats[:expected], unit: "", precision: 0)
+      .maas-stat-label FCFA Attendu
+
+  -# PLANS TARIFAIRES
+  .maas-section
+    .maas-section-title
+      💰 Plans tarifaires
+      = link_to new_maas_campagne_plan_path(@campaign), class: "maas-btn maas-btn-primary maas-btn-sm", style: "margin-left: auto;" do
+        ➕ Ajouter un plan
+
+    - if @plans.any?
+      .maas-plans-grid
+        - @plans.each do |plan|
+          .maas-plan-card
+            .maas-plan-stripe{style: "background: #{branche_colors[plan.branche] || '#94a3b8'};"}
+            .maas-plan-branche= plan.branche
+            .maas-plan-montant= "#{plan.montant.to_i} FCFA"
+            .maas-plan-details
+              - if plan.assurance_incluse?
+                ✓ Assurance incluse (#{plan.montant_assurance&.to_i} FCFA)
+              - else
+                ✗ Sans assurance
+              - if plan.minimum_partiel
+                %br
+                = "Minimum partiel : #{plan.minimum_partiel.to_i} FCFA"
+            .maas-plan-actions
+              = link_to edit_maas_campagne_plan_path(@campaign, plan), class: "maas-btn maas-btn-outline maas-btn-sm" do
+                ✏️
+              = link_to maas_campagne_plan_path(@campaign, plan), method: :delete, class: "maas-btn maas-btn-danger maas-btn-sm", data: { confirm: "Supprimer ce plan ?" } do
+                🗑️
+    - else
+      %p{style: "color: #94a3b8; font-style: italic; margin-top: 10px;"}
+        Aucun plan tarifaire. Ajoutez un plan pour chaque branche.
+
+  -# SUBSCRIPTIONS TABLE
+  - if @subscriptions.any?
+    .maas-section
+      .maas-section-title 📋 Adhésions enregistrées (#{@subscriptions.count})
+
+      %table.maas-table
+        %thead
+          %tr
+            %th Membre
+            %th Branche
+            %th Montant
+            %th Payé
+            %th Solde
+            %th Statut
+        %tbody
+          - sub_statut_styles = { "en_attente" => { bg: "#f1f5f9", fg: "#94a3b8" }, "partiel" => { bg: "#fef3c7", fg: "#f59e0b" }, "valide" => { bg: "#d1fae5", fg: "#10b981" }, "expire" => { bg: "#fee2e2", fg: "#ef4444" }, "annule" => { bg: "#fecaca", fg: "#dc2626" } }
+          - @subscriptions.limit(50).each do |sub|
+            - sss = sub_statut_styles[sub.statut] || sub_statut_styles["en_attente"]
+            %tr
+              %td{style: "font-weight: 600;"}= "#{sub.member.first_name} #{sub.member.last_name}"
+              %td
+                %span.maas-badge-tag{style: "background: #{branche_colors[sub.membership_plan.branche]}20; color: #{branche_colors[sub.membership_plan.branche]};"}
+                  = sub.membership_plan.branche
+              %td= "#{sub.montant_total.to_i} FCFA"
+              %td{style: "font-weight: 700; color: #10b981;"}= "#{sub.montant_paye.to_i} FCFA"
+              %td{style: "color: #{sub.solde_restant > 0 ? '#f59e0b' : '#10b981'};"}
+                = "#{sub.solde_restant.to_i} FCFA"
+              %td
+                %span.maas-badge-tag{style: "background: #{sss[:bg]}; color: #{sss[:fg]};"}
+                  = t("maas.subscription.statuts.#{sub.statut}")

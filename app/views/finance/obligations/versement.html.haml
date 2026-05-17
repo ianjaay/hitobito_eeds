@@ -1,0 +1,47 @@
+-# Formulaire de versement sur une obligation
+:css
+  .finance-container select, .finance-container input { height: auto !important; box-sizing: border-box; }
+- content_for(:title, "Versement — #{@obligation.person.first_name} #{@obligation.person.last_name}")
+
+.finance-container
+  .finance-header
+    %div{style: "display: flex; align-items: center;"}
+      .finance-header-icon 💳
+      %div
+        %h1 Nouveau versement
+        %p
+          = "#{@obligation.person.first_name} #{@obligation.person.last_name}"
+          = " — #{@fee.libelle}"
+          = " — Solde: #{number_with_delimiter(@obligation.solde_restant, delimiter: "'")} FCFA"
+
+  .finance-section
+    - if defined?(@errors) && @errors.present?
+      .alert.alert-danger{style: "background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 8px; padding: 12px; margin-bottom: 16px; color: #721c24;"}
+        %ul{style: "margin: 0; padding-left: 20px;"}
+          - @errors.each do |msg|
+            %li= msg
+
+    = form_tag create_versement_group_finance_activity_fee_obligation_path(@group, @fee, @obligation), method: :post, style: "max-width: 500px;" do
+
+      %div{style: "display: grid; grid-template-columns: 1fr 1fr; gap: 16px;"}
+        .form-group{style: "margin-bottom: 16px;"}
+          %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Montant (FCFA) *
+          %input{type: "number", name: "montant", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", min: 1, max: @obligation.solde_restant, required: true, placeholder: @obligation.solde_restant}
+
+        .form-group{style: "margin-bottom: 16px;"}
+          %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Modalité *
+          %select{name: "modalite", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; color: #333; font-size: 14px; background: #fff;", required: true}
+            - Finance::Payment::MODALITES.each do |m|
+              %option{value: m}= m
+
+      .form-group{style: "margin-bottom: 16px;"}
+        %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Référence externe
+        %input{type: "text", name: "reference_externe", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", placeholder: "N° transaction..."}
+
+      .form-group{style: "margin-bottom: 16px;"}
+        %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Commentaire
+        %textarea{name: "commentaire", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; min-height: 60px;"}
+
+      %div{style: "display: flex; gap: 12px; margin-top: 20px;"}
+        %button{type: "submit", class: "finance-btn finance-btn-primary", style: "border: none; cursor: pointer; padding: 10px 24px;"} Enregistrer le versement
+        = link_to "Annuler", group_finance_activity_fee_obligation_path(@group, @fee, @obligation), class: "finance-btn", style: "background: #e2e3e5; color: #333; padding: 10px 24px;"

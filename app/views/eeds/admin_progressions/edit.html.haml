@@ -1,0 +1,144 @@
+- title "Modifier #{@qualification_kind.label}"
+- is_jeego = @category == "jeego"
+- branche_options = [["Mbootaay", "mbootaay"], ["Kayon", "kayon"], ["Dental", "dental"], ["Gàlle", "galle"]]
+- domaine_options = [["Enabilité physique", "enab_physique"], ["Enabilité intellectuelle", "enab_intellectuel"], ["Donnerie / Njaak social", "donn_social"], ["Yeesal / Spiritualité", "yees_spirituel"], ["Enabilité affective", "enab_affectif"]]
+- meta = @qualification_kind.metadata || {}
+
+:css
+  .eeds-form { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; max-width: 700px; }
+  .eeds-form-header {
+    border-radius: 20px; padding: 24px 28px; color: #fff;
+    display: flex; align-items: center; gap: 16px; position: relative; overflow: hidden;
+  }
+  .eeds-form-header.jeego { background: linear-gradient(135deg, #0054A0 0%, #003d75 100%); }
+  .eeds-form-header.menmen { background: linear-gradient(135deg, #5D4296 0%, #3a2870 100%); }
+  .eeds-form-header .circle-d1 { position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+  .eeds-form-title { font-size: 20px; font-weight: 700; }
+  .eeds-form-subtitle { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+
+  .eeds-form-card { background: #fff; border-radius: 14px; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-top: 20px; overflow: hidden; }
+  .eeds-form-section { padding: 20px 24px; border-bottom: 1px solid rgba(93,66,150,0.06); }
+  .eeds-form-section:last-child { border-bottom: none; }
+  .eeds-form-section-title { font-size: 14px; font-weight: 700; color: #1e293b; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+  .eeds-field { margin-bottom: 14px; }
+  .eeds-field label { display: block; font-size: 12px; font-weight: 600; color: #64748b; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .eeds-field input, .eeds-field select, .eeds-field textarea {
+    width: 100%; padding: 10px 14px; border: 1.5px solid rgba(93,66,150,0.15); border-radius: 10px;
+    font-size: 14px; font-family: inherit; transition: border-color 0.2s; background: #fff; color: #333 !important;
+    height: auto !important; box-sizing: border-box;
+  }
+  .eeds-field select { -webkit-appearance: menulist !important; appearance: menulist !important; opacity: 1 !important; line-height: 1.4; }
+  .eeds-field input:focus, .eeds-field select:focus, .eeds-field textarea:focus { outline: none; border-color: #5D4296; }
+
+  .eeds-criteria-list { display: flex; flex-direction: column; gap: 8px; }
+  .eeds-criteria-row { display: flex; gap: 8px; align-items: center; }
+  .eeds-criteria-row input[type="text"] { flex: 1; }
+  .eeds-criteria-remove { background: #fee2e2; color: #ef4444; border: none; border-radius: 8px; width: 32px; height: 38px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .eeds-criteria-remove:hover { background: #fecaca; }
+  .eeds-add-criteria { background: #f8f7fc; border: 1.5px dashed rgba(93,66,150,0.2); border-radius: 10px; padding: 10px; text-align: center; cursor: pointer; font-size: 13px; font-weight: 600; color: #5D4296; margin-top: 10px; transition: background 0.2s; }
+  .eeds-add-criteria:hover { background: #ede9f6; }
+
+  .eeds-form-actions { display: flex; gap: 10px; margin-top: 20px; }
+  .eeds-btn { padding: 10px 24px; border-radius: 10px; font-size: 14px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: transform 0.15s, box-shadow 0.15s; }
+  .eeds-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  .eeds-btn-primary { background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; }
+  .eeds-btn-cancel { background: #f1f5f9; color: #64748b; }
+  .eeds-field-readonly { background: #f8fafc !important; color: #94a3b8 !important; cursor: not-allowed; }
+
+.eeds-form
+  .eeds-form-header{class: is_jeego ? 'jeego' : 'menmen'}
+    .circle-d1
+    %div{style: "font-size: 32px;"}= is_jeego ? '⚜️' : '🏅'
+    %div
+      .eeds-form-title Modifier #{is_jeego ? 'JEEGO' : 'MËN-MËN'}
+      .eeds-form-subtitle= @qualification_kind.label
+
+  = form_tag eeds_progression_badge_path(@qualification_kind), method: :patch, multipart: true do
+
+    .eeds-form-card
+      .eeds-form-section
+        .eeds-form-section-title 📝 Informations générales
+        .eeds-field
+          %label Image du badge
+          .eeds-upload-zone{id: "upload-zone", style: "border: 2px dashed rgba(93,66,150,0.2); border-radius: 14px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; background: #faf9fc;"}
+            %div{id: "upload-preview", style: "margin-bottom: 10px;"}
+              - if @qualification_kind.badge_image.attached?
+                = image_tag url_for(@qualification_kind.badge_image.variant(:medium)), style: "width: 80px; height: 80px; border-radius: 14px; object-fit: cover; border: 2px solid rgba(93,66,150,0.15);", id: "preview-img"
+              - else
+                %img{id: "preview-img", src: "", style: "width: 80px; height: 80px; border-radius: 14px; object-fit: cover; border: 2px solid rgba(93,66,150,0.15); display: none;"}
+            %div{style: "font-size: 28px; margin-bottom: 6px;"} 🖼️
+            %div{style: "font-size: 13px; font-weight: 600; color: #5D4296;"}
+              = @qualification_kind.badge_image.attached? ? "Cliquez pour changer l'image" : "Cliquez pour choisir une image"
+            %div{style: "font-size: 11px; color: #94a3b8; margin-top: 2px;"} PNG, JPG ou SVG — max 2 Mo
+            = file_field_tag :badge_image, accept: "image/png,image/jpeg,image/svg+xml,image/webp", style: "display: none;", id: "badge-image-input"
+        .eeds-field
+          %label Clé
+          = text_field_tag :key_display, @qualification_kind.key, disabled: true, class: "eeds-field-readonly"
+        .eeds-field
+          %label Libellé *
+          = text_field_tag :label, @qualification_kind.label, required: true
+        .eeds-field
+          %label Description
+          = text_area_tag :description, @qualification_kind.description, rows: 3
+
+      - if is_jeego
+        .eeds-form-section
+          .eeds-form-section-title ⚜️ Paramètres JEEGO
+          .eeds-field
+            %label Branche
+            = select_tag :branche, options_for_select(branche_options, meta["branche"])
+          .eeds-field
+            %label Domaine
+            = select_tag :domaine, options_for_select(domaine_options, meta["domaine"])
+          .eeds-field
+            %label Niveau
+            = select_tag :niveau, options_for_select([["Enab (1)", 1], ["Donn Njaak (2)", 2], ["Lawtan (3)", 3]], meta["niveau"])
+          .eeds-field
+            %label Prérequis
+            = text_field_tag :prerequisite, meta["prerequisite"], placeholder: "Ex: jeego_mbootaay_enab_physique_n1"
+
+      - else
+        .eeds-form-section
+          .eeds-form-section-title 📋 Critères de validation
+          #criteria-list.eeds-criteria-list
+            - @criteria.each do |c|
+              .eeds-criteria-row
+                = hidden_field_tag "criteria_ids[]", c.id
+                = text_field_tag "criteria_labels[]", c.label, class: "criteria-input", style: "width:100%;padding:10px 14px;border:1.5px solid rgba(93,66,150,0.15);border-radius:10px;font-size:14px;"
+                %button.eeds-criteria-remove{type: "button", onclick: "this.parentElement.remove()"} ✕
+          .eeds-add-criteria{onclick: "addCriterion()"} ➕ Ajouter un critère
+
+    .eeds-form-actions
+      %button.eeds-btn.eeds-btn-primary{type: "submit"}
+        ✓ Enregistrer
+      = link_to eeds_progression_badge_path(@qualification_kind), class: "eeds-btn eeds-btn-cancel" do
+        ← Annuler
+
+:javascript
+  document.getElementById('upload-zone').addEventListener('click', function() {
+    document.getElementById('badge-image-input').click();
+  });
+  document.getElementById('badge-image-input').addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        var img = document.getElementById('preview-img');
+        img.src = ev.target.result;
+        img.style.display = 'block';
+        document.getElementById('upload-preview').style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+  function addCriterion() {
+    var list = document.getElementById('criteria-list');
+    var count = list.children.length + 1;
+    var row = document.createElement('div');
+    row.className = 'eeds-criteria-row';
+    row.innerHTML = '<input type="hidden" name="criteria_ids[]" value="0">' +
+      '<input type="text" name="criteria_labels[]" placeholder="Nouveau critère ' + count + '" class="criteria-input" style="width:100%;padding:10px 14px;border:1.5px solid rgba(93,66,150,0.15);border-radius:10px;font-size:14px;">' +
+      '<button type="button" class="eeds-criteria-remove" onclick="this.parentElement.remove()">✕</button>';
+    list.appendChild(row);
+  }

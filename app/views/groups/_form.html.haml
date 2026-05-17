@@ -1,0 +1,22 @@
+-#  EEDS — Override du formulaire de groupe.
+-#  Masque les onglets « Enregistrement externe » et « Abonnements »
+-#  qui ne sont pas utilisés par les EEDS actuellement.
+
+= entry_form(cancel_url_new: (entry.parent_id? ? group_path(entry.parent_id) : nil), buttons_top: false) do |f|
+  - if entry.new_record?
+    = f.hidden_field :parent_id
+    = f.hidden_field :type
+
+  = render 'form_tabs'
+
+  .tab-content
+    = tab_content(:general, default_active: true) do
+      = render 'general_fields', f: f
+      = render_extensions :fields, locals: { f: f }
+
+    = tab_content(:contactable) do
+      = render 'contactable/fields', f: f
+
+    = render_extensions :tab_content, locals: { f: f }
+
+    = render 'mounted_attributes/form_tabs', f: f

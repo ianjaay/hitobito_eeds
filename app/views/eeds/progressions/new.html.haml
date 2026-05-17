@@ -1,0 +1,168 @@
+- title "Ajouter des progressions — #{@person}"
+- branch_info = { 'mbootaay' => { label: 'Mbootaay', color: '#FCD116' }, 'kayon' => { label: 'Kayon', color: '#2ECC71' }, 'dental' => { label: 'Dental', color: '#0054A0' }, 'galle' => { label: 'Gàlle', color: '#E74C3C' } }
+- bi = branch_info[@branche] || { label: 'Branche', color: '#666' }
+- domaine_labels = { 'enab_physique' => 'Physique', 'enab_intellectuel' => 'Intellectuel', 'donn_social' => 'Social', 'yees_spirituel' => 'Spirituel', 'enab_affectif' => 'Affectif' }
+- niveau_labels = { 1 => 'Enab', 2 => 'Donn Njaak', 3 => 'Lawtan' }
+- menmen_icons = { 'men_communicateur' => '📡', 'men_environnementaliste' => '🌿', 'men_gestionnaire' => '📊', 'men_secouriste' => '🏥', 'men_citoyen' => '🏛️', 'men_technologue' => '⚙️', 'men_artiste' => '🎨', 'men_leader' => '🌟' }
+
+:css
+  .eeds-new { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  .eeds-new-header {
+    background: linear-gradient(135deg, #5D4296 0%, #3a2870 100%);
+    border-radius: 20px; padding: 24px 28px; color: #fff;
+    display: flex; align-items: center; gap: 20px; position: relative; overflow: hidden;
+  }
+  .eeds-new-header .deco-1 { position: absolute; top: -40px; right: -40px; width: 140px; height: 140px; border-radius: 50%; background: rgba(252,209,22,0.12); }
+  .eeds-new-icon { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 26px; border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0; }
+  .eeds-new-title { font-size: 20px; font-weight: 700; }
+  .eeds-new-sub { font-size: 13px; opacity: 0.8; margin-top: 4px; }
+
+  .eeds-section { margin-top: 24px; }
+  .eeds-section-hdr { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .eeds-section-count { font-size: 12px; color: #94a3b8; font-weight: 400; }
+
+  .eeds-qk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+  .eeds-qk-card { background: #fff; border: 1.5px solid rgba(93,66,150,0.1); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s; }
+  .eeds-qk-card:hover { border-color: rgba(93,66,150,0.3); box-shadow: 0 2px 8px rgba(93,66,150,0.08); }
+  .eeds-qk-card.selected { border-color: #5D4296; background: rgba(93,66,150,0.04); box-shadow: 0 2px 8px rgba(93,66,150,0.15); }
+
+  .eeds-qk-check { width: 22px; height: 22px; border-radius: 6px; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; font-size: 12px; color: transparent; }
+  .eeds-qk-card.selected .eeds-qk-check { background: #5D4296; border-color: #5D4296; color: #fff; }
+
+  .eeds-qk-icon { font-size: 22px; flex-shrink: 0; }
+  .eeds-qk-info { flex: 1; min-width: 0; }
+  .eeds-qk-name { font-size: 13px; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .eeds-qk-meta { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+  .eeds-empty { text-align: center; padding: 24px; color: #94a3b8; font-size: 13px; background: #f8fafc; border-radius: 12px; }
+
+  .eeds-actions-bar { display: flex; gap: 12px; margin-top: 28px; align-items: center; }
+  .eeds-btn { padding: 10px 24px; border-radius: 10px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: transform 0.15s, box-shadow 0.15s; }
+  .eeds-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  .eeds-btn-primary { background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; }
+  .eeds-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+  .eeds-btn-back { background: transparent; color: #5D4296; font-weight: 600; padding: 10px 0; }
+  .eeds-btn-back:hover { text-decoration: underline; box-shadow: none; transform: none; }
+  .eeds-selected-count { font-size: 13px; color: #5D4296; font-weight: 700; margin-left: auto; }
+
+  .eeds-select-all { font-size: 12px; color: #5D4296; cursor: pointer; font-weight: 600; border: none; background: none; text-decoration: underline; }
+
+:javascript
+  document.addEventListener('DOMContentLoaded', function() {
+    var cards = document.querySelectorAll('.eeds-qk-card');
+    var submitBtn = document.getElementById('eeds-submit-btn');
+    var countEl = document.getElementById('eeds-selected-count');
+
+    function updateCount() {
+      var checked = document.querySelectorAll('.eeds-qk-checkbox:checked').length;
+      if (countEl) countEl.textContent = checked > 0 ? checked + ' sélectionné(s)' : '';
+      if (submitBtn) submitBtn.disabled = checked === 0;
+    }
+
+    cards.forEach(function(card) {
+      card.addEventListener('click', function(e) {
+        if (e.target.tagName === 'INPUT') return;
+        var cb = card.querySelector('.eeds-qk-checkbox');
+        cb.checked = !cb.checked;
+        card.classList.toggle('selected', cb.checked);
+        updateCount();
+      });
+    });
+
+    document.querySelectorAll('.eeds-qk-checkbox').forEach(function(cb) {
+      cb.addEventListener('change', function() {
+        cb.closest('.eeds-qk-card').classList.toggle('selected', cb.checked);
+        updateCount();
+      });
+    });
+
+    document.querySelectorAll('.eeds-select-all').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var section = btn.closest('.eeds-section');
+        var cbs = section.querySelectorAll('.eeds-qk-checkbox');
+        var allChecked = Array.from(cbs).every(function(c) { return c.checked; });
+        cbs.forEach(function(c) {
+          c.checked = !allChecked;
+          c.closest('.eeds-qk-card').classList.toggle('selected', c.checked);
+        });
+        updateCount();
+      });
+    });
+
+    updateCount();
+  });
+
+.eeds-new
+  -# HEADER
+  .eeds-new-header
+    .deco-1
+    .eeds-new-icon ➕
+    %div{style: "position: relative; z-index: 1;"}
+      .eeds-new-title Ajouter des progressions
+      .eeds-new-sub
+        pour
+        %strong= "#{@person.first_name} #{@person.last_name}"
+        —
+        - text_c = bi[:color] == '#FCD116' ? '#333' : '#fff'
+        %span{style: "background: #{bi[:color]}; color: #{text_c}; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;"}= bi[:label]
+
+  = form_tag group_person_progressions_path(@group, @person), method: :post do
+
+    -# JEEGO SECTION
+    .eeds-section
+      .eeds-section-hdr
+        ⚜️ JEEGO — Progression collective
+        %span.eeds-section-count= "(#{@available_jeego.size} disponible(s))"
+        - if @available_jeego.any?
+          %button.eeds-select-all{type: "button"} Tout sélectionner
+
+      - if @available_jeego.any?
+        - grouped = @available_jeego.group_by { |qk| qk.metadata&.dig("domaine") }
+        - domaine_labels.each do |dom_key, dom_label|
+          - qks = grouped[dom_key]
+          - next unless qks&.any?
+          %div{style: "margin-bottom: 16px;"}
+            %div{style: "font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase;"}= dom_label
+            .eeds-qk-grid
+              - qks.sort_by { |qk| qk.metadata&.dig("niveau").to_i }.each do |qk|
+                - niv = qk.metadata&.dig("niveau").to_i
+                %label.eeds-qk-card
+                  .eeds-qk-check ✓
+                  = check_box_tag "qualification_kind_ids[]", qk.id, false, class: "eeds-qk-checkbox", style: "display:none;"
+                  .eeds-qk-icon ⚜️
+                  .eeds-qk-info
+                    .eeds-qk-name= qk.label
+                    .eeds-qk-meta= "Niveau #{niv} · #{niveau_labels[niv]}"
+      - else
+        .eeds-empty ✅ Tous les JEEGO sont déjà attribués pour cette branche
+
+    -# MËN-MËN SECTION
+    .eeds-section
+      .eeds-section-hdr
+        🎖️ MËN-MËN — Brevets individuels
+        %span.eeds-section-count= "(#{@available_menmen.size} disponible(s))"
+        - if @available_menmen.any?
+          %button.eeds-select-all{type: "button"} Tout sélectionner
+
+      - if @available_menmen.any?
+        .eeds-qk-grid
+          - @available_menmen.sort_by(&:label).each do |qk|
+            - icon = menmen_icons[qk.key] || '🏅'
+            %label.eeds-qk-card
+              .eeds-qk-check ✓
+              = check_box_tag "qualification_kind_ids[]", qk.id, false, class: "eeds-qk-checkbox", style: "display:none;"
+              .eeds-qk-icon= icon
+              .eeds-qk-info
+                .eeds-qk-name= qk.label
+                .eeds-qk-meta Brevet individuel
+      - else
+        .eeds-empty ✅ Tous les MËN-MËN sont déjà attribués pour cette branche
+
+    -# ACTIONS
+    .eeds-actions-bar
+      = link_to group_person_progressions_path(@group, @person), class: "eeds-btn eeds-btn-back" do
+        ← Retour
+      %button#eeds-submit-btn.eeds-btn.eeds-btn-primary{type: "submit", disabled: true}
+        ➕ Ajouter les progressions sélectionnées
+      %span#eeds-selected-count.eeds-selected-count

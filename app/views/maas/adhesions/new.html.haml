@@ -1,0 +1,96 @@
+- title t("maas.adhesion.new")
+
+:css
+  .maas-form { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; max-width: 640px; }
+  .maas-form-header { font-size: 22px; font-weight: 700; color: #1e293b; margin-bottom: 24px; }
+  .maas-form-card { background: #fff; border-radius: 14px; padding: 28px; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .maas-field { margin-bottom: 20px; }
+  .maas-field label { display: block; font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .maas-field input, .maas-field select, .maas-field textarea { width: 100%; padding: 10px 14px; border: 1.5px solid rgba(93,66,150,0.15); border-radius: 10px; font-size: 14px; font-family: inherit; color: #333 !important; background: #fff; height: auto !important; box-sizing: border-box; }
+  .maas-field select { -webkit-appearance: menulist !important; appearance: menulist !important; line-height: 1.4; }
+  .maas-field input:focus, .maas-field select:focus, .maas-field textarea:focus { outline: none; border-color: #5D4296; }
+  .maas-field textarea { min-height: 60px; resize: vertical; }
+  .maas-form-actions { display: flex; gap: 10px; margin-top: 24px; }
+  .maas-btn { padding: 10px 22px; border-radius: 10px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .maas-btn-primary { background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; }
+  .maas-btn-cancel { background: #fff; border: 1.5px solid rgba(93,66,150,0.2); color: #5D4296; }
+  .maas-errors { background: #fee2e2; border: 1px solid #fecaca; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; color: #dc2626; font-size: 13px; }
+  .maas-hint { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+  .maas-plan-summary { background: rgba(93,66,150,0.04); border-radius: 10px; padding: 14px; margin-top: 20px; font-size: 13px; display: none; }
+  .maas-plan-summary.visible { display: block; }
+
+.maas-form
+  .maas-form-header 🎫 #{t("maas.adhesion.new")} — #{@group.name}
+
+  - if defined?(@errors) && @errors.present?
+    .maas-errors
+      - @errors.each do |err|
+        %div= "• #{err}"
+
+  .maas-form-card
+    = form_tag group_maas_adhesions_path(@group), method: :post do
+      .maas-field
+        %label= t("maas.adhesion.fields.member")
+        %select{name: "member_id", required: true}
+          %option{value: ""}= "— Sélectionner un membre —"
+          - @members.each do |m|
+            %option{value: m.id}= "#{m.last_name}, #{m.first_name}"
+        .maas-hint= "#{@members.count} membres disponibles pour cette campagne"
+
+      .maas-field
+        %label= t("maas.adhesion.fields.plan")
+        %select{name: "plan_id", id: "plan-select", required: true, onchange: "updatePlanInfo()"}
+          %option{value: ""}= "— Sélectionner un plan —"
+          - @plans.each do |p|
+            %option{value: p.id, "data-montant": p.montant.to_i, "data-branche": p.branche, "data-min": p.minimum_partiel&.to_i || 0}
+              = "#{p.branche} — #{p.montant.to_i} FCFA"
+
+      #plan-summary.maas-plan-summary
+        %strong Plan sélectionné :
+        %span#plan-detail
+
+      .maas-field
+        %label= t("maas.adhesion.fields.montant")
+        %input{type: "number", name: "montant", id: "montant-input", step: 100, min: 0, placeholder: "Montant encaissé (FCFA)", required: true}
+        .maas-hint Peut être inférieur au montant total pour un paiement partiel
+
+      .maas-field
+        %label= t("maas.adhesion.fields.modalite")
+        %select{name: "modalite"}
+          %option{value: "Cash"} Espèces
+          %option{value: "Virement"} Virement bancaire
+          %option{value: "Autre"} Autre
+
+      .maas-field
+        %label= t("maas.adhesion.fields.reference")
+        %input{type: "text", name: "reference_manuelle", placeholder: "N° reçu ou référence (optionnel)"}
+
+      .maas-field
+        %label= t("maas.adhesion.fields.notes")
+        %textarea{name: "notes", placeholder: "Notes (optionnel)"}
+
+      .maas-form-actions
+        %button.maas-btn.maas-btn-primary{type: "submit"} ✓ Enregistrer le paiement
+        = link_to group_maas_adhesions_path(@group), class: "maas-btn maas-btn-cancel" do
+          ← Annuler
+
+:javascript
+  function updatePlanInfo() {
+    var sel = document.getElementById('plan-select');
+    var opt = sel.options[sel.selectedIndex];
+    var summary = document.getElementById('plan-summary');
+    var detail = document.getElementById('plan-detail');
+    var input = document.getElementById('montant-input');
+
+    if (opt.value) {
+      var montant = opt.getAttribute('data-montant');
+      var branche = opt.getAttribute('data-branche');
+      var min = opt.getAttribute('data-min');
+      detail.textContent = branche + ' — ' + montant + ' FCFA' + (min > 0 ? ' (min. partiel : ' + min + ' FCFA)' : '');
+      summary.classList.add('visible');
+      input.placeholder = 'Montant total : ' + montant + ' FCFA';
+      if (!input.value) input.value = montant;
+    } else {
+      summary.classList.remove('visible');
+    }
+  }

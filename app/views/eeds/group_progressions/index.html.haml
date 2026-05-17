@@ -1,0 +1,162 @@
+- title "Vue Responsable — #{@group.name}"
+- branch_info = { 'mbootaay' => { label: 'Mbootaay', color: '#FCD116' }, 'kayon' => { label: 'Kayon', color: '#2ECC71' }, 'dental' => { label: 'Dental', color: '#0054A0' }, 'galle' => { label: 'Gàlle', color: '#E74C3C' } }
+- bi = branch_info[@branche] || { label: 'Unité', color: '#666' }
+- status_emoji = { excellent: '🌟', good: '✅', average: '⚠️', struggling: '🔴' }
+- status_label = { excellent: 'Excellent', good: 'Bon', average: 'Moyen', struggling: 'En difficulté' }
+
+:css
+  .eeds-resp { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  .eeds-resp-header {
+    background: linear-gradient(135deg, #0054A0 0%, #003d75 100%);
+    border-radius: 20px; padding: 28px 32px; color: #fff;
+    display: flex; align-items: center; gap: 24px; position: relative; overflow: hidden;
+  }
+  .eeds-resp-header .circle-r1 { position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(252,209,22,0.12); }
+  .eeds-resp-header .circle-r2 { position: absolute; bottom: -20px; right: 80px; width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+  .eeds-resp-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 28px; border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0; }
+  .eeds-resp-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+  .eeds-resp-badge { padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; }
+
+  .eeds-resp-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px; }
+  @media (max-width: 768px) { .eeds-resp-stats { grid-template-columns: repeat(2, 1fr); } }
+  .eeds-rstat { background: #fff; border-radius: 14px; padding: 18px 16px; text-align: center; border: 1px solid rgba(0,84,160,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .eeds-rstat-label { font-size: 10px; color: #94a3b8; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .eeds-rstat-value { font-size: 26px; font-weight: 800; }
+  .eeds-rstat-sub { font-size: 10px; color: #94a3b8; margin-top: 2px; }
+
+  .eeds-alert-banner { background: linear-gradient(135deg, rgba(239,68,68,0.06), rgba(239,68,68,0.02)); border: 1px solid rgba(239,68,68,0.2); border-radius: 14px; padding: 16px 22px; margin-top: 20px; display: flex; align-items: center; gap: 12px; }
+  .eeds-alert-icon { font-size: 24px; flex-shrink: 0; }
+  .eeds-alert-text { font-size: 13px; color: #ef4444; font-weight: 600; }
+  .eeds-alert-sub { font-size: 11px; color: #94a3b8; }
+
+  .eeds-section-hdr { display: flex; align-items: center; justify-content: space-between; margin: 28px 0 14px; }
+  .eeds-section-hdr h3 { margin: 0; font-size: 16px; font-weight: 700; color: #1e293b; }
+
+  .eeds-member-table { width: 100%; background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,84,160,0.08); border-collapse: collapse; font-size: 13px; }
+  .eeds-member-table thead tr { background: rgba(0,84,160,0.04); }
+  .eeds-member-table th { padding: 12px 14px; text-align: left; font-size: 10px; font-weight: 700; color: #64748b; letter-spacing: 0.5px; text-transform: uppercase; }
+  .eeds-member-table td { padding: 10px 14px; border-top: 1px solid rgba(0,84,160,0.04); vertical-align: middle; }
+  .eeds-member-table tbody tr:hover { background: rgba(0,84,160,0.02); }
+
+  .eeds-member-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #0054A0, #003d75); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin-right: 10px; vertical-align: middle; }
+  .eeds-member-name { font-weight: 600; color: #1e293b; }
+
+  .eeds-prog-minibar { width: 80px; height: 6px; border-radius: 6px; background: rgba(0,84,160,0.08); overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 8px; }
+  .eeds-prog-minibar-fill { height: 100%; border-radius: 6px; }
+
+  .eeds-status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; vertical-align: middle; }
+  .eeds-status-dot-excellent { background: #10b981; }
+  .eeds-status-dot-good { background: #3b82f6; }
+  .eeds-status-dot-average { background: #f59e0b; }
+  .eeds-status-dot-struggling { background: #ef4444; }
+
+  .eeds-qaction-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+  @media (max-width: 768px) { .eeds-qaction-grid { grid-template-columns: 1fr; } }
+  .eeds-qaction { background: #fff; border-radius: 14px; padding: 18px; border: 1px solid rgba(0,84,160,0.08); text-align: center; transition: transform 0.2s; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+  .eeds-qaction:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  .eeds-qaction-icon { font-size: 24px; margin-bottom: 6px; }
+  .eeds-qaction-label { font-size: 12px; font-weight: 700; color: #1e293b; }
+  .eeds-qaction-desc { font-size: 10px; color: #94a3b8; margin-top: 2px; }
+
+.eeds-resp
+  -# HEADER
+  .eeds-resp-header
+    .circle-r1
+    .circle-r2
+    .eeds-resp-icon 👥
+    %div{style: "flex: 1; min-width: 0; position: relative; z-index: 1;"}
+      .eeds-resp-title= @group.name
+      %div{style: "display: flex; align-items: center; gap: 10px; margin-top: 6px; flex-wrap: wrap;"}
+        - text_c = bi[:color] == '#FCD116' ? '#333' : '#fff'
+        %span.eeds-resp-badge{style: "background: #{bi[:color]}; color: #{text_c};"}= bi[:label]
+        %span{style: "font-size: 13px; opacity: 0.8;"} Vue Responsable
+    .eeds-circular-wrap{style: "position: relative; z-index: 1; flex-shrink: 0;"}
+      = render_circular_progress(@group_stats[:avg_pct], 76, '#FCD116')
+      %div{style: "font-size: 10px; opacity: 0.7; margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; text-align: center; color: #fff;"} Moyenne
+
+  -# STATS ROW
+  .eeds-resp-stats
+    .eeds-rstat
+      .eeds-rstat-label Membres
+      .eeds-rstat-value{style: "color: #0054A0;"}= @group_stats[:member_count]
+      .eeds-rstat-sub actifs
+    .eeds-rstat
+      .eeds-rstat-label Progression moy.
+      .eeds-rstat-value{style: "color: #10b981;"}= "#{@group_stats[:avg_pct]}%"
+      .eeds-rstat-sub globale
+    .eeds-rstat
+      .eeds-rstat-label JEEGO validés
+      .eeds-rstat-value{style: "color: #5D4296;"}= "#{@group_stats[:jeego_validated]}/#{@group_stats[:jeego_total]}"
+      .eeds-rstat-sub qualifications
+    .eeds-rstat
+      .eeds-rstat-label Alertes
+      .eeds-rstat-value{style: "color: #{@group_stats[:alerts] > 0 ? '#ef4444' : '#10b981'};"}= @group_stats[:alerts]
+      .eeds-rstat-sub= @group_stats[:alerts] > 0 ? 'membres < 30%' : 'aucune'
+
+  -# ALERTS
+  - struggling = @member_stats.select { |s| s[:status] == :struggling }
+  - if struggling.any?
+    .eeds-alert-banner
+      .eeds-alert-icon 🚨
+      %div
+        .eeds-alert-text= "#{struggling.size} membre(s) en difficulté (< 30% de progression)"
+        .eeds-alert-sub= struggling.map { |s| s[:person].first_name }.join(', ')
+
+  -# MEMBER TABLE
+  .eeds-section-hdr
+    %h3 📊 Progression des membres
+    %span{style: "font-size: 11px; color: #94a3b8;"}= "#{@members.size} membres"
+
+  %table.eeds-member-table
+    %thead
+      %tr
+        %th Membre
+        %th Progression
+        %th JEEGO
+        %th MËN-MËN
+        %th Statut
+        %th Action
+    %tbody
+      - @member_stats.sort_by { |s| -s[:pct] }.each do |ms|
+        - p = ms[:person]
+        - bar_color = ms[:pct] >= 80 ? '#10b981' : ms[:pct] >= 50 ? '#3b82f6' : ms[:pct] >= 30 ? '#f59e0b' : '#ef4444'
+        %tr
+          %td
+            %span.eeds-member-avatar= "#{p.first_name[0]}#{p.last_name[0]}"
+            %span.eeds-member-name= "#{p.first_name} #{p.last_name}"
+          %td
+            .eeds-prog-minibar
+              %div.eeds-prog-minibar-fill{style: "width: #{ms[:pct]}%; background: #{bar_color};"}
+            %span{style: "font-weight: 700; font-size: 12px; color: #{bar_color};"}= "#{ms[:pct]}%"
+          %td
+            %span{style: "font-weight: 600;"}= "#{ms[:jeego_validated]}/#{ms[:jeego_total]}"
+          %td
+            %span{style: "font-weight: 600;"}= "#{ms[:menmen_validated]}/#{ms[:menmen_total]}"
+          %td
+            %span{class: "eeds-status-dot eeds-status-dot-#{ms[:status]}"}
+            %span{style: "font-size: 12px;"}= "#{status_emoji[ms[:status]]} #{status_label[ms[:status]]}"
+            - if ms[:needs_work] > 0
+              %br
+              %span{style: "font-size: 10px; color: #ef4444;"}= "#{ms[:needs_work]} à retravailler"
+          %td
+            - grp_for_link = Eeds::Progression.where(person_id: p.id).order(:group_id).first&.group || @group
+            = link_to "Voir profil", group_person_progressions_path(grp_for_link, p), style: "font-size: 12px; font-weight: 600; color: #0054A0; text-decoration: none;"
+
+  -# QUICK ACTIONS
+  .eeds-section-hdr
+    %h3 ⚡ Actions rapides
+
+  .eeds-qaction-grid
+    = link_to group_path(@group), class: "eeds-qaction" do
+      .eeds-qaction-icon 📋
+      .eeds-qaction-label Gérer les membres
+      .eeds-qaction-desc Ajouter, modifier les rôles
+    - if struggling.any?
+      = link_to "#", class: "eeds-qaction", onclick: "window.scrollTo({top: 0, behavior: 'smooth'}); return false;" do
+        .eeds-qaction-icon 🎯
+        .eeds-qaction-label Suivre les alertes
+        .eeds-qaction-desc= "#{struggling.size} membre(s) à accompagner"
+    = link_to "#", class: "eeds-qaction" do
+      .eeds-qaction-icon 📊
+      .eeds-qaction-label Exporter
+      .eeds-qaction-desc Télécharger le bilan

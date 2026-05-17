@@ -1,0 +1,5 @@
+-#  EEDS — Bouton d'import Excel ajouté à la barre d'actions de la liste des personnes.
+-#  Ce partiel est chargé automatiquement par render_extensions :actions_index.
+
+- if can?(:new, @group.roles.new)
+  = action_button(t('eeds.excel_imports.new.title'), new_group_excel_imports_path(@group), :'file-excel')

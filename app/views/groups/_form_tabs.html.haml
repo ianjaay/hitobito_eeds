@@ -1,0 +1,10 @@
+-#  EEDS — Override des onglets du formulaire de groupe.
+-#  Masque « Enregistrement externe » et « Abonnements » (non utilisés EEDS).
+
+%ul.nav.nav-tabs
+  %li.nav-item= tab_header(t('groups.form_tabs.general'), :general, default_active: true)
+  %li.nav-item= tab_header(Group.human_attribute_name(:contactable), :contactable)
+  - entry.model.class.mounted_attr_configs_by_category&.keys&.each do |key|
+    %li.nav-item= tab_header(t("mounted_attributes.form_tabs.#{entry.model.class.sti_name.underscore}.#{key}"), key)
+
+  = render_extensions :form_tabs

@@ -1,0 +1,65 @@
+-#  EEDS — Prévisualisation de l'import Excel avant confirmation
+
+- content_for(:title, t('eeds.excel_imports.preview.title'))
+
+%h2= t('eeds.excel_imports.preview.title')
+
+.mb-3
+  %p= t('eeds.excel_imports.preview.summary', total: @importer.total_count, new: @importer.new_count, updated: @importer.update_count, failed: @importer.failure_count)
+
+- if @importer.failure_count > 0
+  .alert.alert-warning
+    %strong= t('eeds.excel_imports.preview.errors_title')
+    %ul.mb-0
+      - @importer.results.select { |r| r[:status] == :error }.first(20).each do |r|
+        %li
+          = t('eeds.excel_imports.preview.row_error', row: r[:row], errors: r[:errors].join(', '))
+
+.table-responsive.mb-3
+  %table.table.table-sm.table-striped
+    %thead.table-dark
+      %tr
+        %th #
+        %th= t('eeds.excel_imports.preview.status')
+        %th= ::Person.human_attribute_name(:first_name)
+        %th= ::Person.human_attribute_name(:last_name)
+        %th= ::Person.human_attribute_name(:email)
+        %th= t('eeds.excel_imports.preview.role_assignments')
+        %th= t('eeds.excel_imports.preview.details')
+    %tbody
+      - @importer.results.each do |r|
+        %tr{class: status_row_class(r[:status])}
+          %td= r[:row]
+          %td
+            - case r[:status]
+            - when :new
+              %span.badge.bg-success= t('eeds.excel_imports.preview.status_new')
+            - when :updated
+              %span.badge.bg-info= t('eeds.excel_imports.preview.status_updated')
+            - when :error
+              %span.badge.bg-danger= t('eeds.excel_imports.preview.status_error')
+          %td= r.dig(:data, 'Prénom')
+          %td= r.dig(:data, 'Nom')
+          %td= r.dig(:data, 'E-Mail')
+          %td
+            - if r[:role_assignments].present?
+              - r[:role_assignments].each do |ra|
+                %div
+                  %span.badge.bg-light.text-dark= ra[:group]&.name
+                  %span.text-muted →
+                  %strong= ra[:role_type]&.label
+            - else
+              %span.text-muted -
+          %td
+            - if r[:errors].present?
+              %small.text-danger= r[:errors].join(', ')
+
+= form_tag(group_excel_imports_path(@group), method: :post, data: { turbo: false }) do
+  .btn-toolbar.mt-3
+    .btn-group.me-2
+      - if @importer.new_count > 0 || @importer.update_count > 0
+        = submit_tag t('eeds.excel_imports.preview.import_button'), class: 'btn btn-sm btn-primary'
+    .btn-group
+      = link_to t('global.button.back'), new_group_excel_imports_path(@group), class: 'btn btn-sm btn-outline-secondary'
+    .btn-group.ms-2
+      = link_to t('global.button.cancel'), group_people_path(@group), class: 'link mt-1'

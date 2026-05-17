@@ -1,0 +1,60 @@
+-# Vue financière d'un événement (camp, cours, formation)
+- content_for(:title, "Finances — #{@event.name}")
+
+.finance-container
+  .finance-header
+    %div{style: "display: flex; align-items: center;"}
+      .finance-header-icon 💰
+      %div
+        %h1 Finances : #{@event.name}
+        %p= "#{@event.type || 'Événement'} — #{@group.name}"
+    .finance-actions
+      = link_to new_group_finance_activity_fee_path(@group, feeable_type: "Event", feeable_id: @event.id), class: "finance-btn finance-btn-primary" do
+        ➕ Ajouter un frais
+
+  .finance-stats
+    .finance-stat
+      .value= @stats[:total_frais]
+      .label Types de frais
+    .finance-stat
+      .value= @stats[:total_participants]
+      .label Participants
+    .finance-stat
+      .value= @stats[:total_valide]
+      .label Payés
+    .finance-stat
+      .value= "#{number_with_delimiter(@stats[:total_collecte], delimiter: "'")} FCFA"
+      .label Collecté
+    .finance-stat
+      .value= "#{number_with_delimiter(@stats[:total_attendu], delimiter: "'")} FCFA"
+      .label Attendu
+
+  - @fees.each do |fee|
+    .finance-section
+      %h2
+        = "📋 #{fee.libelle}"
+        %span.finance-badge{class: "badge-#{fee.categorie}", style: "margin-left: 8px;"}= fee.categorie.humanize
+        %span{style: "font-size: 12px; color: #888; margin-left: 8px;"}= "#{fee.montant.to_i} FCFA/personne"
+
+      - fee_obligations = @all_obligations.select { |o| o.activity_fee_id == fee.id }
+      - if fee_obligations.any?
+        %table.finance-table
+          %thead
+            %tr
+              %th Participant
+              %th Montant
+              %th Payé
+              %th Statut
+              %th Actions
+          %tbody
+            - fee_obligations.each do |obligation|
+              %tr
+                %td= "#{obligation.person.first_name} #{obligation.person.last_name}"
+                %td= "#{number_with_delimiter(obligation.montant_total, delimiter: "'")} FCFA"
+                %td= "#{number_with_delimiter(obligation.montant_paye, delimiter: "'")} FCFA"
+                %td
+                  %span.finance-badge{class: "badge-#{obligation.statut}"}= obligation.statut.humanize
+                %td
+                  = link_to "Détail", group_finance_activity_fee_obligation_path(@group, fee, obligation), style: "color: #5D4296; text-decoration: none;"
+      - else
+        %p{style: "color: #888; padding: 10px;"} Aucun participant inscrit pour ce frais.

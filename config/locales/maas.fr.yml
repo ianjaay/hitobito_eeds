@@ -1,0 +1,81 @@
+fr:
+  maas:
+    person_adhesions:
+      tab: "Cotisations"
+    campagne:
+      title_index: "Campagnes de cotisation"
+      admin_title: "Gestion des Cotisations"
+      admin_subtitle: "Gérez les campagnes de cotisation pour toutes les branches EEDS"
+      label: "Campagne %{annee}"
+      new: "Nouvelle campagne"
+      edit: "Modifier la campagne"
+      save: "Enregistrer"
+      cancel: "Annuler"
+      back_to_list: "Retour aux campagnes"
+      created: "Campagne créée avec succès"
+      updated: "Campagne mise à jour"
+      activated: "Campagne activée"
+      closed: "Campagne fermée"
+      archived: "Campagne archivée"
+      deleted: "Campagne supprimée"
+      cannot_delete_with_subscriptions: "Impossible de supprimer cette campagne car elle contient des cotisations."
+      empty: "Aucune campagne de cotisation. Créez votre première campagne."
+      statuts:
+        brouillon: "Brouillon"
+        active: "Active"
+        fermee: "Fermée"
+        archivee: "Archivée"
+      fields:
+        annee: "Année"
+        date_ouverture: "Date d'ouverture"
+        date_fermeture: "Date de fermeture"
+        description: "Description"
+        description_placeholder: "Description de la campagne (optionnel)"
+
+    plan:
+      new: "Nouveau plan tarifaire"
+      edit: "Modifier le plan"
+      save: "Enregistrer"
+      created: "Plan tarifaire ajouté"
+      updated: "Plan tarifaire mis à jour"
+      deleted: "Plan tarifaire supprimé"
+      cannot_delete_with_subscriptions: "Impossible de supprimer ce plan : des adhésions y sont rattachées"
+      fields:
+        branche: "Branche"
+        montant: "Montant (FCFA)"
+        assurance_incluse: "Assurance incluse"
+        montant_assurance: "Montant assurance (FCFA)"
+        minimum_partiel: "Minimum paiement partiel (FCFA)"
+
+    subscription:
+      statuts:
+        en_attente: "En attente"
+        partiel: "Paiement partiel"
+        valide: "Cotisation validée"
+        expire: "Expirée"
+        annule: "Annulée"
+
+    adhesion:
+      title_index: "Cotisations du groupe"
+      new: "Nouvelle cotisation"
+      created: "Cotisation enregistrée avec succès"
+      payment_recorded: "Versement enregistré avec succès"
+      no_active_campaign: "Aucune campagne de cotisation active. Contactez l'administration nationale."
+      versement_title: "Enregistrer un versement"
+      fields:
+        member: "Membre"
+        plan: "Plan tarifaire"
+        montant: "Montant (FCFA)"
+        modalite: "Modalité de paiement"
+        reference: "Référence manuelle"
+        notes: "Notes"
+
+    paiement:
+      modalites:
+        Cash: "Espèces"
+        Virement: "Virement bancaire"
+        Autre: "Autre"
+
+    nav:
+      campagnes: "Cotisations"
+      adhesions: "Cotisations"

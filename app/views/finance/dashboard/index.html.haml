@@ -1,0 +1,168 @@
+-# Tableau de bord financier pour un groupe (et sa hiérarchie)
+- content_for(:title, "Finances — #{@group.name}")
+
+%style
+  :plain
+    .finance-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .finance-header { background: linear-gradient(135deg, #5D4296 0%, #7B5FB8 100%); border-radius: 16px; padding: 24px 32px; color: white; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
+    .finance-header-icon { font-size: 40px; margin-right: 16px; }
+    .finance-header h1 { font-size: 22px; font-weight: 700; margin: 0; }
+    .finance-header p { font-size: 14px; opacity: 0.85; margin: 2px 0 0; }
+    .finance-actions { display: flex; gap: 10px; }
+    .finance-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+    .finance-btn-primary { background: #FCD116; color: #333; }
+    .finance-btn-primary:hover { background: #e6be00; }
+    .finance-btn-secondary { background: rgba(255,255,255,0.2); color: white; }
+    .finance-btn-secondary:hover { background: rgba(255,255,255,0.3); }
+
+    .finance-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .finance-stat { background: white; border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }
+    .finance-stat .value { font-size: 24px; font-weight: 700; color: #5D4296; }
+    .finance-stat .label { font-size: 12px; color: #888; margin-top: 4px; }
+
+    .finance-section { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
+    .finance-section h2 { font-size: 16px; font-weight: 700; color: #5D4296; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
+
+    .finance-table { width: 100%; border-collapse: collapse; }
+    .finance-table th { text-align: left; font-size: 11px; text-transform: uppercase; color: #888; padding: 8px 12px; border-bottom: 2px solid #f0f0f0; }
+    .finance-table td { padding: 10px 12px; border-bottom: 1px solid #f5f5f5; font-size: 13px; }
+    .finance-table tr:hover { background: #fafafa; }
+
+    .finance-badge { display: inline-flex; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+    .badge-valide { background: #d4edda; color: #155724; }
+    .badge-partiel { background: #fff3cd; color: #856404; }
+    .badge-en_attente { background: #e2e3e5; color: #383d41; }
+    .badge-inscription { background: #cce5ff; color: #004085; }
+    .badge-cotisation { background: #f5e6ff; color: #5D4296; }
+    .badge-transport { background: #fff3cd; color: #856404; }
+    .badge-uniforme { background: #d4edda; color: #155724; }
+    .badge-autre { background: #e2e3e5; color: #383d41; }
+
+    .finance-progress { width: 100%; height: 6px; background: #f0f0f0; border-radius: 3px; overflow: hidden; }
+    .finance-progress-bar { height: 100%; border-radius: 3px; transition: width 0.3s; }
+
+    .categorie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .categorie-card { background: #fafafa; border-radius: 10px; padding: 16px; border-left: 4px solid #5D4296; }
+    .categorie-card h3 { font-size: 14px; font-weight: 600; margin: 0 0 8px; }
+    .categorie-card .cat-stats { display: flex; gap: 16px; font-size: 12px; color: #666; }
+
+    .sub-group-section { margin-top: 12px; }
+    .sub-group-toggle { cursor: pointer; padding: 10px 16px; background: #f8f8f8; border-radius: 8px; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
+    .sub-group-toggle:hover { background: #f0f0f0; }
+    .sub-group-content { display: none; padding: 12px 0; }
+    .sub-group-content.open { display: block; }
+
+.finance-container
+  .finance-header
+    %div{style: "display: flex; align-items: center;"}
+      .finance-header-icon 💰
+      %div
+        %h1 Gestion Financière
+        %p= "#{@group.name} — Vue consolidée"
+    .finance-actions
+      = link_to group_finance_activity_fees_path(@group), class: "finance-btn finance-btn-secondary" do
+        📋 Frais d'activités
+      = link_to new_group_finance_activity_fee_path(@group), class: "finance-btn finance-btn-primary" do
+        ➕ Nouveau frais
+
+  .finance-stats
+    .finance-stat
+      .value= @stats[:total_obligations]
+      .label Obligations totales
+    .finance-stat
+      .value= @stats[:total_valide]
+      .label Payées intégralement
+    .finance-stat
+      .value= @stats[:total_partiel]
+      .label Paiements partiels
+    .finance-stat
+      .value= number_with_delimiter(@stats[:total_collecte], delimiter: "'") + " FCFA"
+      .label Collecté
+    .finance-stat
+      .value= number_with_delimiter(@stats[:total_attendu], delimiter: "'") + " FCFA"
+      .label Attendu
+    .finance-stat
+      - pct = @stats[:total_attendu] > 0 ? (@stats[:total_collecte] * 100 / @stats[:total_attendu]) : 0
+      .value= "#{pct}%"
+      .label Taux de recouvrement
+
+  -# Répartition par catégorie
+  - if @by_categorie.any?
+    .finance-section
+      %h2
+        📊 Répartition par catégorie
+      .categorie-grid
+        - @by_categorie.each do |cat|
+          .categorie-card
+            %h3
+              %span.finance-badge{class: "badge-#{cat.categorie}"}= cat.categorie.humanize
+            .cat-stats
+              %span= "#{cat.total_count} obligations"
+              %span= "#{cat.valides} validées"
+              %span= "#{number_with_delimiter(cat.total_collecte.to_i, delimiter: "'")} / #{number_with_delimiter(cat.total_attendu.to_i, delimiter: "'")} FCFA"
+            .finance-progress
+              - pct = cat.total_attendu.to_i > 0 ? (cat.total_collecte.to_i * 100 / cat.total_attendu.to_i) : 0
+              .finance-progress-bar{style: "width: #{pct}%; background: #{pct >= 80 ? '#28a745' : pct >= 40 ? '#ffc107' : '#dc3545'};"}
+
+  -# Frais d'activités actifs
+  - if @activity_fees.any?
+    .finance-section
+      %h2
+        📋 Frais d'activités actifs
+      %table.finance-table
+        %thead
+          %tr
+            %th Libellé
+            %th Activité
+            %th Catégorie
+            %th Montant
+            %th Obligations
+            %th Collecté
+            %th
+        %tbody
+          - @activity_fees.each do |fee|
+            %tr
+              %td
+                %strong= fee.libelle
+              %td
+                - if fee.feeable.respond_to?(:name)
+                  = fee.feeable.name
+                - elsif fee.feeable.respond_to?(:annee)
+                  = "Campagne #{fee.feeable.annee}"
+                - else
+                  = "-"
+              %td
+                %span.finance-badge{class: "badge-#{fee.categorie}"}= fee.categorie.humanize
+              %td= "#{number_with_delimiter(fee.montant, delimiter: "'")} FCFA"
+              %td= fee.obligations.count
+              %td= "#{number_with_delimiter(fee.total_collecte, delimiter: "'")} FCFA"
+              %td
+                = link_to "Voir", group_finance_activity_fee_path(@group, fee), style: "color: #5D4296; font-weight: 600; text-decoration: none;"
+
+  -# Obligations du groupe courant
+  - if @own_obligations.any?
+    .finance-section
+      %h2
+        📍 #{@group.name} — Obligations directes
+      = render partial: "finance/dashboard/obligation_table", locals: { obligations: @own_obligations }
+
+  -# Sous-groupes
+  - if @sub_group_obligations.any?
+    .finance-section
+      %h2
+        📂 Sous-groupes
+      - @sub_group_obligations.each do |group, obligations|
+        .sub-group-section
+          .sub-group-toggle{onclick: "this.nextElementSibling.classList.toggle('open')"}
+            = "▸ #{group.name} — #{obligations.size} obligations — #{number_with_delimiter(obligations.sum(&:montant_paye), delimiter: "'")} FCFA collecté"
+          .sub-group-content
+            = render partial: "finance/dashboard/obligation_table", locals: { obligations: obligations }
+
+:javascript
+  // Toggle sub-group sections
+  document.querySelectorAll('.sub-group-toggle').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var arrow = this.textContent.trim().startsWith('▸') ? '▾' : '▸';
+      this.textContent = arrow + this.textContent.substring(1);
+    });
+  });
