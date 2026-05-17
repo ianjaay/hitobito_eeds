@@ -9,7 +9,7 @@
 class Admin::FeaturePermission < ActiveRecord::Base
   self.table_name = "admin_feature_permissions"
 
-  FEATURES = %w[finance maas progression cours formation camp groupe].freeze
+  FEATURES = %w[finance maas progression formation camp groupe].freeze
   ACTIONS  = %w[read create update destroy manage].freeze
 
   # Métadonnées des fonctionnalités pour l'affichage
@@ -17,7 +17,6 @@ class Admin::FeaturePermission < ActiveRecord::Base
     "finance"     => { label: "Finances",     icon: "fa-coins",          color: "#28a745" },
     "maas"        => { label: "Cotisations",  icon: "fa-file-invoice",   color: "#fd7e14" },
     "progression" => { label: "Progression",  icon: "fa-chart-line",     color: "#6f42c1" },
-    "cours"       => { label: "Cours",        icon: "fa-chalkboard-teacher", color: "#17a2b8" },
     "formation"   => { label: "Formation",    icon: "fa-graduation-cap", color: "#e83e8c" },
     "camp"        => { label: "Camps",        icon: "fa-campground",     color: "#20c997" },
     "groupe"      => { label: "Groupe",       icon: "fa-users",          color: "#007bff" }
