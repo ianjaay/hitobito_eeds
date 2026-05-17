@@ -1,4 +1,6 @@
 -# Formulaire nouveau frais
+:css
+  .finance-container select, .finance-container input { height: auto !important; box-sizing: border-box; }
 - content_for(:title, "Nouveau frais")
 - fee_url = @fee.new_record? ? group_finance_activity_fees_path(@group) : group_finance_activity_fee_path(@group, @fee)
 - fee_title = @fee.new_record? ? "Nouveau frais" : "Modifier"
@@ -22,7 +24,7 @@
       - if @can_create_cotisation
         %div{style: "margin-bottom: 16px;"}
           %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Type de source
-          %select{name: "finance_activity_fee[feeable_type]", id: "feeable_type", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 8px;"}
+          %select{name: "finance_activity_fee[feeable_type]", id: "feeable_type", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 8px; color: #333; font-size: 14px; background: #fff;"}
             %option{value: "Event"} Evenement
             %option{value: "Maas::MembershipCampaign"} Campagne de cotisation
       - else
@@ -30,7 +32,7 @@
 
       %div{style: "margin-bottom: 16px;", id: "feeable_event_div"}
         %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Evenement
-        %select{name: "finance_activity_fee[feeable_id]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;"}
+        %select{name: "finance_activity_fee[feeable_id]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; color: #333; font-size: 14px; background: #fff;"}
           %option{value: ""} -- Selectionner --
           - @events.each do |event|
             %option{value: event.id}= event.name
@@ -38,7 +40,7 @@
       - if @can_create_cotisation
         %div{style: "margin-bottom: 16px; display: none;", id: "feeable_campaign_div"}
           %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Campagne
-          %select{name: "finance_activity_fee[feeable_id]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", id: "campaign_select"}
+          %select{name: "finance_activity_fee[feeable_id]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; color: #333; font-size: 14px; background: #fff;", id: "campaign_select"}
             %option{value: ""} -- Selectionner --
             - @campaigns.each do |c|
               %option{value: c.id}= "Campagne #{c.annee}"
@@ -49,7 +51,7 @@
 
       %div{style: "margin-bottom: 16px;"}
         %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Categorie *
-        %select{name: "finance_activity_fee[categorie]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", required: true}
+        %select{name: "finance_activity_fee[categorie]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; color: #333; font-size: 14px; background: #fff;", required: true}
           - cat_list.each do |label, val|
             %option{value: val}= label
 
@@ -69,7 +71,7 @@
 
         %div{style: "margin-bottom: 16px;"}
           %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Branche
-          %select{name: "finance_activity_fee[branche]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;"}
+          %select{name: "finance_activity_fee[branche]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; color: #333; font-size: 14px; background: #fff;"}
             - branches_list.each do |label, val|
               %option{value: val}= label
 

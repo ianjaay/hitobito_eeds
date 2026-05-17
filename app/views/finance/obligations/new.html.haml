@@ -1,4 +1,6 @@
 -# Inscription d'un participant (nouvelle obligation)
+:css
+  .finance-container select, .finance-container input { height: auto !important; box-sizing: border-box; }
 - content_for(:title, "Inscrire un participant — #{@fee.libelle}")
 
 .finance-container
@@ -21,7 +23,7 @@
       .form-group{style: "margin-bottom: 16px;"}
         %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Participant *
         - if @fee.event? && @participants.present?
-          %select{name: "person_id", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", required: true}
+          %select{name: "person_id", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; color: #333; font-size: 14px; background: #fff;", required: true}
             %option{value: ""} — Sélectionner un participant inscrit —
             - @participants.each do |participation|
               - person = participation.participant
@@ -29,7 +31,7 @@
                 = "#{person.try(:first_name)} #{person.try(:last_name)}"
           %input{type: "hidden", name: "event_participation_id", id: "event_participation_id"}
         - elsif @members.present?
-          %select{name: "person_id", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", required: true}
+          %select{name: "person_id", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; color: #333; font-size: 14px; background: #fff;", required: true}
             %option{value: ""} — Sélectionner un membre —
             - @members.each do |member|
               %option{value: member.id}
@@ -46,7 +48,7 @@
 
         .form-group{style: "margin-bottom: 16px;"}
           %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Modalité
-          %select{name: "modalite", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;"}
+          %select{name: "modalite", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; color: #333; font-size: 14px; background: #fff;"}
             - Finance::Payment::MODALITES.each do |m|
               %option{value: m}= m
 

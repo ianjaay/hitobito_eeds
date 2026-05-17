@@ -57,6 +57,16 @@ module HitobitoEeds
       ### abilities — progression pédagogique
       Ability.store.register Eeds::ProgressionAbility
 
+      ### abilities — événements (qualifications lisibles depuis couche supérieure)
+      EventAbility.include Eeds::EventAbility
+
+      ### abilities — hiérarchie EEDS : layer_and_below_full donne accès aux couches inférieures
+      Event::ParticipationAbility.include Eeds::Event::ParticipationAbility
+      GroupAbility.include Eeds::GroupAbility
+      SubscriptionAbility.include Eeds::SubscriptionAbility
+      CalendarAbility.include Eeds::CalendarAbility
+      MailingListAbility.include Eeds::MailingListAbility
+
       ### abilities — MAAS (adhésion annuelle)
       Ability.store.register Maas::MembershipAbility
 

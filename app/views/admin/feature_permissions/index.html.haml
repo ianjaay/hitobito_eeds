@@ -49,7 +49,7 @@
         %div{style: "background: white; border-radius: 12px; padding: 14px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap;"}
           %div{style: "display: flex; align-items: center; gap: 12px; flex-wrap: wrap;"}
             %label{style: "font-weight: 600; font-size: 13px; color: #555;"} Structure :
-            %select.group-filter{style: "padding: 6px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px;", "data-feature" => feature, onchange: "filterGroup('#{feature}', this.value)"}
+            %select.group-filter{style: "padding: 6px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; color: #333; background: #fff; height: auto;", "data-feature" => feature, onchange: "filterGroup('#{feature}', this.value)"}
               %option{value: "all"} Toutes
               - @grouped_roles.each do |group_key, roles_in_group|
                 %option{value: group_key}= roles_in_group.first[:group_label]

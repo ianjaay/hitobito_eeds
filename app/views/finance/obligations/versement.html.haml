@@ -1,4 +1,6 @@
 -# Formulaire de versement sur une obligation
+:css
+  .finance-container select, .finance-container input { height: auto !important; box-sizing: border-box; }
 - content_for(:title, "Versement — #{@obligation.person.first_name} #{@obligation.person.last_name}")
 
 .finance-container
@@ -28,7 +30,7 @@
 
         .form-group{style: "margin-bottom: 16px;"}
           %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Modalité *
-          %select{name: "modalite", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", required: true}
+          %select{name: "modalite", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; color: #333; font-size: 14px; background: #fff;", required: true}
             - Finance::Payment::MODALITES.each do |m|
               %option{value: m}= m
 
