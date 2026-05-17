@@ -1,0 +1,68 @@
+- title t("maas.adhesion.versement_title")
+
+:css
+  .maas-form { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; max-width: 640px; }
+  .maas-form-header { font-size: 22px; font-weight: 700; color: #1e293b; margin-bottom: 24px; }
+  .maas-form-card { background: #fff; border-radius: 14px; padding: 28px; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .maas-field { margin-bottom: 20px; }
+  .maas-field label { display: block; font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .maas-field input, .maas-field select, .maas-field textarea { width: 100%; padding: 10px 14px; border: 1.5px solid rgba(93,66,150,0.15); border-radius: 10px; font-size: 14px; font-family: inherit; }
+  .maas-field input:focus, .maas-field select:focus, .maas-field textarea:focus { outline: none; border-color: #5D4296; }
+  .maas-field textarea { min-height: 60px; resize: vertical; }
+  .maas-form-actions { display: flex; gap: 10px; margin-top: 24px; }
+  .maas-btn { padding: 10px 22px; border-radius: 10px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .maas-btn-primary { background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; }
+  .maas-btn-cancel { background: #fff; border: 1.5px solid rgba(93,66,150,0.2); color: #5D4296; }
+  .maas-errors { background: #fee2e2; border: 1px solid #fecaca; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; color: #dc2626; font-size: 13px; }
+  .maas-summary { background: rgba(93,66,150,0.04); border-radius: 10px; padding: 16px; margin-bottom: 20px; font-size: 13px; }
+  .maas-summary-row { display: flex; justify-content: space-between; padding: 4px 0; }
+  .maas-summary-label { color: #64748b; }
+  .maas-summary-value { font-weight: 700; color: #1e293b; }
+
+.maas-form
+  .maas-form-header 💳 #{t("maas.adhesion.versement_title")}
+
+  - if defined?(@errors) && @errors.present?
+    .maas-errors
+      - @errors.each do |err|
+        %div= "• #{err}"
+
+  .maas-summary
+    .maas-summary-row
+      .maas-summary-label Membre
+      .maas-summary-value= "#{@subscription.member.first_name} #{@subscription.member.last_name}"
+    .maas-summary-row
+      .maas-summary-label Plan
+      .maas-summary-value= "#{@plan.branche} — #{@plan.montant.to_i} FCFA"
+    .maas-summary-row
+      .maas-summary-label Déjà payé
+      .maas-summary-value{style: "color: #10b981;"}= "#{@subscription.montant_paye.to_i} FCFA"
+    .maas-summary-row
+      .maas-summary-label Solde restant
+      .maas-summary-value{style: "color: #f59e0b;"}= "#{@subscription.solde_restant.to_i} FCFA"
+
+  .maas-form-card
+    = form_tag create_versement_group_maas_adhesion_path(@group, @subscription), method: :post do
+      .maas-field
+        %label= t("maas.adhesion.fields.montant")
+        %input{type: "number", name: "montant", step: 100, min: 0, value: @subscription.solde_restant.to_i, required: true, placeholder: "Montant à verser"}
+
+      .maas-field
+        %label= t("maas.adhesion.fields.modalite")
+        %select{name: "modalite"}
+          %option{value: "Cash"} Espèces
+          %option{value: "Virement"} Virement bancaire
+          %option{value: "Autre"} Autre
+
+      .maas-field
+        %label= t("maas.adhesion.fields.reference")
+        %input{type: "text", name: "reference_manuelle", placeholder: "N° reçu ou référence (optionnel)"}
+
+      .maas-field
+        %label= t("maas.adhesion.fields.notes")
+        %textarea{name: "notes", placeholder: "Notes (optionnel)"}
+
+      .maas-form-actions
+        %button.maas-btn.maas-btn-primary{type: "submit"} ✓ Enregistrer le versement
+        = link_to group_maas_adhesion_path(@group, @subscription), class: "maas-btn maas-btn-cancel" do
+          ← Annuler

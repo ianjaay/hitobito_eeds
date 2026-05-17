@@ -1,0 +1,25 @@
+-#  EEDS — Override de l'en-tête du tableau des effectifs.
+-#  Ajoute les couleurs de branche EEDS aux colonnes.
+
+- before_columns ||= []
+- after_columns ||= []
+- classes ||= nil
+
+-# Couleurs par catégorie de branche EEDS
+- branch_colors = { leiter: '#424242', woelfe: '#F9A825', pfadis: '#2E7D32', pios: '#333333', rover: '#C62828', pta: '#757575' }
+- badge_styles = { pios: 'background: #FFFFFF; border: 2px solid #999; border-radius: 4px; padding: 2px 8px;' }
+
+%table.table.table-striped{class: classes}
+  %thead
+    %tr
+      - before_columns.each do |c|
+        %th
+      - MemberCount::COUNT_CATEGORIES.each do |c|
+        %th.right{style: "color: #{branch_colors[c] || '#333'}; font-weight: 600;"}
+          %span{style: badge_styles[c] || ''}
+            = t("activerecord.attributes.member_count.#{c}")
+      - after_columns.each do |c|
+        %th.right= c
+
+  %tbody
+    = yield

@@ -1,0 +1,149 @@
+- title @qualification_kind.label
+- is_menmen = @qualification_kind.category == "menmen"
+- meta = @qualification_kind.metadata || {}
+- branche_labels = { "mbootaay" => "Mbootaay", "kayon" => "Kayon", "dental" => "Dental", "galle" => "Gàlle" }
+- branche_colors = { "mbootaay" => "#FCD116", "kayon" => "#2ECC71", "dental" => "#0054A0", "galle" => "#E74C3C" }
+- domaine_labels = { "enab_physique" => "Physique", "enab_intellectuel" => "Intellectuel", "donn_social" => "Social", "yees_spirituel" => "Spirituel", "enab_affectif" => "Affectif" }
+- menmen_icons = { "men_communicateur" => "📡", "men_environnementaliste" => "🌿", "men_gestionnaire" => "📊", "men_secouriste" => "🏥", "men_citoyen" => "🏛️", "men_technologue" => "⚙️", "men_artiste" => "🎨", "men_leader" => "🌟" }
+- niveau_labels = { 1 => "Enab", 2 => "Donn Njaak", 3 => "Lawtan" }
+
+:css
+  .eeds-detail { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  .eeds-detail-header {
+    border-radius: 20px; padding: 28px 32px; color: #fff;
+    display: flex; align-items: center; gap: 20px; position: relative; overflow: hidden;
+  }
+  .eeds-detail-header.jeego { background: linear-gradient(135deg, #0054A0 0%, #003d75 100%); }
+  .eeds-detail-header.menmen { background: linear-gradient(135deg, #5D4296 0%, #3a2870 100%); }
+  .eeds-detail-header .circle-d1 { position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+  .eeds-detail-header .circle-d2 { position: absolute; bottom: -20px; right: 80px; width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+  .eeds-detail-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 36px; border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0; }
+  .eeds-detail-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+  .eeds-detail-key { font-size: 12px; opacity: 0.6; font-family: monospace; margin-top: 4px; }
+  .eeds-type-badge { padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.2); }
+
+  .eeds-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+  @media (max-width: 768px) { .eeds-detail-grid { grid-template-columns: 1fr; } }
+
+  .eeds-card { background: #fff; border-radius: 14px; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); overflow: hidden; }
+  .eeds-card-header { padding: 14px 20px; font-size: 14px; font-weight: 700; color: #1e293b; border-bottom: 1px solid rgba(93,66,150,0.06); display: flex; align-items: center; gap: 8px; }
+  .eeds-card-body { padding: 16px 20px; }
+
+  .eeds-info-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(93,66,150,0.04); font-size: 13px; }
+  .eeds-info-row:last-child { border-bottom: none; }
+  .eeds-info-label { color: #94a3b8; font-weight: 600; }
+  .eeds-info-value { color: #1e293b; font-weight: 600; }
+
+  .eeds-criteria-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(93,66,150,0.04); font-size: 13px; }
+  .eeds-criteria-item:last-child { border-bottom: none; }
+  .eeds-criteria-num { width: 24px; height: 24px; border-radius: 6px; background: #5D4296; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+
+  .eeds-usage-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .eeds-usage-chip { padding: 6px 14px; border-radius: 10px; font-size: 12px; font-weight: 600; text-align: center; }
+
+  .eeds-actions-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+  .eeds-btn { padding: 8px 20px; border-radius: 10px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: transform 0.15s, box-shadow 0.15s; }
+  .eeds-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  .eeds-btn-primary { background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; }
+  .eeds-btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
+  .eeds-btn-outline { background: #fff; border: 1.5px solid rgba(93,66,150,0.2); color: #5D4296; }
+  .eeds-btn-back { background: transparent; border: none; color: #5D4296; font-weight: 600; padding: 8px 0; font-size: 13px; }
+  .eeds-btn-back:hover { text-decoration: underline; }
+
+.eeds-detail
+  -# HEADER
+  .eeds-detail-header{class: is_menmen ? 'menmen' : 'jeego'}
+    .circle-d1
+    .circle-d2
+    .eeds-detail-icon
+      - if @qualification_kind.badge_image.attached?
+        = image_tag url_for(@qualification_kind.badge_image.variant(:medium)), style: "width: 64px; height: 64px; border-radius: 50%; object-fit: cover;"
+      - elsif is_menmen
+        = menmen_icons[@qualification_kind.key] || '🏅'
+      - else
+        ⚜️
+    %div{style: "flex: 1; position: relative; z-index: 1;"}
+      .eeds-detail-title= @qualification_kind.label
+      .eeds-detail-key= @qualification_kind.key
+      %div{style: "display: flex; align-items: center; gap: 8px; margin-top: 8px;"}
+        %span.eeds-type-badge= is_menmen ? 'MËN-MËN' : 'JEEGO'
+        - if !is_menmen && meta["branche"]
+          %span.eeds-type-badge{style: "background: #{branche_colors[meta['branche']] || '#94a3b8'};"}= branche_labels[meta["branche"]]
+        - if !is_menmen && meta["domaine"]
+          %span.eeds-type-badge= domaine_labels[meta["domaine"]]
+        - if !is_menmen && meta["niveau"]
+          %span.eeds-type-badge= "N#{meta['niveau']} — #{niveau_labels[meta['niveau'].to_i]}"
+
+  .eeds-detail-grid
+    -# LEFT — Details
+    %div
+      .eeds-card
+        .eeds-card-header 📋 Détails
+        .eeds-card-body
+          .eeds-info-row
+            %span.eeds-info-label Catégorie
+            %span.eeds-info-value= is_menmen ? 'MËN-MËN' : 'JEEGO'
+          .eeds-info-row
+            %span.eeds-info-label Clé
+            %span.eeds-info-value{style: "font-family: monospace; font-size: 12px;"}= @qualification_kind.key
+          - if !is_menmen
+            .eeds-info-row
+              %span.eeds-info-label Branche
+              %span.eeds-info-value= branche_labels[meta["branche"]] || "—"
+            .eeds-info-row
+              %span.eeds-info-label Domaine
+              %span.eeds-info-value= domaine_labels[meta["domaine"]] || "—"
+            .eeds-info-row
+              %span.eeds-info-label Niveau
+              %span.eeds-info-value= meta["niveau"] ? "#{meta['niveau']} — #{niveau_labels[meta['niveau'].to_i]}" : "—"
+            .eeds-info-row
+              %span.eeds-info-label Prérequis
+              %span.eeds-info-value= meta["prerequisite"] || "Aucun"
+          - if @qualification_kind.description.present?
+            .eeds-info-row
+              %span.eeds-info-label Description
+              %span.eeds-info-value= @qualification_kind.description
+
+      - if is_menmen && @criteria.any?
+        .eeds-card{style: "margin-top: 16px;"}
+          .eeds-card-header
+            📋 Critères de validation
+            %span{style: "margin-left: auto; font-size: 12px; color: #94a3b8;"}= "#{@criteria.size} critères"
+          .eeds-card-body
+            - @criteria.each_with_index do |c, i|
+              .eeds-criteria-item
+                .eeds-criteria-num= i + 1
+                %span= c.label
+
+    -# RIGHT — Usage stats
+    %div
+      .eeds-card
+        .eeds-card-header 📊 Utilisation
+        .eeds-card-body
+          .eeds-info-row
+            %span.eeds-info-label Total progressions
+            %span.eeds-info-value= @usage_count
+          .eeds-usage-bar
+            - status_colors = { "not_started" => "#f1f5f9", "in_progress" => "#fef3c7", "needs_work" => "#fee2e2", "validated" => "#d1fae5" }
+            - status_fg = { "not_started" => "#94a3b8", "in_progress" => "#f59e0b", "needs_work" => "#ef4444", "validated" => "#10b981" }
+            - status_labels = { "not_started" => "Non démarré", "in_progress" => "En cours", "needs_work" => "À revoir", "validated" => "Validé" }
+            - %w[not_started in_progress needs_work validated].each do |s|
+              - count = @status_counts[s] || 0
+              .eeds-usage-chip{style: "background: #{status_colors[s]}; color: #{status_fg[s]};"}
+                = "#{status_labels[s]}: #{count}"
+
+      .eeds-card{style: "margin-top: 16px;"}
+        .eeds-card-header ⚡ Actions
+        .eeds-card-body
+          .eeds-actions-bar
+            = link_to edit_eeds_progression_badge_path(@qualification_kind), class: "eeds-btn eeds-btn-primary" do
+              ✏️ Modifier
+            - if @usage_count == 0
+              = link_to eeds_progression_badge_path(@qualification_kind), method: :delete, class: "eeds-btn eeds-btn-danger", data: { confirm: "Supprimer définitivement « #{@qualification_kind.label} » ?" } do
+                🗑️ Supprimer
+            - else
+              %span{style: "font-size: 12px; color: #94a3b8; display: flex; align-items: center; gap: 4px;"}
+                🔒 Suppression impossible (#{@usage_count} progressions liées)
+
+  = link_to eeds_progression_badges_path, class: "eeds-btn eeds-btn-back", style: "margin-top: 20px;" do
+    ← Retour à l'administration

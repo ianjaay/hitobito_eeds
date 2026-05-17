@@ -1,0 +1,93 @@
+-# Formulaire nouveau frais
+- content_for(:title, "Nouveau frais")
+- fee_url = @fee.new_record? ? group_finance_activity_fees_path(@group) : group_finance_activity_fee_path(@group, @fee)
+- fee_title = @fee.new_record? ? "Nouveau frais" : "Modifier"
+- branches_list = [["Toutes les branches", ""], ["Mbootaay", "Mbootaay"], ["Kayon", "Kayon"], ["Dental", "Dental"], ["Galle", "Galle"], ["National", "National"], ["Gilwell", "Gilwell"]]
+- cat_list = Finance::ActivityFee::CATEGORIES.map { |c| [c.humanize, c] }
+
+.finance-container
+  %div{style: "background: linear-gradient(135deg, #5D4296 0%, #7B5FB8 100%); border-radius: 16px; padding: 24px 32px; color: white; margin-bottom: 24px;"}
+    %h1{style: "font-size: 22px; font-weight: 700; margin: 0;"}= fee_title
+    %p{style: "font-size: 14px; opacity: 0.85; margin: 2px 0 0;"}= @group.name
+
+  %div{style: "background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);"}
+    - if @fee.errors.any?
+      %div{style: "background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 8px; padding: 12px; margin-bottom: 16px; color: #721c24;"}
+        %ul{style: "margin: 0; padding-left: 20px;"}
+          - @fee.errors.full_messages.each do |msg|
+            %li= msg
+
+    = form_tag fee_url, method: (@fee.new_record? ? :post : :patch), style: "max-width: 600px;" do
+
+      %div{style: "margin-bottom: 16px;"}
+        %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Type de source
+        %select{name: "finance_activity_fee[feeable_type]", id: "feeable_type", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 8px;"}
+          %option{value: "Event"} Evenement
+          %option{value: "Maas::MembershipCampaign"} Campagne de cotisation
+
+      %div{style: "margin-bottom: 16px;", id: "feeable_event_div"}
+        %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Evenement
+        %select{name: "finance_activity_fee[feeable_id]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;"}
+          %option{value: ""} -- Selectionner --
+          - @events.each do |event|
+            %option{value: event.id}= event.name
+
+      %div{style: "margin-bottom: 16px; display: none;", id: "feeable_campaign_div"}
+        %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Campagne
+        %select{name: "finance_activity_fee[feeable_id]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", id: "campaign_select"}
+          %option{value: ""} -- Selectionner --
+          - @campaigns.each do |c|
+            %option{value: c.id}= "Campagne #{c.annee}"
+
+      %div{style: "margin-bottom: 16px;"}
+        %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Libelle *
+        %input{type: "text", name: "finance_activity_fee[libelle]", value: @fee.libelle, style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", required: true, placeholder: "Frais inscription, Cotisation..."}
+
+      %div{style: "margin-bottom: 16px;"}
+        %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Categorie *
+        %select{name: "finance_activity_fee[categorie]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", required: true}
+          - cat_list.each do |label, val|
+            %option{value: val}= label
+
+      %div{style: "display: grid; grid-template-columns: 1fr 1fr; gap: 16px;"}
+        %div{style: "margin-bottom: 16px;"}
+          %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Montant (FCFA) *
+          %input{type: "number", name: "finance_activity_fee[montant]", value: @fee.montant, style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", min: 0, required: true, placeholder: "5000"}
+
+        %div{style: "margin-bottom: 16px;"}
+          %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Assurance (FCFA)
+          %input{type: "number", name: "finance_activity_fee[montant_assurance]", value: (@fee.montant_assurance || 0), style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", min: 0}
+
+      %div{style: "display: grid; grid-template-columns: 1fr 1fr; gap: 16px;"}
+        %div{style: "margin-bottom: 16px;"}
+          %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Minimum partiel (FCFA)
+          %input{type: "number", name: "finance_activity_fee[minimum_partiel]", value: @fee.minimum_partiel, style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", min: 0, placeholder: "optionnel"}
+
+        %div{style: "margin-bottom: 16px;"}
+          %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Branche
+          %select{name: "finance_activity_fee[branche]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;"}
+            - branches_list.each do |label, val|
+              %option{value: val}= label
+
+      %div{style: "display: flex; gap: 24px; margin-bottom: 16px;"}
+        %label{style: "display: flex; align-items: center; gap: 6px; cursor: pointer;"}
+          %input{type: "checkbox", name: "finance_activity_fee[obligatoire]", value: "1", checked: @fee.obligatoire != false}
+          Paiement obligatoire
+        %label{style: "display: flex; align-items: center; gap: 6px; cursor: pointer;"}
+          %input{type: "checkbox", name: "finance_activity_fee[actif]", value: "1", checked: @fee.actif != false}
+          Frais actif
+
+      %div{style: "margin-bottom: 16px;"}
+        %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Description
+        %textarea{name: "finance_activity_fee[description]", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; min-height: 80px;", placeholder: "Description optionnelle..."}= @fee.description
+
+      %div{style: "display: flex; gap: 12px; margin-top: 20px;"}
+        - submit_label = @fee.new_record? ? "Creer le frais" : "Enregistrer"
+        %button{type: "submit", style: "background: #FCD116; color: #333; border: none; cursor: pointer; padding: 10px 24px; border-radius: 10px; font-weight: 600;"}= submit_label
+        = link_to "Annuler", group_finance_activity_fees_path(@group), style: "background: #e2e3e5; color: #333; padding: 10px 24px; border-radius: 10px; text-decoration: none; font-weight: 600;"
+
+:javascript
+  document.getElementById('feeable_type').addEventListener('change', function(e) {
+    document.getElementById('feeable_event_div').style.display = e.target.value === 'Event' ? '' : 'none';
+    document.getElementById('feeable_campaign_div').style.display = e.target.value === 'Maas::MembershipCampaign' ? '' : 'none';
+  });

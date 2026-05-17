@@ -15,3 +15,34 @@ fr:
         emergency_contact_name: Personne à contacter en cas d'urgence
         emergency_contact_phone: Téléphone d'urgence
         emergency_contact_relation: Lien de parenté
+      member_count:
+        leiter: Responsable
+        leiter_m: Responsable masc.
+        leiter_f: Responsable fém.
+        woelfe: Caat
+        woelfe_m: Caat masc.
+        woelfe_f: Caat fém.
+        pfadis: Arunga
+        pfadis_m: Arunga masc.
+        pfadis_f: Arunga fém.
+        pios: Jambaar
+        pios_m: Jambaar masc.
+        pios_f: Jambaar fém.
+        rover: Mawbe
+        rover_m: Mawbe masc.
+        rover_f: Mawbe fém.
+        pta: Autre
+        pta_m: Autre masc.
+        pta_f: Autre fém.
+  eeds:
+    progressions:
+      tab: Progression
+      statuses:
+        not_started: Non démarré
+        in_progress: En cours
+        needs_work: À revoir
+        validated: Validé
+    group_progressions:
+      tab: Progressions
+    admin_progressions:
+      tab: Admin Badges

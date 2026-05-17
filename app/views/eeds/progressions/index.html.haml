@@ -1,0 +1,203 @@
+- title "Progression pédagogique — #{@person}"
+- branch_info = { 'mbootaay' => { label: 'Mbootaay', age: '6–8 ans', color: '#FCD116' }, 'kayon' => { label: 'Kayon', age: '8–12 ans', color: '#2ECC71' }, 'dental' => { label: 'Dental', age: '12–16 ans', color: '#0054A0' }, 'galle' => { label: 'Gàlle', age: '16–20 ans', color: '#E74C3C' } }
+- bi = branch_info[@branche] || { label: 'Inconnu', age: '', color: '#666' }
+- domaine_labels = { 'enab_physique' => 'Physique', 'enab_intellectuel' => 'Intellectuel', 'donn_social' => 'Social', 'yees_spirituel' => 'Spirituel', 'enab_affectif' => 'Affectif' }
+- domaine_order = %w[enab_physique enab_intellectuel donn_social yees_spirituel enab_affectif]
+- niveau_labels = { 1 => 'Enab', 2 => 'Donn Njaak', 3 => 'Lawtan' }
+- menmen_icons = { 'men_communicateur' => '📡', 'men_environnementaliste' => '🌿', 'men_gestionnaire' => '📊', 'men_secouriste' => '🏥', 'men_citoyen' => '🏛️', 'men_technologue' => '⚙️', 'men_artiste' => '🎨', 'men_leader' => '🌟' }
+
+:css
+  .eeds-prog { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  .eeds-header-card {
+    background: linear-gradient(135deg, #5D4296 0%, #3a2870 100%);
+    border-radius: 20px; padding: 28px 32px; color: #fff;
+    display: flex; align-items: center; gap: 24px; position: relative; overflow: hidden;
+  }
+  .eeds-header-card .circle-deco-1 { position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(252,209,22,0.12); }
+  .eeds-header-card .circle-deco-2 { position: absolute; bottom: -20px; right: 80px; width: 100px; height: 100px; border-radius: 50%; background: rgba(0,84,160,0.15); }
+  .eeds-avatar { width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0; }
+  .eeds-header-name { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+  .eeds-branch-badge { padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-block; }
+  .eeds-header-unit { font-size: 13px; opacity: 0.75; margin-left: 10px; }
+  .eeds-circular-wrap { text-align: center; flex-shrink: 0; }
+  .eeds-circular-label { font-size: 10px; opacity: 0.7; margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
+
+  .eeds-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
+  .eeds-stat-card { background: #fff; border-radius: 14px; padding: 18px 16px; text-align: center; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .eeds-stat-label { font-size: 11px; color: #94a3b8; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .eeds-stat-value { font-size: 24px; font-weight: 800; }
+  .eeds-stat-sub { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+  .eeds-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; margin-top: 28px; }
+  .eeds-section-title { margin: 0; font-size: 16px; font-weight: 700; color: #1e293b; letter-spacing: -0.3px; }
+  .eeds-section-sub { font-size: 11px; color: #94a3b8; }
+
+  .eeds-jeego-table { background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid rgba(93,66,150,0.08); width: 100%; border-collapse: collapse; font-size: 12px; }
+  .eeds-jeego-table thead tr { background: rgba(93,66,150,0.04); }
+  .eeds-jeego-table th { padding: 10px 8px; text-align: center; font-weight: 600; color: #64748b; font-size: 10px; letter-spacing: 0.3px; }
+  .eeds-jeego-table th:first-child { text-align: left; padding-left: 14px; color: #5D4296; font-weight: 700; font-size: 11px; letter-spacing: 0.5px; }
+  .eeds-jeego-table td { padding: 8px; text-align: center; border-top: 1px solid rgba(93,66,150,0.06); }
+  .eeds-jeego-table td:first-child { padding: 10px 14px; text-align: left; font-weight: 700; color: #1e293b; font-size: 12px; }
+  .eeds-niv-num { width: 18px; height: 18px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #64748b; margin-right: 6px; vertical-align: middle; }
+  .eeds-cell { width: 28px; height: 28px; border-radius: 8px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; cursor: default; transition: transform 0.15s; }
+  .eeds-cell:hover { transform: scale(1.15); }
+  .eeds-cell-validated { background: #d1fae5; border: 2px solid #10b981; color: #10b981; }
+  .eeds-cell-in_progress { background: #fef3c7; color: #f59e0b; }
+  .eeds-cell-needs_work { background: #fee2e2; color: #ef4444; }
+  .eeds-cell-not_started { background: #f1f5f9; color: #94a3b8; }
+
+  .eeds-legend { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+  .eeds-legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #64748b; }
+  .eeds-legend-dot { width: 10px; height: 10px; border-radius: 4px; }
+
+  .eeds-menmen-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .eeds-menmen-card { border-radius: 14px; padding: 18px 12px; text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+  .eeds-menmen-card:hover { transform: translateY(-2px); }
+  .eeds-menmen-card-validated { background: linear-gradient(135deg, #5D4296, #7c5cbf); border: none; box-shadow: 0 4px 16px rgba(93,66,150,0.25); color: #fff; }
+  .eeds-menmen-card-in_progress { background: #fff; border: 2px solid #f59e0b; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .eeds-menmen-card-not_started { background: #fff; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .eeds-menmen-card-needs_work { background: #fff; border: 2px solid #ef4444; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .eeds-menmen-icon { font-size: 32px; margin-bottom: 8px; }
+  .eeds-menmen-icon-inactive { filter: grayscale(1) opacity(0.4); }
+  .eeds-menmen-name { font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+  .eeds-menmen-bar { width: 100%; height: 4px; border-radius: 4px; background: rgba(93,66,150,0.1); overflow: hidden; margin-top: 6px; }
+  .eeds-menmen-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s cubic-bezier(.4,0,.2,1); }
+
+  .eeds-suggestions { background: linear-gradient(135deg, rgba(252,209,22,0.08), rgba(0,84,160,0.06)); border-radius: 14px; padding: 18px 22px; border: 1px solid rgba(252,209,22,0.2); margin-top: 28px; }
+  .eeds-suggestions-title { font-size: 13px; font-weight: 700; color: #b8860b; margin-bottom: 8px; }
+  .eeds-suggestions-body { font-size: 12px; color: #64748b; line-height: 1.7; }
+
+  @media (max-width: 768px) {
+    .eeds-stats-row { grid-template-columns: 1fr; }
+    .eeds-menmen-grid { grid-template-columns: repeat(2, 1fr); }
+    .eeds-header-card { flex-direction: column; text-align: center; }
+  }
+
+.eeds-prog
+  -# HEADER CARD
+  .eeds-header-card
+    .circle-deco-1
+    .circle-deco-2
+    .eeds-avatar
+      = "#{@person.first_name[0]}#{@person.last_name[0]}"
+    %div{style: "flex: 1; min-width: 0; position: relative; z-index: 1;"}
+      .eeds-header-name= "#{@person.first_name} #{@person.last_name}"
+      %div{style: "display: flex; align-items: center; gap: 10px; margin-top: 6px; flex-wrap: wrap;"}
+        - text_color = bi[:color] == '#FCD116' ? '#333' : '#fff'
+        %span.eeds-branch-badge{style: "background: #{bi[:color]}; color: #{text_color};"}
+          = "#{bi[:label]} · #{bi[:age]}"
+        %span.eeds-header-unit= @group.name
+    .eeds-circular-wrap{style: "position: relative; z-index: 1;"}
+      = render_circular_progress(@stats[:pct_global], 76, '#FCD116')
+      .eeds-circular-label Global
+    - if can?(:update, @person)
+      = link_to new_group_person_progression_path(@group, @person), style: "position: relative; z-index: 1; background: rgba(255,255,255,0.2); border: 1.5px solid rgba(255,255,255,0.4); color: #fff; padding: 8px 18px; border-radius: 10px; font-size: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: background 0.2s; margin-left: 10px; flex-shrink: 0;" do
+        ➕ Ajouter
+
+  -# STATS ROW
+  .eeds-stats-row
+    .eeds-stat-card
+      .eeds-stat-label JEEGO validés
+      .eeds-stat-value{style: "color: #5D4296;"}= "#{@stats[:validated_jeego]}/#{@stats[:total_jeego]}"
+      .eeds-stat-sub= "#{@stats[:in_progress_jeego]} en cours"
+    .eeds-stat-card
+      .eeds-stat-label MËN-MËN obtenus
+      .eeds-stat-value{style: "color: #0054A0;"}= "#{@stats[:validated_menmen]}/#{@stats[:menmen_total]}"
+      .eeds-stat-sub brevets
+    .eeds-stat-card
+      .eeds-stat-label Niveau actuel
+      .eeds-stat-value{style: "color: #b8860b;"}= @stats[:current_level]
+      .eeds-stat-sub progression
+
+  -# JEEGO GRID
+  .eeds-section-header
+    %h3.eeds-section-title ⚜️ Grille JEEGO
+    %span.eeds-section-sub Progression collective par domaine
+
+  %div{style: "background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid rgba(93,66,150,0.08);"}
+    %table.eeds-jeego-table
+      %thead
+        %tr
+          %th Niveau
+          - domaine_order.each do |dom|
+            %th= domaine_labels[dom]
+      %tbody
+        - niv_colors = { 1 => '#d1fae5', 2 => '#fef3c7', 3 => '#e0e7ff' }
+        - (1..3).each do |niv|
+          %tr
+            %td
+              %span.eeds-niv-num{style: "background: #{niv_colors[niv]};"}= niv
+              = niveau_labels[niv]
+            - domaine_order.each do |dom|
+              - prog = @jeego_matrix[niv][dom]
+              - status = prog ? prog.status : 'not_started'
+              %td
+                - if prog
+                  = link_to group_person_progression_path(@group, @person, prog), style: "text-decoration: none;" do
+                    %div{class: "eeds-cell eeds-cell-#{status}", title: "#{niveau_labels[niv]} · #{domaine_labels[dom]}: #{t("eeds.progressions.statuses.#{status}", default: status)}"}
+                      - if status == 'validated'
+                        ✓
+                      - elsif status == 'in_progress'
+                        ◔
+                      - elsif status == 'needs_work'
+                        !
+                - else
+                  %div{class: "eeds-cell eeds-cell-not_started"}
+
+  .eeds-legend
+    - [['validated', '#d1fae5', '#10b981', 'Validé'], ['in_progress', '#fef3c7', '#f59e0b', 'En cours'], ['needs_work', '#fee2e2', '#ef4444', 'À retravailler'], ['not_started', '#f1f5f9', '#94a3b8', 'Non commencé']].each do |st, bg, border, lbl|
+      %span.eeds-legend-item
+        %span.eeds-legend-dot{style: "background: #{bg}; border: 1.5px solid #{border};"}
+        = lbl
+
+  -# MËN-MËN BADGES
+  .eeds-section-header
+    %h3.eeds-section-title 🎖️ Brevets MËN-MËN
+    %span.eeds-section-sub Progression individuelle
+
+  .eeds-menmen-grid
+    - menmen_keys = %w[men_communicateur men_environnementaliste men_gestionnaire men_secouriste men_citoyen men_technologue men_artiste men_leader]
+    - menmen_keys.each do |key|
+      - prog = @menmen_progressions.find { |p| p.qualification_kind.key == key }
+      - status = prog ? prog.status : 'not_started'
+      - icon = menmen_icons[key] || '🏅'
+      - label = key.sub('men_', '').humanize
+      - pct = prog ? (prog.criteria_total > 0 ? (prog.criteria_validated_count * 100 / prog.criteria_total) : 0) : 0
+      - href = prog ? group_person_progression_path(@group, @person, prog) : '#'
+      = link_to href, class: "eeds-menmen-card eeds-menmen-card-#{status}", style: "text-decoration: none; color: inherit;" do
+        %div{class: "eeds-menmen-icon #{'eeds-menmen-icon-inactive' if status == 'not_started'}"}
+          - qk = prog&.qualification_kind
+          - if qk&.badge_image&.attached?
+            = image_tag url_for(qk.badge_image.variant(:thumb)), style: "width: 32px; height: 32px; border-radius: 50%; object-fit: cover;"
+          - else
+            = icon
+        .eeds-menmen-name{style: status == 'validated' ? 'color: #fff;' : 'color: #1e293b;'}= label
+        - if status == 'in_progress'
+          .eeds-menmen-bar
+            %div{class: "eeds-menmen-bar-fill", style: "width: #{pct}%; background: #f59e0b;"}
+        - if status == 'validated'
+          %div{style: "font-size: 10px; color: rgba(255,255,255,0.8); font-weight: 600; margin-top: 4px;"} ✓ Obtenu
+        - if status == 'needs_work'
+          %div{style: "font-size: 10px; color: #ef4444; font-weight: 600; margin-top: 4px;"} À retravailler
+
+  -# SUGGESTIONS
+  - not_started_domaines = domaine_order.select { |d| @jeego_matrix[1][d]&.not_started? }
+  - in_progress_count = @stats[:in_progress_jeego]
+  .eeds-suggestions
+    .eeds-suggestions-title 💡 Suggestions pour #{@person.first_name}
+    .eeds-suggestions-body
+      - if in_progress_count > 0
+        %div • #{in_progress_count} JEEGO en cours — encourager la finalisation avant de nouveaux défis
+      - if not_started_domaines.any?
+        %div
+          • Démarrer le domaine
+          %strong= domaine_labels[not_started_domaines.first]
+          pour une progression équilibrée
+      - needs_work = @menmen_progressions.select { |p| p.status == 'needs_work' }
+      - if needs_work.any?
+        %div
+          • Le brevet
+          %strong= needs_work.first.qualification_kind.label.sub('MËN-MËN ', '')
+          nécessite une reprise
+      - if @stats[:pct_global] >= 80
+        %div • 🎉 Excellente progression ! Envisager le passage au niveau suivant

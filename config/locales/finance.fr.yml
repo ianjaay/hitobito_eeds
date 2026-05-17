@@ -1,0 +1,40 @@
+fr:
+  finance:
+    nav:
+      finances: "Finances"
+      dashboard: "Tableau de bord"
+      activity_fees: "Frais d'activités"
+
+    person_finances:
+      tab: "Finances"
+
+    activity_fee:
+      created: "Frais d'activité créé avec succès"
+      updated: "Frais d'activité mis à jour"
+      deleted: "Frais d'activité supprimé"
+      cannot_delete_with_obligations: "Impossible de supprimer ce frais car des participants y sont inscrits."
+      categories:
+        inscription: "Inscription"
+        transport: "Transport"
+        uniforme: "Uniforme"
+        cotisation: "Cotisation"
+        materiel: "Matériel"
+        hebergement: "Hébergement"
+        autre: "Autre"
+
+    obligation:
+      created: "Participant inscrit avec succès"
+      statuts:
+        en_attente: "En attente"
+        partiel: "Paiement partiel"
+        valide: "Payé intégralement"
+        expire: "Expiré"
+        annule: "Annulé"
+
+    payment:
+      recorded: "Versement enregistré avec succès"
+      modalites:
+        Cash: "Espèces"
+        Virement: "Virement bancaire"
+        Mobile: "Paiement mobile"
+        Autre: "Autre"

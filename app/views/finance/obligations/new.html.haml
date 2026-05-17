@@ -1,0 +1,63 @@
+-# Inscription d'un participant (nouvelle obligation)
+- content_for(:title, "Inscrire un participant — #{@fee.libelle}")
+
+.finance-container
+  .finance-header
+    %div{style: "display: flex; align-items: center;"}
+      .finance-header-icon ➕
+      %div
+        %h1 Inscrire un participant
+        %p= "#{@fee.libelle} — #{@fee.montant.to_i} FCFA — #{@group.name}"
+
+  .finance-section
+    - if @obligation.errors.any?
+      .alert.alert-danger{style: "background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 8px; padding: 12px; margin-bottom: 16px; color: #721c24;"}
+        %ul{style: "margin: 0; padding-left: 20px;"}
+          - @obligation.errors.full_messages.each do |msg|
+            %li= msg
+
+    = form_tag group_finance_activity_fee_obligations_path(@group, @fee), method: :post, style: "max-width: 600px;" do
+
+      .form-group{style: "margin-bottom: 16px;"}
+        %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Participant *
+        - if @fee.event? && @participants.present?
+          %select{name: "person_id", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", required: true}
+            %option{value: ""} — Sélectionner un participant inscrit —
+            - @participants.each do |participation|
+              - person = participation.participant
+              %option{value: person.id, data: { participation_id: participation.id }}
+                = "#{person.try(:first_name)} #{person.try(:last_name)}"
+          %input{type: "hidden", name: "event_participation_id", id: "event_participation_id"}
+        - elsif @members.present?
+          %select{name: "person_id", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", required: true}
+            %option{value: ""} — Sélectionner un membre —
+            - @members.each do |member|
+              %option{value: member.id}
+                = "#{member.first_name} #{member.last_name}"
+        - else
+          %p{style: "color: #888;"} Aucun participant disponible.
+
+      %h3{style: "font-size: 14px; font-weight: 600; color: #5D4296; margin: 20px 0 12px;"} Premier versement (optionnel)
+
+      %div{style: "display: grid; grid-template-columns: 1fr 1fr; gap: 16px;"}
+        .form-group{style: "margin-bottom: 16px;"}
+          %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Montant (FCFA)
+          %input{type: "number", name: "montant", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", min: 0, placeholder: @fee.montant.to_i}
+
+        .form-group{style: "margin-bottom: 16px;"}
+          %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Modalité
+          %select{name: "modalite", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;"}
+            - Finance::Payment::MODALITES.each do |m|
+              %option{value: m}= m
+
+      .form-group{style: "margin-bottom: 16px;"}
+        %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Référence externe
+        %input{type: "text", name: "reference_externe", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px;", placeholder: "N° transaction..."}
+
+      .form-group{style: "margin-bottom: 16px;"}
+        %label{style: "display: block; font-weight: 600; margin-bottom: 4px;"} Commentaire
+        %textarea{name: "commentaire", style: "width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; min-height: 60px;", placeholder: "Notes optionnelles..."}
+
+      %div{style: "display: flex; gap: 12px; margin-top: 20px;"}
+        %button{type: "submit", class: "finance-btn finance-btn-primary", style: "border: none; cursor: pointer; padding: 10px 24px;"} Inscrire
+        = link_to "Annuler", group_finance_activity_fee_path(@group, @fee), class: "finance-btn", style: "background: #e2e3e5; color: #333; padding: 10px 24px;"

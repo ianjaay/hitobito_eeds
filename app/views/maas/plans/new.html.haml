@@ -1,0 +1,53 @@
+- title t("maas.plan.new")
+
+:css
+  .maas-form { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; max-width: 640px; }
+  .maas-form-header { font-size: 22px; font-weight: 700; color: #1e293b; margin-bottom: 24px; }
+  .maas-form-card { background: #fff; border-radius: 14px; padding: 28px; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .maas-field { margin-bottom: 20px; }
+  .maas-field label { display: block; font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .maas-field input, .maas-field select { width: 100%; padding: 10px 14px; border: 1.5px solid rgba(93,66,150,0.15); border-radius: 10px; font-size: 14px; font-family: inherit; }
+  .maas-field input:focus, .maas-field select:focus { outline: none; border-color: #5D4296; }
+  .maas-checkbox { display: flex; align-items: center; gap: 8px; }
+  .maas-checkbox input { width: auto; }
+  .maas-form-actions { display: flex; gap: 10px; margin-top: 24px; }
+  .maas-btn { padding: 10px 22px; border-radius: 10px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .maas-btn-primary { background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; }
+  .maas-btn-cancel { background: #fff; border: 1.5px solid rgba(93,66,150,0.2); color: #5D4296; }
+  .maas-errors { background: #fee2e2; border: 1px solid #fecaca; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; color: #dc2626; font-size: 13px; }
+
+.maas-form
+  .maas-form-header 💰 #{t("maas.plan.new")} — Campagne #{@campaign.annee}
+
+  - if @plan.errors.any?
+    .maas-errors
+      - @plan.errors.full_messages.each do |msg|
+        %div= "• #{msg}"
+
+  .maas-form-card
+    = form_for @plan, url: maas_campagne_plans_path(@campaign), method: :post do |f|
+      .maas-field
+        = f.label :branche, t("maas.plan.fields.branche")
+        = f.select :branche, Maas::MembershipPlan::BRANCHES.map { |b| [b, b] }, { include_blank: "— Choisir —" }
+
+      .maas-field
+        = f.label :montant, t("maas.plan.fields.montant")
+        = f.number_field :montant, step: 100, min: 0, placeholder: "ex: 5000"
+
+      .maas-field
+        .maas-checkbox
+          = f.check_box :assurance_incluse
+          = f.label :assurance_incluse, t("maas.plan.fields.assurance_incluse"), style: "margin: 0; text-transform: none; font-size: 14px; color: #1e293b;"
+
+      .maas-field
+        = f.label :montant_assurance, t("maas.plan.fields.montant_assurance")
+        = f.number_field :montant_assurance, step: 100, min: 0, placeholder: "ex: 1000"
+
+      .maas-field
+        = f.label :minimum_partiel, t("maas.plan.fields.minimum_partiel")
+        = f.number_field :minimum_partiel, step: 100, min: 0, placeholder: "ex: 2500"
+
+      .maas-form-actions
+        %button.maas-btn.maas-btn-primary{type: "submit"} ✓ #{t("maas.plan.save")}
+        = link_to maas_campagne_path(@campaign), class: "maas-btn maas-btn-cancel" do
+          ← Annuler

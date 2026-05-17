@@ -1,0 +1,143 @@
+- title t("maas.adhesion.title_index")
+- pct = @stats[:expected] > 0 ? (@stats[:collected] * 100 / @stats[:expected]).round : 0
+
+:css
+  .maas-local { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  .maas-local-header {
+    background: linear-gradient(135deg, #5D4296 0%, #3a2870 100%);
+    border-radius: 20px; padding: 28px 32px; color: #fff;
+    display: flex; align-items: center; gap: 20px; position: relative; overflow: hidden;
+  }
+  .maas-local-header .circle-d1 { position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(252,209,22,0.12); }
+  .maas-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+  .maas-subtitle { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+
+  .maas-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 20px 0; }
+  .maas-stat { background: #fff; border-radius: 14px; padding: 16px; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); text-align: center; }
+  .maas-stat-num { font-size: 24px; font-weight: 800; }
+  .maas-stat-label { font-size: 10px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  .maas-progress-bar { width: 100%; height: 8px; border-radius: 8px; background: rgba(93,66,150,0.1); overflow: hidden; margin: 16px 0 8px; }
+  .maas-progress-fill { height: 100%; border-radius: 8px; background: linear-gradient(90deg, #5D4296, #10b981); transition: width 0.6s; }
+  .maas-progress-label { font-size: 12px; color: #64748b; font-weight: 600; }
+
+  .maas-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; border: 1px solid rgba(93,66,150,0.08); font-size: 13px; margin-top: 12px; }
+  .maas-table thead tr { background: rgba(93,66,150,0.04); }
+  .maas-table th { padding: 12px 14px; text-align: left; font-weight: 600; color: #64748b; font-size: 11px; text-transform: uppercase; }
+  .maas-table td { padding: 12px 14px; border-top: 1px solid rgba(93,66,150,0.06); }
+  .maas-table tbody tr { cursor: pointer; transition: background 0.15s; }
+  .maas-table tbody tr:hover { background: rgba(93,66,150,0.02); }
+
+  .maas-badge { padding: 3px 10px; border-radius: 10px; font-size: 10px; font-weight: 700; display: inline-block; }
+  .maas-btn { padding: 10px 22px; border-radius: 10px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: transform 0.15s; }
+  .maas-btn:hover { transform: translateY(-1px); }
+  .maas-btn-primary { background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; }
+  .maas-btn-outline { background: #fff; border: 1.5px solid rgba(93,66,150,0.2); color: #5D4296; }
+  .maas-empty { text-align: center; padding: 40px; color: #94a3b8; font-size: 14px; }
+
+  .maas-section { margin-top: 28px; }
+  .maas-section-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px; border-radius: 12px;
+    background: #f8f7fc; border: 1px solid rgba(93,66,150,0.08);
+    margin-bottom: 4px; cursor: pointer; user-select: none;
+  }
+  .maas-section-header:hover { background: #f0edf7; }
+  .maas-section-icon { font-size: 20px; }
+  .maas-section-title { font-size: 15px; font-weight: 700; color: #333; flex: 1; }
+  .maas-section-count { font-size: 12px; font-weight: 700; color: #5D4296; background: rgba(93,66,150,0.1); padding: 2px 10px; border-radius: 10px; }
+  .maas-section-toggle { font-size: 14px; color: #94a3b8; transition: transform 0.2s; }
+  .maas-section-body { overflow: hidden; transition: max-height 0.3s ease; }
+  .maas-section-body.collapsed { max-height: 0 !important; }
+
+  .maas-sub-stats {
+    display: flex; gap: 16px; padding: 8px 18px; font-size: 11px; color: #64748b;
+  }
+  .maas-sub-stat { display: flex; align-items: center; gap: 4px; }
+  .maas-sub-stat .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.maas-local
+  .maas-local-header
+    .circle-d1
+    %div{style: "font-size: 36px;"} 🎫
+    %div{style: "flex: 1; position: relative; z-index: 1;"}
+      .maas-title Cotisations — #{@group.name}
+      .maas-subtitle Campagne #{@campaign.annee} · Gérez les cotisations de votre groupe
+    = link_to new_group_maas_adhesion_path(@group), class: "maas-btn maas-btn-primary", style: "position: relative; z-index: 1;" do
+      ➕ Nouvelle adhésion
+
+  .maas-stats
+    .maas-stat
+      .maas-stat-num{style: "color: #5D4296;"}= @stats[:total]
+      .maas-stat-label Total
+    .maas-stat
+      .maas-stat-num{style: "color: #10b981;"}= @stats[:valide]
+      .maas-stat-label Validées
+    .maas-stat
+      .maas-stat-num{style: "color: #f59e0b;"}= @stats[:partiel]
+      .maas-stat-label Partiels
+    .maas-stat
+      .maas-stat-num{style: "color: #94a3b8;"}= @stats[:en_attente]
+      .maas-stat-label En attente
+    .maas-stat
+      .maas-stat-num{style: "color: #0054A0;"}= number_to_currency(@stats[:collected], unit: "", precision: 0)
+      .maas-stat-label FCFA Collecté
+
+  .maas-progress-bar
+    .maas-progress-fill{style: "width: #{pct}%;"}
+  .maas-progress-label= "#{pct}% de l'objectif collecté (#{number_to_currency(@stats[:collected], unit: '', precision: 0)} / #{number_to_currency(@stats[:expected], unit: '', precision: 0)} FCFA)"
+
+  - if @subscriptions.any?
+    -# ── Adhésions du groupe courant ──
+    .maas-section
+      .maas-section-header{onclick: "this.nextElementSibling.classList.toggle('collapsed'); this.querySelector('.maas-section-toggle').style.transform = this.nextElementSibling.classList.contains('collapsed') ? 'rotate(-90deg)' : ''"}
+        .maas-section-icon 📍
+        .maas-section-title= @group.name
+        .maas-section-count= "#{@own_subscriptions.size} adhésion#{'s' if @own_subscriptions.size > 1}"
+        .maas-section-toggle ▼
+      .maas-section-body
+        - if @own_subscriptions.any?
+          .maas-sub-stats
+            .maas-sub-stat
+              .dot{style: "background: #10b981;"}
+              = "#{@own_subscriptions.count { |s| s.statut == 'valide' }} validées"
+            .maas-sub-stat
+              .dot{style: "background: #f59e0b;"}
+              = "#{@own_subscriptions.count { |s| s.statut == 'partiel' }} partiels"
+            .maas-sub-stat
+              .dot{style: "background: #94a3b8;"}
+              = "#{@own_subscriptions.count { |s| s.statut == 'en_attente' }} en attente"
+          = render partial: "maas/adhesions/subscription_table", locals: { subscriptions: @own_subscriptions, group: @group }
+        - else
+          .maas-empty{style: "padding: 20px;"}
+            %p Aucune adhésion directe dans ce groupe.
+
+    -# ── Adhésions des sous-groupes (hiérarchie) ──
+    - @sub_group_subscriptions.each do |sub_group, subs|
+      .maas-section
+        .maas-section-header{onclick: "this.nextElementSibling.classList.toggle('collapsed'); this.querySelector('.maas-section-toggle').style.transform = this.nextElementSibling.classList.contains('collapsed') ? 'rotate(-90deg)' : ''"}
+          .maas-section-icon 📂
+          .maas-section-title
+            = link_to sub_group.name, group_maas_adhesions_path(sub_group), style: "color: #333; text-decoration: none;", onclick: "event.stopPropagation();"
+            %small{style: "color: #94a3b8; font-weight: 400; margin-left: 8px;"}= sub_group.parent&.name
+          .maas-section-count= "#{subs.size} adhésion#{'s' if subs.size > 1}"
+          .maas-section-toggle ▼
+        .maas-section-body.collapsed
+          .maas-sub-stats
+            .maas-sub-stat
+              .dot{style: "background: #10b981;"}
+              = "#{subs.count { |s| s.statut == 'valide' }} validées"
+            .maas-sub-stat
+              .dot{style: "background: #f59e0b;"}
+              = "#{subs.count { |s| s.statut == 'partiel' }} partiels"
+            .maas-sub-stat
+              .dot{style: "background: #0054A0;"}
+              = "#{number_to_currency(subs.sum(&:montant_paye), unit: '', precision: 0)} FCFA collectés"
+          = render partial: "maas/adhesions/subscription_table", locals: { subscriptions: subs, group: sub_group }
+
+  - else
+    .maas-empty
+      %div{style: "font-size: 40px; margin-bottom: 10px;"} 📋
+      %p Aucune adhésion enregistrée pour cette campagne.
+      = link_to new_group_maas_adhesion_path(@group), class: "maas-btn maas-btn-primary" do
+        ➕ Enregistrer la première adhésion

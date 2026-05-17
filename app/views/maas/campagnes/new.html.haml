@@ -1,0 +1,47 @@
+- title t("maas.campagne.new")
+
+:css
+  .maas-form { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; max-width: 640px; }
+  .maas-form-header { font-size: 22px; font-weight: 700; color: #1e293b; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+  .maas-form-card { background: #fff; border-radius: 14px; padding: 28px; border: 1px solid rgba(93,66,150,0.08); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .maas-field { margin-bottom: 20px; }
+  .maas-field label { display: block; font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .maas-field input, .maas-field textarea, .maas-field select { width: 100%; padding: 10px 14px; border: 1.5px solid rgba(93,66,150,0.15); border-radius: 10px; font-size: 14px; font-family: inherit; transition: border-color 0.2s; }
+  .maas-field input:focus, .maas-field textarea:focus, .maas-field select:focus { outline: none; border-color: #5D4296; }
+  .maas-field textarea { min-height: 80px; resize: vertical; }
+  .maas-form-actions { display: flex; gap: 10px; margin-top: 24px; }
+  .maas-btn { padding: 10px 22px; border-radius: 10px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .maas-btn-primary { background: linear-gradient(135deg, #5D4296, #7c5cbf); color: #fff; }
+  .maas-btn-cancel { background: #fff; border: 1.5px solid rgba(93,66,150,0.2); color: #5D4296; }
+  .maas-errors { background: #fee2e2; border: 1px solid #fecaca; border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; color: #dc2626; font-size: 13px; }
+
+.maas-form
+  .maas-form-header 🎫 #{t("maas.campagne.new")}
+
+  - if @campaign.errors.any?
+    .maas-errors
+      - @campaign.errors.full_messages.each do |msg|
+        %div= "• #{msg}"
+
+  .maas-form-card
+    = form_for @campaign, url: maas_campagnes_path, method: :post do |f|
+      .maas-field
+        = f.label :annee, t("maas.campagne.fields.annee")
+        = f.text_field :annee, placeholder: "2027"
+
+      .maas-field
+        = f.label :date_ouverture, t("maas.campagne.fields.date_ouverture")
+        = f.date_field :date_ouverture
+
+      .maas-field
+        = f.label :date_fermeture, t("maas.campagne.fields.date_fermeture")
+        = f.date_field :date_fermeture
+
+      .maas-field
+        = f.label :description, t("maas.campagne.fields.description")
+        = f.text_area :description, placeholder: t("maas.campagne.fields.description_placeholder")
+
+      .maas-form-actions
+        %button.maas-btn.maas-btn-primary{type: "submit"} ✓ #{t("maas.campagne.save")}
+        = link_to maas_campagnes_path, class: "maas-btn maas-btn-cancel" do
+          ← #{t("maas.campagne.cancel")}

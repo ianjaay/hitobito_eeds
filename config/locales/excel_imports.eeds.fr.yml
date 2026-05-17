@@ -1,0 +1,50 @@
+fr:
+  eeds:
+    excel_imports:
+      invalid_file: "Fichier invalide. Veuillez sélectionner un fichier Excel (.xlsx)."
+      session_expired: "La session d'import a expiré. Veuillez re-télécharger le fichier."
+
+      parser:
+        no_data: "Le fichier ne contient aucune donnée à importer."
+        read_error: "Erreur de lecture du fichier : %{error}"
+
+      new:
+        title: "Importer des personnes (Excel)"
+        select_file: "Fichier Excel (.xlsx)"
+        file_format_hint: "Format accepté : .xlsx — Utilisez le modèle téléchargeable ci-dessous."
+        preview_button: "Prévisualiser l'import"
+        download_template: "Télécharger le modèle Excel"
+        template_hint: "Le modèle contient les en-têtes corrects et des listes déroulantes pré-remplies avec les groupes et rôles existants."
+        help_title: "Aide à l'import"
+        help_intro: "Cette fonctionnalité permet d'ajouter plusieurs personnes à la fois via un fichier Excel."
+        help_columns_title: "Colonnes du fichier"
+        help_person_fields: "Champs personnels : "
+        help_person_fields_desc: "Prénom, Nom, E-Mail, Téléphone, Date de naissance, Genre, Lieu de naissance, Nationalité, Région administrative, Contacts d'urgence."
+        help_group_fields: "Colonnes de placement : "
+        help_group_fields_desc: "Les colonnes de groupe (District, Groupe local, Unité, Sous-groupe) sont relatives au groupe actuel. Seuls les niveaux inférieurs apparaissent. Utilisez les listes déroulantes du modèle pour éviter les erreurs."
+        help_role_field: "Rôle : "
+        help_role_field_desc: "Le rôle doit correspondre à un rôle valide du groupe cible. Si laissé vide, le rôle par défaut du groupe sera utilisé."
+        help_template_title: "Le modèle Excel"
+        help_template_desc: "Le modèle contient deux feuilles : « Données » pour la saisie et « Référence » avec les listes de groupes et rôles existants. Les colonnes de groupe et de rôle disposent de listes déroulantes pour éviter les erreurs de saisie."
+        help_validation_title: "Validation"
+        help_validation_desc: "Les données sont validées avant l'import. Les groupes sont recherchés par nom exact dans la hiérarchie. Les rôles sont vérifiés par rapport aux rôles autorisés du groupe cible."
+
+      preview:
+        title: "Prévisualisation de l'import"
+        summary: "%{total} lignes — %{new} nouvelle(s) personne(s), %{updated} mise(s) à jour, %{failed} erreur(s)"
+        errors_title: "Erreurs détectées :"
+        row_error: "Ligne %{row} : %{errors}"
+        status: "Statut"
+        role_assignments: "Groupes et rôles"
+        details: "Détails"
+        status_new: "Nouveau"
+        status_updated: "Mise à jour"
+        status_unchanged: "Inchangé"
+        status_error: "Erreur"
+        import_button: "Confirmer l'import"
+
+      result:
+        created: "%{count} personne(s) créée(s)"
+        updated: "%{count} personne(s) mise(s) à jour"
+        roles: "%{count} rôle(s) attribué(s)"
+        failed: "%{count} erreur(s)"

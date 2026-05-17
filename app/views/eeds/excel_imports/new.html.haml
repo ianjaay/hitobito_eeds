@@ -1,0 +1,55 @@
+-#  EEDS — Upload d'un fichier Excel pour l'import en masse de personnes
+
+- content_for(:title, t('eeds.excel_imports.new.title'))
+
+.row
+  .col-md-6
+    %h2= t('eeds.excel_imports.new.title')
+
+    = form_tag(preview_group_excel_imports_path(@group), multipart: true, data: { turbo: false }) do
+      .card.mb-3
+        .card-body
+          .mb-3
+            %label.form-label{for: 'excel_import_file'}
+              = t('eeds.excel_imports.new.select_file')
+            = file_field_tag 'excel_import[file]', class: 'form-control', accept: '.xlsx', id: 'excel_import_file'
+            .form-text.text-muted
+              = t('eeds.excel_imports.new.file_format_hint')
+
+      .btn-toolbar
+        .btn-group.me-2
+          = submit_tag t('eeds.excel_imports.new.preview_button'), class: 'btn btn-sm btn-primary'
+        .btn-group.me-2
+          = link_to t('global.button.cancel'), group_people_path(@group), class: 'btn btn-sm btn-outline-secondary'
+
+    %hr.my-4
+
+    = form_tag(template_group_excel_imports_path(@group), method: :post, data: { turbo: false }) do
+      = submit_tag t('eeds.excel_imports.new.download_template'), class: 'btn btn-sm btn-outline-primary'
+      .form-text.text-muted.mt-1
+        = t('eeds.excel_imports.new.template_hint')
+
+  .col-md-6
+    .card.bg-light
+      .card-body
+        %h5.card-title= t('eeds.excel_imports.new.help_title')
+
+        %p= t('eeds.excel_imports.new.help_intro')
+
+        %h6= t('eeds.excel_imports.new.help_columns_title')
+        %ul
+          %li
+            %strong= t('eeds.excel_imports.new.help_person_fields')
+            = t('eeds.excel_imports.new.help_person_fields_desc')
+          %li
+            %strong= t('eeds.excel_imports.new.help_group_fields')
+            = t('eeds.excel_imports.new.help_group_fields_desc')
+          %li
+            %strong= t('eeds.excel_imports.new.help_role_field')
+            = t('eeds.excel_imports.new.help_role_field_desc')
+
+        %h6= t('eeds.excel_imports.new.help_template_title')
+        %p= t('eeds.excel_imports.new.help_template_desc')
+
+        %h6= t('eeds.excel_imports.new.help_validation_title')
+        %p= t('eeds.excel_imports.new.help_validation_desc')

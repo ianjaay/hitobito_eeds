@@ -1,0 +1,54 @@
+-# Liste des frais d'activités pour un groupe
+- content_for(:title, "Frais d'activités — #{@group.name}")
+
+.finance-container
+  .finance-header
+    %div{style: "display: flex; align-items: center;"}
+      .finance-header-icon 📋
+      %div
+        %h1 Frais d'activités
+        %p= @group.name
+    .finance-actions
+      = link_to new_group_finance_activity_fee_path(@group), class: "finance-btn finance-btn-primary" do
+        ➕ Nouveau frais
+      = link_to group_finance_dashboard_index_path(@group), class: "finance-btn finance-btn-secondary" do
+        📊 Tableau de bord
+
+  - if @fees.any?
+    .finance-section
+      %table.finance-table
+        %thead
+          %tr
+            %th Libellé
+            %th Activité
+            %th Catégorie
+            %th Montant
+            %th Branche
+            %th Obligatoire
+            %th Obligations
+            %th Actions
+        %tbody
+          - @fees.each do |fee|
+            %tr
+              %td
+                %strong= fee.libelle
+              %td
+                - if fee.feeable.respond_to?(:name)
+                  = fee.feeable.name
+                - elsif fee.feeable.respond_to?(:annee)
+                  = "Campagne #{fee.feeable.annee}"
+              %td
+                %span.finance-badge{class: "badge-#{fee.categorie}"}= fee.categorie.humanize
+              %td= "#{number_with_delimiter(fee.montant, delimiter: "'")} FCFA"
+              %td= fee.branche || "Toutes"
+              %td= fee.obligatoire? ? "✓" : "—"
+              %td= fee.obligations.count
+              %td
+                = link_to "Voir", group_finance_activity_fee_path(@group, fee), style: "color: #5D4296; font-weight: 600; text-decoration: none; margin-right: 8px;"
+                = link_to "Modifier", edit_group_finance_activity_fee_path(@group, fee), style: "color: #666; text-decoration: none;"
+  - else
+    .finance-section{style: "text-align: center; padding: 40px;"}
+      %p{style: "font-size: 40px;"} 📋
+      %p{style: "color: #888;"} Aucun frais d'activité défini pour ce groupe.
+      = link_to new_group_finance_activity_fee_path(@group), class: "finance-btn finance-btn-primary" do
+        ➕ Créer un premier frais

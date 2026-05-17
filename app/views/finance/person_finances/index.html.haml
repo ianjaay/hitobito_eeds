@@ -1,0 +1,148 @@
+-# Finances d'un membre (onglet profil)
+- content_for(:title, "Finances — #{@person.first_name} #{@person.last_name}")
+
+%style
+  :plain
+    .finance-container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+    .finance-header { background: linear-gradient(135deg, #5D4296 0%, #7B5FB8 100%); border-radius: 16px; padding: 24px 32px; color: white; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
+    .finance-header-icon { font-size: 40px; margin-right: 16px; }
+    .finance-header h1 { font-size: 22px; font-weight: 700; margin: 0; }
+    .finance-header p { font-size: 14px; opacity: 0.85; margin: 2px 0 0; }
+    .finance-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .finance-stat { background: white; border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }
+    .finance-stat .value { font-size: 22px; font-weight: 700; color: #5D4296; }
+    .finance-stat .label { font-size: 12px; color: #888; margin-top: 4px; }
+    .finance-section { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
+    .finance-section h2 { font-size: 16px; font-weight: 700; color: #5D4296; margin: 0 0 16px; }
+    .finance-table { width: 100%; border-collapse: collapse; }
+    .finance-table th { text-align: left; font-size: 11px; text-transform: uppercase; color: #888; padding: 8px 12px; border-bottom: 2px solid #f0f0f0; }
+    .finance-table td { padding: 10px 12px; border-bottom: 1px solid #f5f5f5; font-size: 13px; }
+    .finance-badge { display: inline-flex; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+    .badge-valide { background: #d4edda; color: #155724; }
+    .badge-partiel { background: #fff3cd; color: #856404; }
+    .badge-en_attente { background: #e2e3e5; color: #383d41; }
+    .badge-expire { background: #f8d7da; color: #721c24; }
+    .badge-annule { background: #e2e3e5; color: #6c757d; }
+
+.finance-container
+  .finance-header
+    %div{style: "display: flex; align-items: center;"}
+      .finance-header-icon 💰
+      %div
+        %h1= "Finances de #{@person.first_name} #{@person.last_name}"
+        %p Suivi des paiements et obligations financières
+
+  .finance-stats
+    .finance-stat
+      .value= @stats[:total_obligations]
+      .label Obligations
+    .finance-stat
+      .value= @stats[:total_valide]
+      .label Payées
+    .finance-stat
+      .value= "#{number_with_delimiter(@stats[:total_paye], delimiter: "'")} FCFA"
+      .label Total payé
+    .finance-stat
+      .value{style: "color: #{@stats[:total_du] > 0 ? '#dc3545' : '#28a745'};"}
+        = "#{number_with_delimiter(@stats[:total_du], delimiter: "'")} FCFA"
+      .label Solde restant
+
+  -# Obligations actives (en cours de paiement)
+  - if @active_obligations.any?
+    .finance-section
+      %h2 ⏳ Obligations en cours
+      %table.finance-table
+        %thead
+          %tr
+            %th Activité
+            %th Catégorie
+            %th Groupe
+            %th Montant
+            %th Payé
+            %th Solde
+            %th Statut
+        %tbody
+          - @active_obligations.each do |obligation|
+            %tr
+              %td
+                %strong= obligation.activite_nom
+              %td
+                %span.finance-badge{class: "badge-#{obligation.activity_fee.categorie}"}= obligation.activity_fee.categorie.humanize
+              %td= obligation.group.name
+              %td= "#{number_with_delimiter(obligation.montant_total, delimiter: "'")} FCFA"
+              %td= "#{number_with_delimiter(obligation.montant_paye, delimiter: "'")} FCFA"
+              %td{style: "color: #dc3545; font-weight: 600;"}
+                = "#{number_with_delimiter(obligation.solde_restant, delimiter: "'")} FCFA"
+              %td
+                %span.finance-badge{class: "badge-#{obligation.statut}"}= obligation.statut.humanize
+
+  -# Obligations payées
+  - if @completed_obligations.any?
+    .finance-section
+      %h2 ✅ Obligations réglées
+      %table.finance-table
+        %thead
+          %tr
+            %th Activité
+            %th Catégorie
+            %th Groupe
+            %th Montant
+            %th Statut
+        %tbody
+          - @completed_obligations.each do |obligation|
+            %tr
+              %td
+                %strong= obligation.activite_nom
+              %td
+                %span.finance-badge{class: "badge-#{obligation.activity_fee.categorie}"}= obligation.activity_fee.categorie.humanize
+              %td= obligation.group.name
+              %td= "#{number_with_delimiter(obligation.montant_total, delimiter: "'")} FCFA"
+              %td
+                %span.finance-badge.badge-valide ✓ Payé
+
+  -# Reçus
+  - if @receipts.any?
+    .finance-section
+      %h2 🧾 Reçus de paiement
+      %table.finance-table
+        %thead
+          %tr
+            %th N° Reçu
+            %th Date
+            %th Activité
+            %th Montant
+            %th Modalité
+            %th
+        %tbody
+          - @receipts.each do |receipt|
+            %tr
+              %td
+                %strong= receipt.numero
+              %td= I18n.l(receipt.emis_at.to_date, format: :long)
+              %td= receipt.libelle_activite
+              %td= "#{number_with_delimiter(receipt.montant, delimiter: "'")} FCFA"
+              %td= receipt.modalite
+              %td
+                = link_to "📄 PDF", group_person_finance_receipt_path(@group, @person, receipt, format: :pdf), target: "_blank", style: "color: #5D4296; text-decoration: none; font-weight: 600;"
+
+  -# Historique (expiré, annulé)
+  - if @history.any?
+    .finance-section
+      %h2 📜 Historique
+      %table.finance-table
+        %thead
+          %tr
+            %th Activité
+            %th Groupe
+            %th Montant
+            %th Payé
+            %th Statut
+        %tbody
+          - @history.each do |obligation|
+            %tr{style: "opacity: 0.6;"}
+              %td= obligation.activite_nom
+              %td= obligation.group.name
+              %td= "#{number_with_delimiter(obligation.montant_total, delimiter: "'")} FCFA"
+              %td= "#{number_with_delimiter(obligation.montant_paye, delimiter: "'")} FCFA"
+              %td
+                %span.finance-badge{class: "badge-#{obligation.statut}"}= obligation.statut.humanize

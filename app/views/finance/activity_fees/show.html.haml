@@ -1,0 +1,73 @@
+-# Détail d'un frais d'activité avec ses obligations
+- content_for(:title, "#{@fee.libelle} — #{@group.name}")
+
+.finance-container
+  .finance-header
+    %div{style: "display: flex; align-items: center;"}
+      .finance-header-icon 📋
+      %div
+        %h1= @fee.libelle
+        %p
+          = "#{@fee.categorie.humanize} — #{@group.name}"
+          - if @fee.feeable.respond_to?(:name)
+            = " — #{@fee.feeable.name}"
+    .finance-actions
+      = link_to group_finance_activity_fee_obligations_path(@group, @fee) + "/new", class: "finance-btn finance-btn-primary" do
+        ➕ Inscrire un participant
+      = link_to edit_group_finance_activity_fee_path(@group, @fee), class: "finance-btn finance-btn-secondary" do
+        ✏️ Modifier
+
+  .finance-stats
+    .finance-stat
+      .value= "#{number_with_delimiter(@fee.montant, delimiter: "'")} FCFA"
+      .label Montant unitaire
+    .finance-stat
+      .value= @stats[:total]
+      .label Participants
+    .finance-stat
+      .value= @stats[:valide]
+      .label Payés
+    .finance-stat
+      .value= "#{number_with_delimiter(@stats[:collected], delimiter: "'")} FCFA"
+      .label Collecté
+    .finance-stat
+      .value= "#{number_with_delimiter(@stats[:expected], delimiter: "'")} FCFA"
+      .label Attendu
+    .finance-stat
+      - pct = @stats[:expected] > 0 ? (@stats[:collected] * 100 / @stats[:expected]) : 0
+      .value= "#{pct}%"
+      .label Recouvrement
+
+  .finance-section
+    %h2 📋 Participants et paiements
+    - if @obligations.any?
+      %table.finance-table
+        %thead
+          %tr
+            %th Participant
+            %th Groupe
+            %th Montant dû
+            %th Payé
+            %th Solde
+            %th Statut
+            %th Actions
+        %tbody
+          - @obligations.each do |obligation|
+            %tr
+              %td
+                %strong= "#{obligation.person.first_name} #{obligation.person.last_name}"
+              %td= obligation.group.name
+              %td= "#{number_with_delimiter(obligation.montant_total, delimiter: "'")} FCFA"
+              %td= "#{number_with_delimiter(obligation.montant_paye, delimiter: "'")} FCFA"
+              %td
+                - solde = obligation.solde_restant
+                %span{style: "color: #{solde.zero? ? '#28a745' : '#dc3545'}; font-weight: 600;"}
+                  = "#{number_with_delimiter(solde, delimiter: "'")} FCFA"
+              %td
+                %span.finance-badge{class: "badge-#{obligation.statut}"}= obligation.statut.humanize
+              %td
+                = link_to "Détail", group_finance_activity_fee_obligation_path(@group, @fee, obligation), style: "color: #5D4296; text-decoration: none; margin-right: 8px;"
+                - unless obligation.fully_paid?
+                  = link_to "💳 Versement", versement_group_finance_activity_fee_obligation_path(@group, @fee, obligation), style: "color: #28a745; text-decoration: none;"
+    - else
+      %p{style: "text-align: center; color: #888; padding: 20px;"} Aucun participant inscrit.
